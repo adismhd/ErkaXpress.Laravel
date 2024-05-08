@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PesananController;
+use App\Http\Controllers\StatusPesananController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -26,4 +27,5 @@ Route::post('/BuatPesanan', [PesananController::class, 'InsertData']);
 
 Route::get('/HalamanAdmin', [PesananController::class, 'index']);
 Route::get('/DetailPesanan/{id}', [PesananController::class, 'selectById']);
+Route::post('/DetailPesanan/InsertStatus', [StatusPesananController::class, 'InsertStatus']);
 

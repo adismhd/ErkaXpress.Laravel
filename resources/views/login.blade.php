@@ -2,8 +2,10 @@
 
 @section('container')
 
-<h1>Login</h1>
-<form>
+<div class="mt-3">
+    <h1>Login</h1>
+</div>
+<form class="mt-3" action="" method="">
     <div class="form-group mt-3">
         <label for="emailUser">Email address</label>
         <input type="email" class="form-control" id="emailUser" aria-describedby="emailHelp" placeholder="Enter email">
@@ -12,7 +14,7 @@
         <label for="passUser">Password</label>
         <input type="password" class="form-control" id="passUser" placeholder="Password">
     </div>
-    <a href="/Admin" type="submit" class="btn btn-primary mt-3">Login</a>
+    <a href="/HalamanAdmin" type="submit" class="btn btn-primary mt-3">Login</a>
 </form>
 
 @endsection

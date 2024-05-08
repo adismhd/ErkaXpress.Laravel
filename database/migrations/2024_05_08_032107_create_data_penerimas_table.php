@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pesanans', function (Blueprint $table) {
-            
-            $table->dropColumn('Create_At');
-            $table->dropColumn('Update_at');
+        Schema::create('data_penerimas', function (Blueprint $table) {
+            $table->id();
+            $table->string('NoPesanan')->required();
+            $table->string('Nama')->required();
+            $table->string('Alamat');
+            $table->string('NoTelepon');      
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
@@ -25,8 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pesanans', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('data_penerimas');
     }
 };
