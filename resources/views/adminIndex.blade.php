@@ -33,8 +33,12 @@
                         @endif>{{ $data->Status->Status }}</td> --}}
                     <td>
                         @if($data->Status->last()->Status == 'Pesanan Dibuat')
-                            <i class="fa-solid fa-circle-exclamation"style="color: red"></i>
+                            <i class="fa-solid fa-circle-exclamation" style="color: red"></i>
                         @endif 
+                        @if($data->Status->last()->Status == 'Pesanan Selesai Dikirim')
+                            <i class="fa-solid fa-circle-check" style="color: rgb(62, 127, 62)"></i>
+                        @endif 
+
                         {{ $data->Status->last()->Status }}
                     </td>
                     <td>{{ $data->created_at }}</td>

@@ -15,9 +15,10 @@
         <table>
             <tbody>
                 <tr><td>Pesanan Dibuat Tanggal </td><td>&nbsp;:&nbsp;</td><td>{{ $pesanan->created_at }}</td></tr>
+                <tr><td>Nomor Resi </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pesanan->NoPesanan }}</td></tr>
                 <tr><td>Pengirim </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->Nama }}</td></tr>
                 <tr><td>Status Sekarang </td><td>&nbsp;:&nbsp;</td></td><td>{{ $status->Status  }}</td></tr>
-                <tr><td>Nomor Resi </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pesanan->NoPesanan }}</td></tr>
+                <tr><td>Email </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->Email }}</td></tr>
             </tbody>
         </table>
     </div>
@@ -54,6 +55,35 @@
 
 <div class="card mt-3">
     <div class="card-header">
+        <h5>Detail Barang</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 ">
+                <table class="table table-sm">
+                    <tbody>
+                        <tr><td>Jenis Barang </td><td>&nbsp;:&nbsp;</td><td>{{ $barang->Jenis }}</td></tr>
+                        <tr><td>Keterangan </td><td>&nbsp;:&nbsp;</td></td><td>{{ $barang->Keterangan }}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6 ">
+                <table class="table table-sm">
+                    <tbody>
+                        <tr><td>Berat Barang </td><td>&nbsp;:&nbsp;</td></td><td>{{ $barang->Berat }} Kg</td></tr>
+                        <tr><td>Koli </td><td>&nbsp;:&nbsp;</td></td><td>{{ $barang->Koli  }} Koli</td></tr>
+                        <tr><td>Kilo </td><td>&nbsp;:&nbsp;</td></td><td>{{ $barang->Kilo  }} Kgv</td></tr>
+                        <tr><td>Kubik </td><td>&nbsp;:&nbsp;</td></td><td>{{ $barang->Kubik  }} M3</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            {{-- <div class="col-md-2 "  style="height: 100%;"> <p class="align-middle" >-></p> </div> --}}
+        </div>
+    </div>
+</div>
+
+<div class="card mt-3">
+    <div class="card-header">
         <h5>Status</h5>
     </div>
     <div class="card-body">
@@ -77,8 +107,8 @@
                                 <td>{{ $data->Keterangan  }}</td>
                                 <td>{{ $data->created_at }}</td>
                                 <td  style="text-align: center;">
-                                    <a href="" class="btn btn-sm btn-success">Edit</a> &nbsp;
-                                    <a href="" class="btn btn-sm btn-danger">Delete</a>
+                                    <a href="#" onclick="showModalEdit({{ $data->id }},'{{ $data->Status }}','{{ $data->Keterangan }}')" class="btn btn-sm btn-success">Edit</a> &nbsp;
+                                    <a href="#" onclick="showModalDelete({{ $data->id }})" class="btn btn-sm btn-danger">Delete</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -125,6 +155,67 @@
     </div>
 </div>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="modalEdit">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="EditStatus" method="post">
+                @csrf
+                <input id="idStatus" type="text" name="Id" hidden />
+                <input type="text" value="{{ $pesanan->NoPesanan }}" name="NoPesanan" hidden />
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <label>Status <i style="color: crimson">*</i></label>
+                        <select id="inEditStatus" class="form-control mt-1" name="Status">
+                            <option value="Sedang Diproses">Sedang Diproses</option>
+                            <option value="Pesanan Akan Diambil">Pesanan Akan Diambil</option>
+                            <option value="Pesanan Sedang Dikirim">Pesanan Sedang Dikirim</option>
+                            <option value="Pesanan Selesai Dikirim">Pesanan Selesai Dikirim</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <label>Keterangan <i style="color: crimson">*</i></label> 
+                        <textarea id="inEditKeterangan" name="Keterangan" class="form-control mt-1"required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalDelete">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="DeleteStatus" method="post">
+                @csrf
+                <input id="idStatusDelete" type="text" name="Id" hidden />
+                <input type="text" value="{{ $pesanan->NoPesanan }}" name="NoPesanan" hidden />
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="modal-title">Apakah anda yakin akan menghapus data?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     // $(window).on('load', function() {
     //     $('#myModal').modal({
@@ -133,8 +224,27 @@
     //         backdrop: 'static'
     //     });
     // });
+
     function showModalTambah(){
         $('#myModal').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+
+    function showModalEdit(id,status,keterangan){
+        $('#idStatus').val(id);
+        $('#inEditStatus').val(status);
+        $('#inEditKeterangan').val(keterangan);
+        $('#modalEdit').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+    
+    function showModalDelete(id){
+        $('#idStatusDelete').val(id);
+        $('#modalDelete').modal({
             show: true,
             backdrop: 'static'
         });

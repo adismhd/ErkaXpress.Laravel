@@ -144,7 +144,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" onclick="copyResi()">Salin Resi</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+                    <a type="button" class="btn btn-secondary" href="/">Close</a>
                 </div>
             </div>
         </div>

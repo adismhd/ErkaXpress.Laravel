@@ -26,7 +26,7 @@
                   <a class="nav-link" href="#">Home </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/BuatPesanan">Order</a>
+                  <a class="nav-link" href="/BuatPesanan">Booking</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/Login">Login</a>
@@ -41,13 +41,57 @@
     </head>
     <body>
         <div class="container">
-            <div class="col-md-12">
+            <div class="col-md-12 mt-5">
                 <h1>Selamat Datang</h1>
-                <label>Lacak Pesanan :</label>
             </div>
-            <div class="input-group">
-                <input type="text" class="form-control">
-                <button class="btn btn-primary">cari</button>
+            <div class="col-md-12 mt-5">
+              <form action="/CekResi" method="post">
+                @csrf
+                <label>Lacak Pesanan :</label>
+                <div class="input-group">
+                    <input type="text" name="id" class="form-control">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="submit">cari</button>
+                    </div>
+                </div>
+              </form>
+              @isset($pesanan)
+                <div class="card mt-5">
+                  <div class="card-body">
+                    <div class="row ">
+                      <div class="col-md-4">
+                        <h4>Detail Pengiriman</h4>
+                        <table>
+                          <tr>
+                            <td>Nama Penerima &nbsp;</td><td>: &nbsp;</td>
+                            <td>{{ $penerima->Nama }}</td>
+                          </tr>
+                          <tr>
+                            <td>Alamat &nbsp;</td><td>: &nbsp;</td>
+                            <td>{{ $penerima->Alamat }}</td>
+                          </tr>
+                          <tr>
+                            <td>No Telepon &nbsp;</td><td>: &nbsp;</td>
+                            <td>{{ $penerima->NoTelepon }}</td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="col-md-8">
+                        <table center style="border: 0px; align-self: center;" cellspacing="0" cellpadding="0">
+                          @foreach ($statuList as $data)
+                            <tr>
+                              <td><img src="{{ URL::asset('img/LinePesanan.png') }}" style="width: 50px;" alt="Avatar"></td>
+                              <td>{{ $data->created_at }} &nbsp;</td>
+                              <td>{{ $data->Status }}</td>
+                              {{-- <td>{{ $data->Keterangan }}</td>                           --}}
+                            </tr>
+                          @endforeach
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endisset
             </div>
         </div>
         <script src="js/script.js"></script>

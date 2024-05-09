@@ -26,6 +26,10 @@ Route::get('/BuatPesanan', function () {
 Route::post('/BuatPesanan', [PesananController::class, 'InsertData']);
 
 Route::get('/HalamanAdmin', [PesananController::class, 'index']);
+
 Route::get('/DetailPesanan/{id}', [PesananController::class, 'selectById']);
 Route::post('/DetailPesanan/InsertStatus', [StatusPesananController::class, 'InsertStatus']);
+Route::post('/DetailPesanan/EditStatus', [StatusPesananController::class, 'EditStatus']);
+Route::post('/DetailPesanan/DeleteStatus', [StatusPesananController::class, 'DeleteStatus']);
 
+Route::post('/CekResi', [StatusPesananController::class, 'CekResi']);

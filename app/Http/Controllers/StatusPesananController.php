@@ -20,23 +20,40 @@ class StatusPesananController extends Controller
             'Keterangan' => $request->Keterangan,
         ]);
 
-        $pesanan = Pesanan::where('NoPesanan', $request->NoPesanan)->first();
-        $pengirim = DataPengirim::where('NoPesanan', $request->NoPesanan)->first();
-        $penerima = DataPenerima::where('NoPesanan', $request->NoPesanan)->first();
-        $barang = DataBarang::where('NoPesanan', $request->NoPesanan)->first();
-        $status = StatusPesanan::where('NoPesanan', $request->NoPesanan)->orderBy('created_at', 'DESC')->first();
-        $statuList = StatusPesanan::where('NoPesanan', $request->NoPesanan)->orderBy('created_at', 'DESC')->get();
+        return redirect('/DetailPesanan/'.$request->NoPesanan);
+    }
+    
+    public function EditStatus(Request $request){
+        $pesanan = StatusPesanan::find($request->Id)->update([
+            'NoPesanan' => $request->NoPesanan,
+            'Status' => $request->Status,
+            'Keterangan' => $request->Keterangan,
+        ]);
+
+        return redirect('/DetailPesanan/'.$request->NoPesanan);
+    }
+    
+    public function DeleteStatus(Request $request){
+        $pesanan = StatusPesanan::find($request->Id)->delete();
+
+        return redirect('/DetailPesanan/'.$request->NoPesanan);
+    }
+        
+    public function CekResi(Request $request){
+        $pesanan = Pesanan::where('NoPesanan', $request->id)->first();
+        $pengirim = DataPengirim::where('NoPesanan', $request->id)->first();
+        $penerima = DataPenerima::where('NoPesanan', $request->id)->first();
+        $barang = DataBarang::where('NoPesanan', $request->id)->first();
+        $statuList = StatusPesanan::where('NoPesanan', $request->id)->orderBy('created_at', 'DESC')->get();
 
         //dd($pesanan);
-        return view('detailPesanan', [
-            "title" => "Detail Pesanan",
+        return view('index', [
+            "title" => "Cek Resi",
             "pesanan" => $pesanan,
             "pengirim" => $pengirim,
             "penerima" => $penerima,
             "barang" => $barang,
-            "status" => $status,
             "statuList" => $statuList
         ]);
     }
-    
 }
