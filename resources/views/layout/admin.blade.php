@@ -22,66 +22,68 @@
     <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.slim.min.js') }}"></script>
 </head>
 
-<body>
-    <div class="wrapper">
-        <!-- Sidebar  -->
-        <nav id="sidebar" style="70vh">
-            <div class="sidebar-header">
-                <h3>ErkaXpress</h3>
+@if(Session::has('statusLogin'))
+    <body>
+        <div class="wrapper">
+            <!-- Sidebar  -->
+            <nav id="sidebar" style="70vh">
+                <div class="sidebar-header">
+                    <h3>ErkaXpress</h3>
+                </div>
+                <ul class="list-unstyled components" style="height: 74vh">
+                    <li class="@if($title == 'Beranda'){{ 'active' }}@endif">
+                        <a href="/HomeAdmin">Home</a>
+                    </li>
+                    <li class="@if($title == 'Pesanan'){{ 'active' }}@endif">
+                        <a href="/IndexPesanan">Pesanan</a>
+                    </li>
+                    <li>
+                        <a href="/Admin">Admin</a>
+                    </li>
+                    {{-- <li>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle">Pages</a>
+                        <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li>
+                                <a href="#">Page 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Page 2</a>
+                            </li>
+                            <li>
+                                <a href="#">Page 3</a>
+                            </li>
+                        </ul>
+                    </li> --}}
+                </ul>
+
+                <ul class="list-unstyled CTAs">
+                    <li>
+                        <a href="/" class="download">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Page Content  -->
+            <div id="content">
+                <div>
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>Menu</span>
+                    </button>
+                </div>
+
+                @yield('container')
+
             </div>
-            <ul class="list-unstyled components" style="height: 74vh">
-                <li class="@if($title == 'Beranda'){{ 'active' }}@endif">
-                    <a href="/HomeAdmin">Home</a>
-                </li>
-                <li class="@if($title == 'Pesanan'){{ 'active' }}@endif">
-                    <a href="/IndexPesanan">Pesanan</a>
-                </li>
-                <li>
-                    <a href="/Admin">Admin</a>
-                </li>
-                {{-- <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li> --}}
-            </ul>
-
-            <ul class="list-unstyled CTAs">
-                <li>
-                    <a href="/" class="download">Logout</a>
-                </li>
-            </ul>
-        </nav>
-
-        <!-- Page Content  -->
-        <div id="content">
-            <div>
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="fas fa-align-left"></i>
-                    <span>Menu</span>
-                </button>
-            </div>
-
-            @yield('container')
-
         </div>
-    </div>
 
-    <!-- Script -->    
-    <script type="text/javascript" src="{{ asset('js/scriptSidebar.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
-</body>
+        <!-- Script -->    
+        <script type="text/javascript" src="{{ asset('js/scriptSidebar.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+    </body>
+@endif
 
 </html>
 

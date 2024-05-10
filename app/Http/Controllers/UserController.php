@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Hash;
+use Session;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -27,6 +29,12 @@ class UserController extends Controller
             ]);
         }
         else{
+            $login = Carbon::now();
+            $expired = $login->addDays(1);
+            Session::forget('statusLogin');
+            Session::flush();
+            Session::flash('statusLogin', $expired);
+
             return view('adminHome', [
                 "title" => "Home"
             ]);

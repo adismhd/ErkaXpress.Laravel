@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('index');
 });
+Route::post('/CekResi', [StatusPesananController::class, 'CekResi']);
 
 Route::get('/Login', function () {
     return view('login', [
@@ -40,5 +41,3 @@ Route::get('/DetailPesanan/{id}', [PesananController::class, 'selectById']);
 Route::post('/DetailPesanan/InsertStatus', [StatusPesananController::class, 'InsertStatus']);
 Route::post('/DetailPesanan/EditStatus', [StatusPesananController::class, 'EditStatus']);
 Route::post('/DetailPesanan/DeleteStatus', [StatusPesananController::class, 'DeleteStatus']);
-
-Route::post('/CekResi', [StatusPesananController::class, 'CekResi']);
