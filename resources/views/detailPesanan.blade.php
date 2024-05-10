@@ -106,10 +106,17 @@
                                 <td>{{ $data->Status }}</td>
                                 <td>{{ $data->Keterangan  }}</td>
                                 <td>{{ $data->created_at }}</td>
-                                <td  style="text-align: center;">
-                                    <a href="#" onclick="showModalEdit({{ $data->id }},'{{ $data->Status }}','{{ $data->Keterangan }}')" class="btn btn-sm btn-success">Edit</a> &nbsp;
-                                    <a href="#" onclick="showModalDelete({{ $data->id }})" class="btn btn-sm btn-danger">Delete</a>
-                                </td>
+                                @if ($data->Status === 'Pesanan Dibuat')
+                                    <td  style="text-align: center;">
+                                        <button class="btn btn-sm btn-success" disabled>Edit</button> &nbsp;
+                                        <button disabled class="btn btn-sm btn-danger">Delete</button>  
+                                    </td>                                  
+                                @else
+                                    <td  style="text-align: center;">
+                                        <a href="#" onclick="showModalEdit({{ $data->id }},'{{ $data->Status }}','{{ $data->Keterangan }}')" class="btn btn-sm btn-success">Edit</a> &nbsp;
+                                        <a href="#" onclick="showModalDelete({{ $data->id }})" class="btn btn-sm btn-danger">Delete</a>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

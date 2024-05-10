@@ -16,30 +16,30 @@
     <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/sidebar.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
     <script src="https://kit.fontawesome.com/cf59e3b8b5.js" crossorigin="anonymous"></script>
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.slim.min.js') }}"></script>
 </head>
 
 <body>
     <div class="wrapper">
         <!-- Sidebar  -->
-        <nav id="sidebar">
+        <nav id="sidebar" style="70vh">
             <div class="sidebar-header">
                 <h3>ErkaXpress</h3>
             </div>
-
-            <ul class="list-unstyled components">
-                {{-- <p>Dummy Heading</p> --}}
-                <li class="active">
-                    <a href="/HalamanAdmin">Home</a>
+            <ul class="list-unstyled components" style="height: 74vh">
+                <li class="@if($title == 'Beranda'){{ 'active' }}@endif">
+                    <a href="/HomeAdmin">Home</a>
+                </li>
+                <li class="@if($title == 'Pesanan'){{ 'active' }}@endif">
+                    <a href="/IndexPesanan">Pesanan</a>
                 </li>
                 <li>
                     <a href="/Admin">Admin</a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">Pages</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
@@ -53,13 +53,7 @@
                             <a href="#">Page 3</a>
                         </li>
                     </ul>
-                </li>
-                <li>
-                    <a href="#">Portfolio</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
+                </li> --}}
             </ul>
 
             <ul class="list-unstyled CTAs">
@@ -71,20 +65,7 @@
 
         <!-- Page Content  -->
         <div id="content">
-            {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
-                        <span>Toggle Sidebar</span>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
-                </div>
-            </nav> --}}
-            <div >
+            <div>
                 <button type="button" id="sidebarCollapse" class="btn btn-info">
                     <i class="fas fa-align-left"></i>
                     <span>Menu</span>
@@ -96,19 +77,8 @@
         </div>
     </div>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
-    </script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
-    </script>
-
+    <!-- Script -->    
+    <script type="text/javascript" src="{{ asset('js/scriptSidebar.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
 </body>
@@ -116,9 +86,20 @@
 </html>
 
 <script type="text/javascript">
+    // $(document).ready(function() {
+    //     $('#sidebarCollapse').on('click', function() {
+    //         $('#sidebar').toggleClass('active');
+    //     });
+    // });
     $(document).ready(function() {
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+
         $('#sidebarCollapse').on('click', function() {
-            $('#sidebar').toggleClass('active');
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
         });
     });
 </script>

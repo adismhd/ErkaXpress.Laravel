@@ -25,7 +25,14 @@ Route::get('/BuatPesanan', function () {
 });
 Route::post('/BuatPesanan', [PesananController::class, 'InsertData']);
 
-Route::get('/HalamanAdmin', [PesananController::class, 'index']);
+//Route::get('/HomeAdmin', [PesananController::class, 'index']);
+Route::get('/HomeAdmin', function () {
+    return view('adminHome', [
+        "title" => "Beranda"
+    ]);
+});
+
+Route::get('/IndexPesanan', [PesananController::class, 'index']);
 
 Route::get('/DetailPesanan/{id}', [PesananController::class, 'selectById']);
 Route::post('/DetailPesanan/InsertStatus', [StatusPesananController::class, 'InsertStatus']);

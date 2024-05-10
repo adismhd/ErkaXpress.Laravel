@@ -19,8 +19,8 @@ class PesananController extends Controller
         //$status = StatusPesanan::where('NoPesanan', $pesanan->NoPesanan)->orderBy('created_at', 'DESC')->first();
         
         //dd($pesanan->toArray());
-        return view('adminIndex', [
-            "title" => "Halaman Admin",
+        return view('adminIndexPesanan', [
+            "title" => "Pesanan",
             "pesananList" => $pesanan
             //"status" => $status
         ]);
