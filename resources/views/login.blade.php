@@ -5,16 +5,46 @@
 <div class="mt-3">
     <h1>Login</h1>
 </div>
-<form class="mt-3" action="" method="">
-    <div class="form-group mt-3">
-        <label for="emailUser">Email address</label>
-        <input type="email" class="form-control" id="emailUser" aria-describedby="emailHelp" placeholder="Enter email">
+<div class="card">
+    <div class="card-body">
+        <form class="mt-3" action="LoginCheck" method="post">
+            @csrf
+            <div class="form-group mt-3">
+                <label for="emailUser">Email address</label>
+                <input type="email" name="Email" class="form-control" required aria-describedby="emailHelp" placeholder="email@domain.com">
+            </div>
+            <div class="form-group mt-3">
+                <label for="passUser">Password</label>
+                <input type="password" name="Password" class="form-control" required id="passUser" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Login</button>
+        </form>
     </div>
-    <div class="form-group mt-3">
-        <label for="passUser">Password</label>
-        <input type="password" class="form-control" id="passUser" placeholder="Password">
-    </div>
-    <a href="/HalamanAdmin" type="submit" class="btn btn-primary mt-3">Login</a>
-</form>
+</div>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                {{-- <h5 class="modal-title">Gagal Login!</h5> --}}
+                <h5 class="modal-title">Username atau Password tidak ditemukan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@isset($loginstatus) 
+    <script type="text/javascript">
+        $(window).on('load', function() {
+            $('#myModal').modal({
+                show: true,
+                keyboard: false,
+                backdrop: 'static'
+            });
+        });
+    </script>
+@endisset
 @endsection

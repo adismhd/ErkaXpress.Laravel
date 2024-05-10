@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\StatusPesananController;
+use App\Http\Controllers\UserController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -25,13 +26,14 @@ Route::get('/BuatPesanan', function () {
 });
 Route::post('/BuatPesanan', [PesananController::class, 'InsertData']);
 
+Route::post('/LoginCheck', [UserController::class, 'Login']);
+
 //Route::get('/HomeAdmin', [PesananController::class, 'index']);
 Route::get('/HomeAdmin', function () {
     return view('adminHome', [
         "title" => "Beranda"
     ]);
 });
-
 Route::get('/IndexPesanan', [PesananController::class, 'index']);
 
 Route::get('/DetailPesanan/{id}', [PesananController::class, 'selectById']);
