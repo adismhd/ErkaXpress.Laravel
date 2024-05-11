@@ -36,10 +36,7 @@ class UserController extends Controller
             //Session::flash('statusLogin', $expired);
             session(['LoginExpired' => $expired]);
 
-            return view('adminHome', [
-                "title" => "Home",
-                "expired" => $expired
-            ]);
+            return redirect('/HomeAdmin');
         }
     }
 
@@ -47,9 +44,7 @@ class UserController extends Controller
         session()->forget(['LoginExpired']); 
         session()->flush();
 
-        return view('login', [
-            "title" => "Login"
-        ]);
+        return redirect('/login');
     }
 
     public function GetListAdmin(){
@@ -62,24 +57,22 @@ class UserController extends Controller
     }
     
     public function TambahUser(Request $request){
-        $user = User::orderBy('created_at', 'DESC')->get();
-
-        return view('adminList', [
-            "title" => "Admin List",
-            "adminList" => $user
+        User::factory()->create([
+            'name' => $request->namaUser,
+            'email' => $request->emailUser,
+            'password' => $request->passwordUser
         ]);
+
+        return redirect('/Admin');
     }
     
     public function EditUser(Request $request){
-        $user = User::find($request->idUser)->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password
+        $user = User::find($request->Id)->update([
+            'name' => $request->namaUserEdit,
+            'email' => $request->emailUserEdit,
+            'password' => $request->passwordUserEdit
         ]);
 
-        return view('adminList', [
-            "title" => "Admin List",
-            "adminList" => $user
-        ]);
+        return redirect('/Admin');
     }
 }

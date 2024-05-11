@@ -3,7 +3,7 @@
 @section('container')
 
 <div class="mt-5">
-    <h1>User Admin</h1>
+    <h1>Message</h1>
 </div>
 
 <div class="table-responsive mt-5" >
@@ -13,26 +13,20 @@
                 <th scope="col">No</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Email</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Message</th>
                 <th scope="col">Created At</th>
-                <th scope="col">
-                    <center>
-                        <a href="#" class="btn btn-sm btn-primary" onclick="showModalTambah()">Tambah</a>
-                    </center>
-                </th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($adminList as $data)
+            @foreach ($messageList as $data)
                 <tr class="" >
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $data->name }}</td>
-                    <td>{{ $data->email }}</td>
+                    <td>{{ $data->Nama }}</td>
+                    <td>{{ $data->Email }}</td>
+                    <td>{{ $data->Subject }}</td>
+                    <td>{{ $data->Message }}</td>
                     <td>{{ $data->created_at }}</td>
-                    <td>
-                        <center>
-                            <a href="#" class="btn btn-sm btn-success" onclick="showModalEdit('{{ $data->id }}','{{ $data->name }}','{{ $data->email }}','{{ $data->password }}')">Detail</a>
-                        </center>
-                    </td>
                 </tr>
             @endforeach
         </tbody>

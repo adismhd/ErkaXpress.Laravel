@@ -136,4 +136,29 @@ class PesananController extends Controller
 
         //dd($pesanan);
     }
+    
+    public function home(){
+        $pesanan = Pesanan::orderBy('created_at', 'DESC')->get();
+        $pesananCount = $pesanan->count();
+
+        $pesananDibuat = StatusPesanan::where('Status', 'Pesanan Dibuat')->get();
+        $pesananDibuatCount = $pesananDibuat->count();
+
+        $pesananDiproses = StatusPesanan::where('Status', 'Sedang Diproses')->get();
+        $pesananDiprosesCount = $pesananDiproses->count();
+
+        $pesananSelesai = StatusPesanan::where('Status', 'Pesanan Selesai Dikirim')->get();
+        $pesananSelesaiCount = $pesananSelesai->count();
+        //$status = StatusPesanan::where('NoPesanan', $pesanan->NoPesanan)->orderBy('created_at', 'DESC')->first();
+        
+        //dd($pesanan->toArray());
+        return view('adminHome', [
+            "title" => "Beranda",
+            "totalPesanan" => $pesananCount,
+            "totalDibuat" => $pesananDibuatCount,
+            "totalDiproses" => $pesananDiprosesCount,
+            "totalSelesai" => $pesananSelesaiCount
+            //"status" => $status
+        ]);
+    }
 }

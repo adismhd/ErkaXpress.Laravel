@@ -9,6 +9,10 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+
     <!-- Favicons -->
     <link href="{{ asset('') }}assets/img/favicon.png" rel="icon">
     <link href="{{ asset('') }}assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -74,8 +78,8 @@
                     </div>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2">
-                    <img src="{{ asset('img/OIG1.png') }}" style="width: 400px" class="img-fluid" alt="" data-aos="zoom-out"
-                        data-aos-delay="100">
+                    <img src="{{ asset('img/OIG1.png') }}" style="width: 400px" class="img-fluid" alt=""
+                        data-aos="zoom-out" data-aos-delay="100">
                 </div>
             </div>
         </div>
@@ -116,7 +120,7 @@
         @isset($pesanan)
             <div class="about sections-bg row" style="background-color: #f6f6f6;">
                 <div class="col-xl-2 col-md-2"></div>
-                <div class="card col-xl-8 col-md-8" style="background-color: #f6f6f6; border-radius: 25px" class="m-5">
+                <div class="card col-xl-8 col-md-8" style="background-color: #ffffff; border-radius: 25px" class="m-5">
                     <div class="card-body m-3">
                         <div class="row ">
                             <div class="col-md-4">
@@ -156,7 +160,21 @@
                     </div>
                 </div>
             </div>
-
+        @endisset
+                
+        @isset($statusResi)
+            @if ($statusResi == 'true')
+                <div class="about sections-bg row" style="background-color: #f6f6f6;">
+                    <div class="col-xl-2 col-md-2"></div>
+                    <div class="card col-xl-8 col-md-8" style="background-color: #ff3a3a; border-radius: 25px" class="m-5">
+                        <div class="card-body m-3">
+                            <div class="row ">
+                                <h2 style="text-align: center; color: #f6f6f6"><strong> Resi Tidak Ditemukan!</strong></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
         @endisset
 
         <!-- ======= Our Services Section ======= -->
@@ -641,7 +659,7 @@
                         <div class="member">
                             <img src="{{ asset('img/teams/team-6.jpg') }}" class="img-fluid" alt="">
                             <h4> Naufal Wahid Habibillah</h4>
-                            <span>Manajer Marketing  </span>
+                            <span>Manajer Marketing </span>
                             <div class="social">
                                 <a href=""><i class="bi bi-twitter"></i></a>
                                 <a href=""><i class="bi bi-facebook"></i></a>
@@ -713,33 +731,31 @@
                         </div>
 
                     </div>
-
                     <div class="col-lg-8">
-                        <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <input type="text" name="name" class="form-control" id="name"
-                                        placeholder="Your Name" required>
+                        <div class="custom-contact">
+                            <form action="CreateMessage" method="post" >
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <input type="text" name="name" class="form-control" id="name"
+                                            placeholder="Your Name" required>
+                                    </div>
+                                    <div class="col-md-6 form-group mt-3 mt-md-0">
+                                        <input type="email" class="form-control" name="email" id="email"
+                                            placeholder="Your Email" required>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 form-group mt-3 mt-md-0">
-                                    <input type="email" class="form-control" name="email" id="email"
-                                        placeholder="Your Email" required>
+                                <div class="form-group mt-3">
+                                    <input type="text" class="form-control" name="subject" id="subject"
+                                        placeholder="Subject" required>
                                 </div>
-                            </div>
-                            <div class="form-group mt-3">
-                                <input type="text" class="form-control" name="subject" id="subject"
-                                    placeholder="Subject" required>
-                            </div>
-                            <div class="form-group mt-3">
-                                <textarea class="form-control" name="message" rows="7" placeholder="Message" required></textarea>
-                            </div>
-                            <div class="my-3">
-                                <div class="loading">Loading</div>
-                                <div class="error-message"></div>
-                                <div class="sent-message">Your message has been sent. Thank you!</div>
-                            </div>
-                            <div class="text-center"><button type="submit">Send Message</button></div>
-                        </form>
+                                <div class="form-group mt-3">
+                                    <textarea class="form-control" name="message" rows="7" placeholder="Message" required></textarea>
+                                </div>
+                                <br>
+                                <div class="text-center"><button class="btn btn-success" style="border-radius: 25px" type="submit">Send Message</button></div>
+                            </form>
+                        </div>                        
                     </div><!-- End Contact Form -->
                 </div>
             </div>
@@ -758,8 +774,6 @@
                     </a>
                     <p> Jln. Kebagusan Raya Gang puskesmas RT 07 RW 01 NO 18 Kel Kebagusan kec. Pasar Minggu</p>
                 </div>
-
-
             </div>
         </div>
     </footer><!-- End Footer -->
@@ -781,7 +795,6 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-
 </body>
 
 </html>

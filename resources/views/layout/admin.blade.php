@@ -42,6 +42,9 @@
                     <li class="@if($title == 'Admin List'){{ 'active' }}@endif">
                         <a href="/Admin"><i class="fa-solid fa-user-large"></i> &nbsp; Admin</a>
                     </li>
+                    <li class="@if($title == 'Message List'){{ 'active' }}@endif">
+                        <a href="/Message"><i class="fa-solid fa-envelope"></i> &nbsp; Message</a>
+                    </li>
                     {{-- <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle">Pages</a>

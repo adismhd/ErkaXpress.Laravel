@@ -45,10 +45,16 @@ class StatusPesananController extends Controller
         $penerima = DataPenerima::where('NoPesanan', $request->id)->first();
         $barang = DataBarang::where('NoPesanan', $request->id)->first();
         $statuList = StatusPesanan::where('NoPesanan', $request->id)->orderBy('created_at', 'DESC')->get();
+        $statusResi = "true";
+
+        if($pesanan){
+            $statusResi = "false";
+        }
 
         //dd($pesanan);
         return view('index', [
             "title" => "Cek Resi",
+            "statusResi" => $statusResi,
             "pesanan" => $pesanan,
             "pengirim" => $pengirim,
             "penerima" => $penerima,
