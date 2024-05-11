@@ -51,4 +51,35 @@ class UserController extends Controller
             "title" => "Login"
         ]);
     }
+
+    public function GetListAdmin(){
+        $user = User::orderBy('created_at', 'DESC')->get();
+
+        return view('adminList', [
+            "title" => "Admin List",
+            "adminList" => $user
+        ]);
+    }
+    
+    public function TambahUser(Request $request){
+        $user = User::orderBy('created_at', 'DESC')->get();
+
+        return view('adminList', [
+            "title" => "Admin List",
+            "adminList" => $user
+        ]);
+    }
+    
+    public function EditUser(Request $request){
+        $user = User::find($request->idUser)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+
+        return view('adminList', [
+            "title" => "Admin List",
+            "adminList" => $user
+        ]);
+    }
 }

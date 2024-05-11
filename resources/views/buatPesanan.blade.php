@@ -1,11 +1,11 @@
 @extends('layout.main')
 
 @section('container')
-    <div class="mt-2">
-        <h1>Booking Pesanan</h1>
+    <div class="mt-5">
+        <h2>Booking Pesanan</h2>
     </div>
-    <div class="card mt-2 ">
-        <div class="card-body">
+    <div class="card mt-4 mb-3" style="border-radius: 25px">
+        <div class="card-body m-4">
             <form action="BuatPesanan" method="post">
                 @csrf
                 <div class="row">

@@ -15,7 +15,7 @@ use Session;
 class PesananController extends Controller
 {
     public function index(){
-        $pesanan = Pesanan::all();
+        $pesanan = Pesanan::orderBy('created_at', 'DESC')->get();
         //$status = StatusPesanan::where('NoPesanan', $pesanan->NoPesanan)->orderBy('created_at', 'DESC')->first();
         
         //dd($pesanan->toArray());
@@ -36,7 +36,7 @@ class PesananController extends Controller
 
         //dd($pesanan);
         return view('detailPesanan', [
-            "title" => "Detail Pesanan",
+            "title" => "Pesanan",
             "pesanan" => $pesanan,
             "pengirim" => $pengirim,
             "penerima" => $penerima,

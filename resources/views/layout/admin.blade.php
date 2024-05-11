@@ -34,13 +34,13 @@
                 </div>
                 <ul class="list-unstyled components" style="height: 74vh">
                     <li class="@if($title == 'Beranda'){{ 'active' }}@endif">
-                        <a href="/HomeAdmin">Home</a>
+                        <a href="/HomeAdmin"><i class="fa-solid fa-house"></i> &nbsp; Home</a>
                     </li>
                     <li class="@if($title == 'Pesanan'){{ 'active' }}@endif">
-                        <a href="/IndexPesanan">Pesanan</a>
+                        <a href="/IndexPesanan"><i class="fa-solid fa-table-list"></i> &nbsp; Pesanan</a>
                     </li>
-                    <li>
-                        <a href="/Admin">Admin</a>
+                    <li class="@if($title == 'Admin List'){{ 'active' }}@endif">
+                        <a href="/Admin"><i class="fa-solid fa-user-large"></i> &nbsp; Admin</a>
                     </li>
                     {{-- <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"

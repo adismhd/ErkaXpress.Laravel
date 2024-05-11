@@ -43,3 +43,7 @@ Route::get('/DetailPesanan/{id}', [PesananController::class, 'selectById']);
 Route::post('/DetailPesanan/InsertStatus', [StatusPesananController::class, 'InsertStatus']);
 Route::post('/DetailPesanan/EditStatus', [StatusPesananController::class, 'EditStatus']);
 Route::post('/DetailPesanan/DeleteStatus', [StatusPesananController::class, 'DeleteStatus']);
+
+Route::get('/Admin', [UserController::class, 'GetListAdmin']);
+Route::post('/TambahUser', [UserController::class, 'TambahUser']);
+Route::post('/EditUser', [UserController::class, 'EditUser']);
