@@ -22,7 +22,7 @@
         <div class="col-3">
             <div class="card m3" style="border-radius: 25px">
                 <div class="card-body m-3 text-center">
-                    <h3>Pesanan Dibuat</h3>
+                    <h3>Dibuat</h3>
                     <hr>
                     <h1>
                         @isset($totalDibuat)
@@ -35,7 +35,7 @@
         <div class="col-3 ">
             <div class="card m3" style="border-radius: 25px">
                 <div class="card-body m-3 text-center">
-                    <h3>Pesanan Diproses</h3>
+                    <h3>Diproses</h3>
                     <hr>
                     <h1>
                         @isset($totalDiproses)
@@ -48,7 +48,7 @@
         <div class="col-3">
             <div class="card m3" style="border-radius: 25px">
                 <div class="card-body m-3 text-center">
-                    <h3>Pesanan Selesai</h3>
+                    <h3>Selesai</h3>
                     <hr>
                     <h1>
                         @isset($totalSelesai)
