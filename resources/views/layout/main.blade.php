@@ -43,7 +43,7 @@
                     <a class="nav-link" href="/BuatPesanan">Booking</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Login">Login</a>
+                    <a class="nav-link" href="/login">Login</a>
                 </li>
             </ul>
             {{-- <form class="form-inline my-2 my-lg-0">

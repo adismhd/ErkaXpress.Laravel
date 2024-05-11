@@ -22,8 +22,10 @@
     <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.slim.min.js') }}"></script>
 </head>
 
-@if(Session::has('statusLogin'))
+@if(session()->get('LoginExpired') != null and session()->get('LoginExpired') > date('Y-m-d H:i:s'))
     <body>
+        {{-- <h1>{{ session()->get('LoginExpired') }}</h1>
+        <h1>{{ date('Y-m-d H:i:s') }}</h1> --}}
         <div class="wrapper">
             <!-- Sidebar  -->
             <nav id="sidebar" style="70vh">
@@ -59,7 +61,7 @@
 
                 <ul class="list-unstyled CTAs">
                     <li>
-                        <a href="/" class="download">Logout</a>
+                        <a href="/Logout" class="download">Logout</a>
                     </li>
                 </ul>
             </nav>
@@ -83,6 +85,22 @@
         <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
     </body>
+@else
+    <div class="row align-items-center" style="padding-top: 50px; padding-bottom: 25px;">
+        <div class="col-8 mx-auto">
+            <div class="card shadow-lg" style="border-radius: 15px;padding: 5% 5%;">
+                <center>
+                    <img class="img img-fluid" src="{{ asset('img/Time Out Vector Image.png') }}" /><br /><br />
+                    <h1 class="f-24 fw-500 c-reguler title mb-5">
+                        Sesi Anda telah Berakhir
+                    </h1>
+                    <h4 class="f-24 fw-500 c-reguler title mb-5">
+                        Mohon untuk melakukan <a href="/Login" class="btn btn-primary">Login</a> kembali 
+                    </h4>
+                </center>
+            </div>
+        </div>
+    </div>
 @endif
 
 </html>

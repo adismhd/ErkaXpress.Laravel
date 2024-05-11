@@ -14,11 +14,12 @@ Route::get('/', function () {
 });
 Route::post('/CekResi', [StatusPesananController::class, 'CekResi']);
 
-Route::get('/Login', function () {
+Route::get('/login', function () {
     return view('login', [
         "title" => "Login"
     ]);
 });
+
 
 Route::get('/BuatPesanan', function () {
     return view('buatPesanan', [
@@ -28,6 +29,7 @@ Route::get('/BuatPesanan', function () {
 Route::post('/BuatPesanan', [PesananController::class, 'InsertData']);
 
 Route::post('/LoginCheck', [UserController::class, 'Login']);
+Route::get('/Logout', [UserController::class, 'Logout']);
 
 //Route::get('/HomeAdmin', [PesananController::class, 'index']);
 Route::get('/HomeAdmin', function () {

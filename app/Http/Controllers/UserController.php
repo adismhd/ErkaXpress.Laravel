@@ -31,13 +31,24 @@ class UserController extends Controller
         else{
             $login = Carbon::now();
             $expired = $login->addDays(1);
-            Session::forget('statusLogin');
-            Session::flush();
-            Session::flash('statusLogin', $expired);
+            // Session::forget('statusLogin');
+            // Session::flush();
+            //Session::flash('statusLogin', $expired);
+            session(['LoginExpired' => $expired]);
 
             return view('adminHome', [
-                "title" => "Home"
+                "title" => "Home",
+                "expired" => $expired
             ]);
         }
+    }
+
+    public function Logout(){
+        session()->forget(['LoginExpired']); 
+        session()->flush();
+
+        return view('login', [
+            "title" => "Login"
+        ]);
     }
 }

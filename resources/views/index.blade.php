@@ -80,7 +80,7 @@
                         <table center style="border: 0px; align-self: center;" cellspacing="0" cellpadding="0">
                           @foreach ($statuList as $data)
                             <tr>
-                              <td><img src="{{ URL::asset('img/LinePesanan.png') }}" style="width: 50px;" alt="Avatar"></td>
+                              <td><img src="{{ URL::asset('img/LinePesanan.png') }}" style="width: 70px;" alt="Avatar"></td>
                               <td>{{ $data->created_at }} &nbsp;</td>
                               <td>{{ $data->Status }}</td>
                               {{-- <td>{{ $data->Keterangan }}</td>                           --}}
