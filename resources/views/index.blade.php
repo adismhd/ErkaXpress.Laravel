@@ -37,6 +37,19 @@
 </head>
 
 <body>
+    <style>
+        body {
+            background-image: url('../../img/bg.jpeg');
+            background-size: 100%;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .bg-white {
+            background-color: rgba(255, 255, 255, 1); 
+        }
+    </style>
     <!-- ======= Header ======= -->
     <header id="header" class="header d-flex align-items-center">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
@@ -66,20 +79,21 @@
             <div class="row gy-5" data-aos="fade-in">
                 <div
                     class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start">
-                    <h2>Raksasa
-                        Khatulistiwa
-                        Express</h2>
-                    <p>Tell Us What You Want, And Logistic in Your Hand.</p>
+                    <h2>Raksasa Khatulistiwa Express</h2>
+                    <p style="color: #f6f6f6"><b>Tell Us What You Want, And Logistic in Your Hand.</b></p>
                     <div class="d-flex justify-content-center justify-content-lg-start">
-                        <a href="#about" class="btn-get-started">Get Started</a>&nbsp;&nbsp;
+                        <a href="#about" class="btn-get-started" style="background-color: rgb(255, 255, 255); color: #000000">Get Started</a>&nbsp;&nbsp;
                         <a href="/BuatPesanan" class="btn-get-started"
                             style="background-color: rgb(189, 48, 48)">Booking</a>
                         {{-- <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> --}}
                     </div>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2">
-                    <img src="{{ asset('img/OIG1.png') }}" style="width: 400px" class="img-fluid" alt=""
+                    {{-- <img src="{{ asset('img/OIG1.png') }}" style="width: 400px" class="img-fluid" alt=""
+                        data-aos="zoom-out" data-aos-delay="100"> --}}
+                        <img src="{{ asset('img/orang_paket.png') }}" style="width: 400px" class="img-fluid" alt=""
                         data-aos="zoom-out" data-aos-delay="100">
+                        
                 </div>
             </div>
         </div>
@@ -123,7 +137,7 @@
                 <div class="card col-xl-8 col-md-8" style="background-color: #ffffff; border-radius: 25px" class="m-5">
                     <div class="card-body m-3">
                         <div class="row ">
-                            <div class="col-md-4">
+                            <div class="col-md-4 mb-3">
                                 <h4>Detail Pengiriman</h4>
                                 <table>
                                     <tr>
@@ -286,7 +300,7 @@
         </section><!-- End Our Services Section -->
 
         <!-- ======= Clients Section ======= -->
-        <section id="clients" class="clients">
+        <section id="clients" class="clients bg-white">
             <div class="container" data-aos="zoom-out">
 
                 <div class="section-header">
@@ -396,12 +410,12 @@
         <!-- End About Us Section -->
 
         <!-- ======= Frequently Asked Questions Section ======= -->
-        <section id="visi" class="faq">
+        <section id="visi" class="faq bg-white">
             <div class="container" data-aos="fade-up">
                 <div class="row gy-4">
                     <div class="col-lg-4">
                         <div class="content px-xl-5">
-                            <h3><strong>Vision</strong></h3>
+                            <h3><strong>Visi</strong></h3>
                             <h5>
                                 Revolutionary Logistics For National Market Chain
                             </h5>
@@ -576,7 +590,7 @@
         </section><!-- End Testimonials Section -->
 
         <!-- ======= Our Team Section ======= -->
-        <section id="team" class="team">
+        <section id="team" class="team bg-white">
             <div class="container" data-aos="fade-up">
                 <div class="section-header">
                     <h2>Our Team</h2>
@@ -688,7 +702,7 @@
         </section><!-- End Our Team Section -->
 
         <!-- ======= Contact Section ======= -->
-        <section id="contact" class="contact">
+        <section id="contact" class="contact bg-white">
             <div class="container" data-aos="fade-up">
                 <div class="section-header">
                     <h2>Contact</h2>

@@ -10,7 +10,7 @@
 
 <h1 class="mt-3">Detail Pesanan</h1>
 
-<div class="card">
+<div class="card" style="border-radius: 25px">
     <div class="card-body">
         <table>
             <tbody>
@@ -24,37 +24,43 @@
     </div>
 </div>
 
-<div class="card mt-3">
-    <div class="card-header">
+<div class="card mt-3" style="border-radius: 25px; overflow: hidden;">
+    <div class="card-header" style="overflow: hidden;">
         <h5>Pengiriman</h5>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-6 ">
-                <table class="table table-sm table-danger">
-                    <thead style="background-color: rgb(161, 161, 161)"><tr><th colspan="3">Pengirim</th></tr></thead>
-                    <tbody>
-                        <tr><td>Nama </td><td>&nbsp;:&nbsp;</td><td>{{ $pengirim->Nama }}</td></tr>
-                        <tr><td>No. Telepon </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->NoTelepon  }}</td></tr>
-                        <tr><td>Alamat </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->Alamat }}</td></tr>
-                    </tbody>
-                </table></div>
+                <div style="border-radius: 15px; ">
+                    <table class="table table-sm table-info">
+                        <thead  class="table-dark"><tr><th colspan="3">Pengirim</th></tr></thead>
+                        <tbody>
+                            <tr><td>Nama </td><td>&nbsp;:&nbsp;</td><td>{{ $pengirim->Nama }}</td></tr>
+                            <tr><td>No. Telepon </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->NoTelepon  }}</td></tr>
+                            <tr><td>Alamat </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->Alamat }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div class="col-md-6 ">
-                <table class="table table-sm table-primary">
-                    <thead style="background-color: rgb(161, 161, 161)"><tr><th colspan="3">Penerima</th></tr></thead>
-                    <tbody>
-                        <tr><td>Nama </td><td>&nbsp;:&nbsp;</td><td>{{ $penerima->Nama }}</td></tr>
-                        <tr><td>No. Telepon </td><td>&nbsp;:&nbsp;</td></td><td>{{ $penerima->NoTelepon  }}</td></tr>
-                        <tr><td>Alamat </td><td>&nbsp;:&nbsp;</td></td><td>{{ $penerima->Alamat }}</td></tr>
-                    </tbody>
-                </table></div>
+                <div style="border-radius: 15px;">
+                    <table class="table table-sm table-success">
+                        <thead class="table-dark"><tr><th colspan="3">Penerima</th></tr></thead>
+                        <tbody>
+                            <tr><td>Nama </td><td>&nbsp;:&nbsp;</td><td>{{ $penerima->Nama }}</td></tr>
+                            <tr><td>No. Telepon </td><td>&nbsp;:&nbsp;</td></td><td>{{ $penerima->NoTelepon  }}</td></tr>
+                            <tr><td>Alamat </td><td>&nbsp;:&nbsp;</td></td><td>{{ $penerima->Alamat }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             {{-- <div class="col-md-2 "  style="height: 100%;"> <p class="align-middle" >-></p> </div> --}}
         </div>
     </div>
 </div>
 
-<div class="card mt-3">
-    <div class="card-header">
+<div class="card mt-3" style="border-radius: 25px; overflow: hidden;">
+    <div class="card-header" style="overflow: hidden;">
         <h5>Detail Barang</h5>
     </div>
     <div class="card-body">
@@ -82,46 +88,44 @@
     </div>
 </div>
 
-<div class="card mt-3">
+<div class="card mt-3" style="border-radius: 25px; overflow: hidden;">
     <div class="card-header">
         <h5>Status</h5>
     </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-12 ">
-                <table class="table table-sm">
-                    <thead style="background-color: rgb(161, 161, 161)">
+    <div class="card-body table-responsive ">
+        <div style="border-radius: 15px; overflow: hidden;">
+            <table class="table table-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="text-align: center">No</th>
+                        <th>Status</th>
+                        <th>Keterangan</th>
+                        <th>Tanggal</th>
+                        <th style="text-align: center;"><a href="#" class="btn btn-primary btn-sm" onclick="showModalTambah()">Tambah</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($statuList as $data)
                         <tr>
-                            <th>No</th>
-                            <th>Status</th>
-                            <th>Keterangan</th>
-                            <th>Tanggal</th>
-                            <th style="text-align: center;"><a href="#" class="btn btn-primary" onclick="showModalTambah()">Tambah</a></th>
+                            <td style="text-align: center">{{ $loop->iteration }}</td>
+                            <td>{{ $data->Status }}</td>
+                            <td>{{ $data->Keterangan  }}</td>
+                            <td>{{ $data->created_at }}</td>
+                            @if ($data->Status === 'Pesanan Dibuat')
+                                <td  style="text-align: center;">
+                                    <button class="btn btn-sm btn-success" disabled>Edit</button> &nbsp;
+                                    <button disabled class="btn btn-sm btn-danger">Delete</button>  
+                                </td>                                  
+                            @else
+                                <td  style="text-align: center;">
+                                    <a href="#" onclick="showModalEdit({{ $data->id }},'{{ $data->Status }}','{{ $data->Keterangan }}')" class="btn btn-sm btn-success">Edit</a> &nbsp;
+                                    <a href="#" onclick="showModalDelete({{ $data->id }})" class="btn btn-sm btn-danger">Delete</a>
+                                </td>
+                            @endif
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($statuList as $data)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $data->Status }}</td>
-                                <td>{{ $data->Keterangan  }}</td>
-                                <td>{{ $data->created_at }}</td>
-                                @if ($data->Status === 'Pesanan Dibuat')
-                                    <td  style="text-align: center;">
-                                        <button class="btn btn-sm btn-success" disabled>Edit</button> &nbsp;
-                                        <button disabled class="btn btn-sm btn-danger">Delete</button>  
-                                    </td>                                  
-                                @else
-                                    <td  style="text-align: center;">
-                                        <a href="#" onclick="showModalEdit({{ $data->id }},'{{ $data->Status }}','{{ $data->Keterangan }}')" class="btn btn-sm btn-success">Edit</a> &nbsp;
-                                        <a href="#" onclick="showModalDelete({{ $data->id }})" class="btn btn-sm btn-danger">Delete</a>
-                                    </td>
-                                @endif
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

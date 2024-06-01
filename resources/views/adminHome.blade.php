@@ -6,7 +6,7 @@
     </div>
 
     <div class="row py-5 ">
-        <div class="col-3">
+        <div class="col-md-3 col-sm-12 mb-3">
             <div class="card m3" style="border-radius: 25px">
                 <div class="card-body m-3 text-center">
                     <h3>Total Pesanan</h3>
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-md-3 col-sm-12 mb-3">
             <div class="card m3" style="border-radius: 25px">
                 <div class="card-body m-3 text-center">
                     <h3>Dibuat</h3>
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-3 ">
+        <div class="col-md-3 col-sm-12 mb-3">
             <div class="card m3" style="border-radius: 25px">
                 <div class="card-body m-3 text-center">
                     <h3>Diproses</h3>
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-md-3 col-sm-12 mb-3">
             <div class="card m3" style="border-radius: 25px">
                 <div class="card-body m-3 text-center">
                     <h3>Selesai</h3>

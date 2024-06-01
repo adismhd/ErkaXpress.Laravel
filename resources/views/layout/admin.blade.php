@@ -22,6 +22,12 @@
     <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.slim.min.js') }}"></script>
 </head>
 
+<style>    
+    body {
+        background-color: rgb(240, 240, 240)
+        }
+</style>
+
 @if(session()->get('LoginExpired') != null and session()->get('LoginExpired') > date('Y-m-d H:i:s'))
     <body>
         {{-- <h1>{{ session()->get('LoginExpired') }}</h1>
