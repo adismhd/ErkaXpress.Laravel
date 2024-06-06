@@ -22,12 +22,8 @@ Route::get('/login', function () {
 });
 
 
-Route::get('/BuatPesanan', function () {
-    return view('buatPesanan', [
-        "title" => "Buat Pesanan"
-    ]);
-});
-Route::post('/BuatPesanan', [PesananController::class, 'InsertData']);
+Route::get('/BuatPesanan', [PesananController::class, 'GetParamPesanan']);
+Route::post('/SavePesanan', [PesananController::class, 'InsertData']);
 
 Route::post('/LoginCheck', [UserController::class, 'Login']);
 Route::get('/Logout', [UserController::class, 'Logout']);

@@ -10,6 +10,6 @@ class DataPengirim extends Model
     use HasFactory;
 
     protected $fillable = [
-        'NoPesanan','Nama','Alamat','NoTelepon','Email','created_at','updated_at'
+        'NoPesanan','Nama','Alamat','Propinsi','NoTelepon','Email','created_at','updated_at'
     ];
 }

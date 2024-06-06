@@ -10,6 +10,6 @@ class DataPenerima extends Model
     use HasFactory;
 
     protected $fillable = [
-        'NoPesanan','Nama','Alamat','NoTelepon','created_at','updated_at'
+        'NoPesanan','Nama','Alamat','Propinsi','NoTelepon','created_at','updated_at'
     ];
 }

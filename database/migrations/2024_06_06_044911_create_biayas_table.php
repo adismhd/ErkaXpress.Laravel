@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_penerimas', function (Blueprint $table) {
+        Schema::create('biayas', function (Blueprint $table) {
             $table->id();
             $table->string('NoPesanan')->required();
-            $table->string('Nama')->required();
-            $table->string('Alamat');
-            $table->string('Propinsi');
-            $table->string('NoTelepon');      
+            $table->double('BiayaPengiriman');
+            $table->double('BiayaAdmin');
+            $table->double('TotalBiaya');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_penerimas');
+        Schema::dropIfExists('biayas');
     }
 };

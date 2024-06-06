@@ -8,6 +8,8 @@ use App\Models\DataBarang;
 use App\Models\DataPenerima;
 use App\Models\DataPengirim;
 use App\Models\StatusPesanan;
+use App\Models\Xproduk;
+use App\Models\Xpropinsi;
 use Illuminate\Http\Request;
 use DateTime;
 use Session;
@@ -33,6 +35,8 @@ class PesananController extends Controller
         $barang = DataBarang::where('NoPesanan', $id)->first();
         $status = StatusPesanan::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->first();
         $statuList = StatusPesanan::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->get();
+        $param = Xproduk::All();
+        $paramPropinsi = Xpropinsi::All();
 
         //dd($pesanan);
         return view('detailPesanan', [
@@ -42,7 +46,21 @@ class PesananController extends Controller
             "penerima" => $penerima,
             "barang" => $barang,
             "status" => $status,
-            "statuList" => $statuList
+            "statuList" => $statuList,
+            "param" => $param,
+            "paramPropinsi" => $paramPropinsi
+        ]);
+    }
+    
+    public function GetParamPesanan(){
+        $param = Xproduk::All();
+        $paramPropinsi = Xpropinsi::All();
+        
+        //dd($param);            
+        return view('buatPesanan', [
+            "title" => "Buat Pesanan",
+            "param" => $param,
+            "paramPropinsi" => $paramPropinsi
         ]);
     }
     
@@ -50,6 +68,8 @@ class PesananController extends Controller
         $ldate = date('YmdHis');
         $noPesanan = "EXPR" . $ldate;
         $createAt = new DateTime();
+        $param = Xproduk::All();
+        $paramPropinsi = Xpropinsi::All();
 
         $pesanan = Pesanan::create([
             'NoPesanan' => $noPesanan,
@@ -61,6 +81,7 @@ class PesananController extends Controller
             'NoPesanan' => $noPesanan,
             'Nama' => $request->PengirimNama,
             'Alamat' => $request->PengirimAlamat,
+            'Propinsi' => $request->PropinsiPengirim,
             'Email' => $request->PengirimEmail,
             'NoTelepon' => $request->PengirimNoTelepon
         ]);
@@ -68,6 +89,7 @@ class PesananController extends Controller
         $penerima = DataPenerima::create([
             'NoPesanan' => $noPesanan,
             'Nama' => $request->PenerimaNama,
+            'Propinsi' => $request->PropinsiPengirim,
             'Alamat' => $request->PenerimaAlamat,
             'NoTelepon' => $request->PenerimaNoTelepon
         ]);
@@ -117,7 +139,9 @@ class PesananController extends Controller
             "pengirim" => $pengirim,
             "penerima" => $penerima,
             "barang" => $barang,
-            "status" => $status
+            "status" => $status,
+            "param" => $param,
+            "paramPropinsi" => $paramPropinsi
         ]);
         //dd($request);
     }

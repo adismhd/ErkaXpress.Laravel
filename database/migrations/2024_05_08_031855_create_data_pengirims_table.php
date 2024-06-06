@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('NoPesanan')->required();
             $table->string('Nama')->required();
             $table->string('Alamat');
+            $table->string('Propinsi');
             $table->string('NoTelepon');    
             $table->string('Email');              
             $table->timestamp('created_at')->nullable();

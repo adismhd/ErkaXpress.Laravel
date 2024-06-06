@@ -6,14 +6,16 @@
     </div>
     <div class="card mt-4 mb-3" style="border-radius: 25px">
         <div class="card-body m-4">
-            <form action="BuatPesanan" method="post">
+            <form action="SavePesanan" method="post">
                 @csrf
                 <div class="row">
                     <div class="mt-2 col-md-6">
                         <label>Layanan <i style="color: crimson">*</i></label>
                         {{-- <input id="inLayanan" name="Layanan" class="form-control mt-1" type="text" required value="@isset($data){{ $data->Layanan }}@endisset" /> --}}
-                        <select id="inLayanan" class="form-control mt-1" name="Layanan">
-                            <option value="Reguler">Reguler</option>
+                        <select id="inLayanan" class="form-select mt-1" name="Layanan">
+                            @foreach ($param as $item)
+                                <option value="{{ $item->Code }}">{{ $item->Nama }}</option>                                
+                            @endforeach
                         </select>
                     </div>
                     <div class="mt-2 col-md-6">
@@ -44,7 +46,16 @@
                             value="@isset($pengirim){{ $pengirim->Email }}@endisset" />
                     </div>
                     <div class="mt-2 col-md-12">
-                        <label>Alamat Pengirim <i style="color: crimson">*</i></label>
+                        <label>Alamat Propinsi Pengirim <i style="color: crimson">*</i></label>
+                        <select class="form-select mt-1" name="PropinsiPengirim" required>
+                            <option value=""  disabled selected hidden>-- Pilih --</option>    
+                            @foreach ($paramPropinsi as $item)
+                                <option value="{{ $item->Code }}">{{ $item->Nama }}</option>                                
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mt-2 col-md-12">
+                        <label>Alamat Lengkap Pengirim<i style="color: crimson">*</i></label>
                         <textarea id="inPengirimAlamat" name="PengirimAlamat" class="form-control mt-1"required>@isset($pengirim){{ $pengirim->NoTelepon }}@endisset</textarea>
                     </div>
                 </div>
@@ -63,7 +74,16 @@
                             value="@isset($penerima){{ $penerima->NoTelepon }}@endisset" />
                     </div>
                     <div class="mt-2 col-md-12">
-                        <label>Alamat Penerima <i style="color: crimson">*</i></label>
+                        <label>Alamat Propinsi Penerima <i style="color: crimson">*</i></label>
+                        <select class="form-select mt-1" name="PropinsiPenerima" required>
+                            <option value=""  disabled selected hidden>-- Pilih --</option>    
+                            @foreach ($paramPropinsi as $item)
+                                <option value="{{ $item->Code }}">{{ $item->Nama }}</option>                                
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mt-2 col-md-12">
+                        <label>Alamat Lengkap Penerima <i style="color: crimson">*</i></label>
                         <textarea id="inPenerimaAlamat" name="PenerimaAlamat" class="form-control mt-1"required>@isset($penerima){{ $penerima->Alamat }}@endisset</textarea>
                     </div>
                 </div>
