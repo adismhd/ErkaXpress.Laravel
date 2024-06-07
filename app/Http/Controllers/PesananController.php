@@ -10,6 +10,7 @@ use App\Models\DataPengirim;
 use App\Models\StatusPesanan;
 use App\Models\Xproduk;
 use App\Models\Xpropinsi;
+use App\Models\Xstatus;
 use Illuminate\Http\Request;
 use DateTime;
 use Session;
@@ -35,10 +36,11 @@ class PesananController extends Controller
         $barang = DataBarang::where('NoPesanan', $id)->first();
         $status = StatusPesanan::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->first();
         $statuList = StatusPesanan::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->get();
-        $param = Xproduk::All();
-        $paramPropinsi = Xpropinsi::All();
+        $propinsiPenerima = Xpropinsi::where('Code', $penerima->Propinsi)->first();
+        $propinsiPengirim = Xpropinsi::where('Code', $pengirim->Propinsi)->first();
+        $paramStatus = Xstatus::All();
 
-        //dd($pesanan);
+        //dd($propinsiPenerima);
         return view('detailPesanan', [
             "title" => "Pesanan",
             "pesanan" => $pesanan,
@@ -47,8 +49,9 @@ class PesananController extends Controller
             "barang" => $barang,
             "status" => $status,
             "statuList" => $statuList,
-            "param" => $param,
-            "paramPropinsi" => $paramPropinsi
+            "propinsiPenerima" => $propinsiPenerima,
+            "propinsiPengirim" => $propinsiPengirim,
+            "paramStatus" => $paramStatus
         ]);
     }
     

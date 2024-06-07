@@ -2,7 +2,7 @@
 
 @section('container')
 
-<div class="mt-5">
+<div class="mt-4">
     <h1>Message</h1>
 </div>
 

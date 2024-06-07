@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Xproduk;
 use App\Models\Xpropinsi;
 use App\Models\Xkabupaten;
+use App\Models\Xstatus;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -29,6 +30,11 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Reguler'
         ]);
         
+        Xstatus::factory()->create(['code' => 'Sedang Diproses','nama' => 'Sedang Diproses']);
+        Xstatus::factory()->create(['code' => 'Pesanan Akan Diambil','nama' => 'Pesanan Akan Diambil']);
+        Xstatus::factory()->create(['code' => 'Pesanan Sedang Dikirim','nama' => 'Pesanan Sedang Dikirim']);
+        Xstatus::factory()->create(['code' => 'Pesanan Selesai Dikirim','nama' => 'Pesanan Selesai Dikirim']);
+
         Xpropinsi::factory()->create(['code' => '11','nama' => 'Aceh']);
         Xpropinsi::factory()->create(['code' => '12','nama' => 'Sumatera Utara']);
         Xpropinsi::factory()->create(['code' => '13','nama' => 'Sumatera Barat']);

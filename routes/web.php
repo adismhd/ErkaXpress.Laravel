@@ -5,6 +5,7 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\StatusPesananController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\XParameterController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -47,3 +48,14 @@ Route::post('/EditUser', [UserController::class, 'EditUser']);
 
 Route::post('/CreateMessage', [MessageController::class, 'CreateMessage']);
 Route::get('/Message', [MessageController::class, 'GetMessage']);
+
+Route::get('/Parameter', [XParameterController::class, 'GetParamList']);
+Route::post('/TambahParamProduk', [XParameterController::class, 'TambahParamProduk']);
+Route::post('/EditParamProduk', [XParameterController::class, 'EditParamProduk']);
+Route::post('/DeleteParamProduk', [XParameterController::class, 'DeleteParamProduk']);
+Route::post('/TambahParamPropinsi', [XParameterController::class, 'TambahParamPropinsi']);
+Route::post('/EditParamPropinsi', [XParameterController::class, 'EditParamPropinsi']);
+Route::post('/DeleteParamPropinsi', [XParameterController::class, 'DeleteParamPropinsi']);
+Route::post('/TambahParamStatus', [XParameterController::class, 'TambahParamStatus']);
+Route::post('/EditParamStatus', [XParameterController::class, 'EditParamStatus']);
+Route::post('/DeleteParamStatus', [XParameterController::class, 'DeleteParamStatus']);

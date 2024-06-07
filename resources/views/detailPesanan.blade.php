@@ -7,10 +7,18 @@
         color: black
     }
 </style>
+<hr >
+<div class="row mt-3">
+    <div class="container-fluid">
+        <a href="/DetailPesanan/{{ $pesanan->NoPesanan }}" class="btn btn-primary disabled">Detail</a> &nbsp;
+        <a href="/DetailPesanan/{{ $pesanan->NoPesanan }}" class="btn btn-primary">Ekspedisi & Biaya</a> &nbsp;
+        <a href="/DetailPesanan/{{ $pesanan->NoPesanan }}" class="btn btn-primary">Memo</a> &nbsp;
+    </div>
+</div>
+<hr >
+<h1 class="mt-2">Detail Pesanan</h1>
 
-<h1 class="mt-3">Detail Pesanan</h1>
-
-<div class="card" style="border-radius: 25px">
+<div class="card mt-3" style="border-radius: 25px">
     <div class="card-body">
         <table>
             <tbody>
@@ -35,8 +43,9 @@
                     <table class="table table-sm table-info">
                         <thead  class="table-dark"><tr><th colspan="3">Pengirim</th></tr></thead>
                         <tbody>
-                            <tr><td>Nama </td><td>&nbsp;:&nbsp;</td><td>{{ $pengirim->Nama }}</td></tr>
+                            <tr><td class="col-md-3">Nama </td><td>&nbsp;:&nbsp;</td><td>{{ $pengirim->Nama }}</td></tr>
                             <tr><td>No. Telepon </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->NoTelepon  }}</td></tr>
+                            <tr><td>Propinsi </td><td>&nbsp;:&nbsp;</td></td><td>{{ $propinsiPengirim->Nama }}</td></tr>
                             <tr><td>Alamat </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->Alamat }}</td></tr>
                         </tbody>
                     </table>
@@ -47,8 +56,9 @@
                     <table class="table table-sm table-success">
                         <thead class="table-dark"><tr><th colspan="3">Penerima</th></tr></thead>
                         <tbody>
-                            <tr><td>Nama </td><td>&nbsp;:&nbsp;</td><td>{{ $penerima->Nama }}</td></tr>
+                            <tr><td class="col-md-3">Nama </td><td>&nbsp;:&nbsp;</td><td>{{ $penerima->Nama }}</td></tr>
                             <tr><td>No. Telepon </td><td>&nbsp;:&nbsp;</td></td><td>{{ $penerima->NoTelepon  }}</td></tr>
+                            <tr><td>Propinsi </td><td>&nbsp;:&nbsp;</td></td><td>{{ $propinsiPenerima->Nama }}</td></tr>
                             <tr><td>Alamat </td><td>&nbsp;:&nbsp;</td></td><td>{{ $penerima->Alamat }}</td></tr>
                         </tbody>
                     </table>
@@ -145,11 +155,11 @@
                 <div class="modal-body">
                     <div class="col-md-12">
                         <label>Status <i style="color: crimson">*</i></label>
-                        <select id="inLayanan" class="form-control mt-1" name="Status">
-                            <option value="Sedang Diproses">Sedang Diproses</option>
-                            <option value="Pesanan Akan Diambil">Pesanan Akan Diambil</option>
-                            <option value="Pesanan Sedang Dikirim">Pesanan Sedang Dikirim</option>
-                            <option value="Pesanan Selesai Dikirim">Pesanan Selesai Dikirim</option>
+                        <select id="inLayanan" class="form-control mt-1" name="Status" required>
+                            <option value=""  disabled selected hidden>-- Pilih --</option>    
+                            @foreach ($paramStatus as $item)
+                                <option value="{{ $item->Code }}">{{ $item->Nama }}</option>                                
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-12 mt-3">
@@ -182,11 +192,11 @@
                 <div class="modal-body">
                     <div class="col-md-12">
                         <label>Status <i style="color: crimson">*</i></label>
-                        <select id="inEditStatus" class="form-control mt-1" name="Status">
-                            <option value="Sedang Diproses">Sedang Diproses</option>
-                            <option value="Pesanan Akan Diambil">Pesanan Akan Diambil</option>
-                            <option value="Pesanan Sedang Dikirim">Pesanan Sedang Dikirim</option>
-                            <option value="Pesanan Selesai Dikirim">Pesanan Selesai Dikirim</option>
+                        <select id="inEditStatus" class="form-control mt-1" name="Status" required>
+                            <option value=""  disabled selected hidden>-- Pilih --</option>    
+                            @foreach ($paramStatus as $item)
+                                <option value="{{ $item->Code }}">{{ $item->Nama }}</option>                                
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-12 mt-3">

@@ -51,6 +51,9 @@
                     <li class="@if($title == 'Message List'){{ 'active' }}@endif">
                         <a href="/Message"><i class="fa-solid fa-envelope"></i> &nbsp; Message</a>
                     </li>
+                    <li class="@if($title == 'Parameter List'){{ 'active' }}@endif">
+                        <a href="/Parameter"><i class="fa-solid fa-list"></i> &nbsp; Parameter</a>
+                    </li>
                     {{-- <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle">Pages</a>
