@@ -6,6 +6,8 @@ use App\Http\Controllers\StatusPesananController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\XParameterController;
+use App\Http\Controllers\MemoController;
+use App\Http\Controllers\EkspedisiBiayaController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -41,6 +43,13 @@ Route::get('/DetailPesanan/{id}', [PesananController::class, 'selectById']);
 Route::post('/DetailPesanan/InsertStatus', [StatusPesananController::class, 'InsertStatus']);
 Route::post('/DetailPesanan/EditStatus', [StatusPesananController::class, 'EditStatus']);
 Route::post('/DetailPesanan/DeleteStatus', [StatusPesananController::class, 'DeleteStatus']);
+Route::get('/MemoPesanan/{id}', [MemoController::class, 'GetData']);
+Route::post('/MemoPesanan/InsertMemo', [MemoController::class, 'InsertMemo']);
+Route::post('/MemoPesanan/EditMemo', [MemoController::class, 'EditMemo']);
+Route::post('/MemoPesanan/DeleteMemo', [MemoController::class, 'DeleteMemo']);
+Route::get('/EkspedisiBiaya/{id}', [EkspedisiBiayaController::class, 'GetData']);
+Route::post('/EkspedisiBiaya/InsertEkspedisi', [EkspedisiBiayaController::class, 'InsertEkspedisi']);
+Route::post('/EkspedisiBiaya/InsertBiaya', [EkspedisiBiayaController::class, 'InsertBiaya']);
 
 Route::get('/Admin', [UserController::class, 'GetListAdmin']);
 Route::post('/TambahUser', [UserController::class, 'TambahUser']);

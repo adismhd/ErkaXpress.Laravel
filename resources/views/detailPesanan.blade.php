@@ -11,8 +11,8 @@
 <div class="row mt-3">
     <div class="container-fluid">
         <a href="/DetailPesanan/{{ $pesanan->NoPesanan }}" class="btn btn-primary disabled">Detail</a> &nbsp;
-        <a href="/DetailPesanan/{{ $pesanan->NoPesanan }}" class="btn btn-primary">Ekspedisi & Biaya</a> &nbsp;
-        <a href="/DetailPesanan/{{ $pesanan->NoPesanan }}" class="btn btn-primary">Memo</a> &nbsp;
+        <a href="/EkspedisiBiaya/{{ $pesanan->NoPesanan }}" class="btn btn-primary">Ekspedisi & Biaya</a> &nbsp;
+        <a href="/MemoPesanan/{{ $pesanan->NoPesanan }}" class="btn btn-primary">Memo</a> &nbsp;
     </div>
 </div>
 <hr >
