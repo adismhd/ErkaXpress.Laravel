@@ -10,7 +10,7 @@ class Pesanan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'NoPesanan','Layanan','TanggalPenjemputan','created_at','updated_at'
+        'NoPesanan','Layanan','TanggalPenjemputan','Asuransi','Packing','created_at','updated_at'
     ];
     public function Barang()
     {

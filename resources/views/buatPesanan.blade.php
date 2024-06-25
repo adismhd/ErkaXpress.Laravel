@@ -143,8 +143,28 @@
                         <label>Keterangan Barang <i style="color: crimson">*</i></label>
                         <textarea id="inBarangKeterangan" name="BarangKeterangan" class="form-control mt-1"required>@isset($barang){{ $barang->Keterangan }}@endisset</textarea>
                     </div>
-                </div>
-                <button type="submit" class="btn btn-success mt-2">Pesan</button>
+                    <div class="mt-2 col-md-12">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" name="Asuransi">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Asuransi
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-check col-md-6">
+                                    <input class="form-check-input" type="checkbox" value="1" name="Packing">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Packing
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+                <button type="submit" class="btn btn-success mt-4">Pesan</button>
             </form>
         </div>
     </div>

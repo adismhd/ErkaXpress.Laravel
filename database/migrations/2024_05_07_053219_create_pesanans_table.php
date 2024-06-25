@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('NoPesanan')->required();
             $table->string('Layanan');
+            $table->string('Asuransi');
+            $table->string('Packing');
             $table->timestamp('TanggalPenjemputan')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('Code')->required();
             $table->string('Nama')->required();
+            $table->integer('Harga')->required();
             $table->string('IsActive');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

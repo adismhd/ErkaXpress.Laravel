@@ -74,9 +74,23 @@ class PesananController extends Controller
         $param = Xproduk::All();
         $paramPropinsi = Xpropinsi::All();
 
+        //dd($request);
+        $Asuransis = "1";
+        $Packings = "1";
+        if($request->Asuransi != "1")
+        {
+            $Asuransis = "0";
+        }
+        if($request->Packings != "1")
+        {
+            $Packings = "0";
+        }
+
         $pesanan = Pesanan::create([
             'NoPesanan' => $noPesanan,
             'Layanan' => $request->Layanan,
+            'Asuransi' => $Asuransis,
+            'Packing' => $Packings,
             'TanggalPenjemputan' => $request->TanggalPenjemputan
         ]);
 

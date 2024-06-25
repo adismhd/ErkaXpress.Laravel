@@ -28,6 +28,7 @@ class XParameterController extends Controller
         Xproduk::factory()->create([
             'Code' => $request->codeProduk,
             'Nama' => $request->namaProduk,
+            'Harga' => 0,
             'IsActive' => '1'
         ]);
 

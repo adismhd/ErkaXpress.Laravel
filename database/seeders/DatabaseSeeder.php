@@ -22,12 +22,21 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@erkaxpress.com',
+            'class' => 'admin',
             'password' => 'admin'
+        ]);
+        
+        User::factory()->create([
+            'name' => 'Super Admin User',
+            'email' => 'superadmin@erkaxpress.com',
+            'class' => 'superadmin',
+            'password' => 'superadmin'
         ]);
         
         Xproduk::factory()->create([
             'code' => '1001',
-            'nama' => 'Reguler'
+            'nama' => 'Reguler',
+            'harga' => '0'
         ]);
         
         Xstatus::factory()->create(['code' => 'Sedang Diproses','nama' => 'Sedang Diproses']);
