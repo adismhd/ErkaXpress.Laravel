@@ -27,6 +27,16 @@
                 <tr><td>Pengirim </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->Nama }}</td></tr>
                 <tr><td>Status Sekarang </td><td>&nbsp;:&nbsp;</td></td><td>{{ $status->Status  }}</td></tr>
                 <tr><td>Email </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->Email }}</td></tr>
+                <tr><td>Asuransi </td><td>&nbsp;:&nbsp;</td>
+                    <td>
+                        <input type="checkbox" onclick="return false;" class="form-check"  @if ($pesanan->Asuransi === '1') checked @endif />
+                    </td>
+                </tr>
+                <tr><td>Packing </td><td>&nbsp;:&nbsp;</td>
+                    <td>
+                        <input type="checkbox" onclick="return false;" class="form-check"  @if ($pesanan->Packing === '1') checked @endif />
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
