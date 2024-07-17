@@ -20,22 +20,25 @@
 
 <div class="card mt-3" style="border-radius: 25px">
     <div class="card-body">
-        <div class="row">
-            <div class="col-md-9 col-sm-12">
-                <table>
-                    <tbody>
-                        <tr><td>Pesanan Dibuat Tanggal </td><td>&nbsp;:&nbsp;</td><td>{{ $pesanan->created_at }}</td></tr>
-                        <tr><td>Nomor Resi </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pesanan->NoPesanan }}</td></tr>
-                        <tr><td>Pengirim </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->Nama }}</td></tr>
-                        <tr><td>Status Sekarang </td><td>&nbsp;:&nbsp;</td></td><td>{{ $status->Status  }}</td></tr>
-                        <tr><td>Email </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->Email }}</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-3 col-sm-12 px-3" >
-                <button type="submit" style="float: right" class="btn btn-secondary">Print Resi</button>
-            </div>
-        </div>
+        <table>
+            <tbody>
+                <tr><td>Pesanan Dibuat Tanggal </td><td>&nbsp;:&nbsp;</td><td>{{ $pesanan->created_at }}</td></tr>
+                <tr><td>Nomor Resi </td><td>&nbsp;:&nbsp;</td><td>{{ $pesanan->NoPesanan }}</td></tr>
+                <tr><td>Pengirim </td><td>&nbsp;:&nbsp;</td><td>{{ $pengirim->Nama }}</td></tr>
+                <tr><td>Status Sekarang </td><td>&nbsp;:&nbsp;</td><td>{{ $status->Status  }}</td></tr>
+                <tr><td>Email </td><td>&nbsp;:&nbsp;</td><td>{{ $pengirim->Email }}</td></tr>
+                <tr><td>Asuransi </td><td>&nbsp;:&nbsp;</td>
+                    <td>
+                        <input type="checkbox" onclick="return false;" class="form-check"  @if ($pesanan->Asuransi === '1') checked @endif />
+                    </td>
+                </tr>
+                <tr><td>Packing </td><td>&nbsp;:&nbsp;</td>
+                    <td>
+                        <input type="checkbox" onclick="return false;" class="form-check"  @if ($pesanan->Packing === '1') checked @endif />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 

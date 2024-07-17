@@ -22,6 +22,7 @@ class UserController extends Controller
                 "loginstatus" => "false"
             ]);
         }
+        
         if(!Hash::check($request->Password, $user->password)){
             return view('Login', [
                 "title" => "Login",
@@ -48,7 +49,7 @@ class UserController extends Controller
     }
 
     public function GetListAdmin(){
-        $user = User::orderBy('created_at', 'DESC')->get();
+        $user = User::where('class', "admin")->orderBy('created_at', 'DESC')->get();
 
         return view('adminList', [
             "title" => "Admin List",
@@ -60,7 +61,8 @@ class UserController extends Controller
         User::factory()->create([
             'name' => $request->namaUser,
             'email' => $request->emailUser,
-            'password' => $request->passwordUser
+            'password' => $request->passwordUser,
+            'class' => "admin"
         ]);
 
         return redirect('/Admin');

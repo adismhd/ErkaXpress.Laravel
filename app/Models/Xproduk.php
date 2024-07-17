@@ -12,6 +12,7 @@ class Xproduk extends Model
     protected $fillable = [
         'Code',
         'Nama',
+        'Harga',
         'IsActive',
     ];
 }

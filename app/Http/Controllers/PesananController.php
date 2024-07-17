@@ -11,7 +11,9 @@ use App\Models\StatusPesanan;
 use App\Models\Xproduk;
 use App\Models\Xpropinsi;
 use App\Models\Xstatus;
+use App\Mail\kirimemail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use DateTime;
 use Session;
 
@@ -74,9 +76,23 @@ class PesananController extends Controller
         $param = Xproduk::All();
         $paramPropinsi = Xpropinsi::All();
 
+        //dd($request);
+        $Asuransis = "1";
+        $Packings = "1";
+        if($request->Asuransi != "1")
+        {
+            $Asuransis = "0";
+        }
+        if($request->Packings != "1")
+        {
+            $Packings = "0";
+        }
+
         $pesanan = Pesanan::create([
             'NoPesanan' => $noPesanan,
             'Layanan' => $request->Layanan,
+            'Asuransi' => $Asuransis,
+            'Packing' => $Packings,
             'TanggalPenjemputan' => $request->TanggalPenjemputan
         ]);
 
@@ -135,6 +151,15 @@ class PesananController extends Controller
             Session::flash('status','success');
             Session::flash('message', $noPesanan);
         }
+
+        $pesanEmail = "<b>Hai ".$request->PengirimNama.",</b>";
+        $pesanEmail .= "<p>Pesanan dengan No.Resi : <b style='color:red'>".$noPesanan."</b> telah dibuat.</p><p> Mohon tunggu kami hubungi untuk melakukan pengiriman barang.</p>";
+        $data_email = [
+            'subject'=>'Pesanan Erkaxpres',
+            'sender_name'=>'sender_name@gmail.com',
+            'isi'=>$pesanEmail
+        ];
+        Mail::to($request->PengirimEmail)->send(new kirimemail($data_email));
 
         return view('buatPesanan', [
             "title" => "Buat Pesanan",
