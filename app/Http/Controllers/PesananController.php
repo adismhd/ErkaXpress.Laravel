@@ -24,7 +24,7 @@ class PesananController extends Controller
         //$status = StatusPesanan::where('NoPesanan', $pesanan->NoPesanan)->orderBy('created_at', 'DESC')->first();
         
         //dd($pesanan->toArray());
-        return view('adminIndexPesanan', [
+        return view('adminView/adminIndexPesanan', [
             "title" => "Pesanan",
             "pesananList" => $pesanan
             //"status" => $status
@@ -43,7 +43,7 @@ class PesananController extends Controller
         $paramStatus = Xstatus::All();
 
         //dd($propinsiPenerima);
-        return view('detailPesanan', [
+        return view('adminView/detailPesanan', [
             "title" => "Pesanan",
             "pesanan" => $pesanan,
             "pengirim" => $pengirim,
@@ -62,7 +62,7 @@ class PesananController extends Controller
         $paramPropinsi = Xpropinsi::All();
         
         //dd($param);            
-        return view('buatPesanan', [
+        return view('publicView/buatPesanan', [
             "title" => "Buat Pesanan",
             "param" => $param,
             "paramPropinsi" => $paramPropinsi
@@ -161,7 +161,7 @@ class PesananController extends Controller
         ];
         Mail::to($request->PengirimEmail)->send(new kirimemail($data_email));
 
-        return view('buatPesanan', [
+        return view('publicView/buatPesanan', [
             "title" => "Buat Pesanan",
             "pesanan" => $pesanan,
             "pengirim" => $pengirim,
@@ -204,13 +204,25 @@ class PesananController extends Controller
         //$status = StatusPesanan::where('NoPesanan', $pesanan->NoPesanan)->orderBy('created_at', 'DESC')->first();
         
         //dd($pesanan->toArray());
-        return view('adminHome', [
+        return view('adminView/adminHome', [
             "title" => "Beranda",
             "totalPesanan" => $pesananCount,
             "totalDibuat" => $pesananDibuatCount,
             "totalDiproses" => $pesananDiprosesCount,
             "totalSelesai" => $pesananSelesaiCount
             //"status" => $status
+        ]);
+    }
+    
+    public function GetParamPesananVendor(){
+        $param = Xproduk::All();
+        $paramPropinsi = Xpropinsi::All();
+        
+        //dd($param);            
+        return view('publicView/buatPesanan', [
+            "title" => "Buat Pesanan",
+            "param" => $param,
+            "paramPropinsi" => $paramPropinsi
         ]);
     }
 }

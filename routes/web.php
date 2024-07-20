@@ -19,7 +19,7 @@ Route::get('/', function () {
 Route::post('/CekResi', [StatusPesananController::class, 'CekResi']);
 
 Route::get('/login', function () {
-    return view('login', [
+    return view('adminView/login', [
         "title" => "Login"
     ]);
 });
@@ -68,3 +68,11 @@ Route::post('/DeleteParamPropinsi', [XParameterController::class, 'DeleteParamPr
 Route::post('/TambahParamStatus', [XParameterController::class, 'TambahParamStatus']);
 Route::post('/EditParamStatus', [XParameterController::class, 'EditParamStatus']);
 Route::post('/DeleteParamStatus', [XParameterController::class, 'DeleteParamStatus']);
+
+//Vendor
+Route::post('/BuatPesananBaju', [PesananController::class, 'GetParamPesananVendor']);
+Route::get('/Invoice', function () {
+    return view('publicView/vendorInvoice', [
+        "title" => "Beranda"
+    ]);
+});

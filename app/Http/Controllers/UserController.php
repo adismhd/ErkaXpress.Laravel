@@ -17,14 +17,14 @@ class UserController extends Controller
 
         //dd($request->Password);
         if(!$user){
-            return view('Login', [
+            return view('adminView/Login', [
                 "title" => "Home",
                 "loginstatus" => "false"
             ]);
         }
         
         if(!Hash::check($request->Password, $user->password)){
-            return view('Login', [
+            return view('adminView/Login', [
                 "title" => "Login",
                 "loginstatus" => "false"
             ]);
@@ -51,7 +51,7 @@ class UserController extends Controller
     public function GetListAdmin(){
         $user = User::where('class', "admin")->orderBy('created_at', 'DESC')->get();
 
-        return view('adminList', [
+        return view('adminView/adminList', [
             "title" => "Admin List",
             "adminList" => $user
         ]);

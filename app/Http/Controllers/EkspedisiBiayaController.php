@@ -47,7 +47,7 @@ class EkspedisiBiayaController extends Controller
         }
 
         //dd($pesanan->toArray());
-        return view('ekspedisiBiaya', [
+        return view('adminView/ekspedisiBiaya', [
             "NoPesanan" => $id,
             "title" => "Ekspedisi & Biaya",
             "ekspedisi" => $ekspedisi,

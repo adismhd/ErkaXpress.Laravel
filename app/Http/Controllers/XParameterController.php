@@ -16,7 +16,7 @@ class XParameterController extends Controller
         $paramStatus = Xstatus::All();
         
         //dd($param);            
-        return view('parameterList', [
+        return view('adminView/parameterList', [
             "title" => "Parameter List",
             "paramProduk" => $paramProduk,
             "paramStatus" => $paramStatus,

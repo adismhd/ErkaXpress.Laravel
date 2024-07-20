@@ -13,7 +13,7 @@ class MemoController extends Controller
         $memo = Memo::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->get();
         
         //dd($memo->toArray());
-        return view('memoPesanan', [
+        return view('adminView/memoPesanan', [
             "title" => "Memo",
             "memoList" => $memo,
             "NoPesanan" => $id

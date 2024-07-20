@@ -26,7 +26,7 @@ class MessageController extends Controller
     public function GetMessage(){
         $message = Message::orderBy('created_at', 'DESC')->get();
 
-        return view('messageList', [
+        return view('adminView/messageList', [
             "title" => "Message List",
             "messageList" => $message,
             "message" => "true"
