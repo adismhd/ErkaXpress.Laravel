@@ -8,8 +8,8 @@
 
 <div class="card mt-3" style="border-radius: 25px">  
     <div class="card-body">
-        @if(isset($message))
-            <input type="hidden" value="{{ $message }}" id="isiMsg"/>
+        @if(\Session::has('messageUser'))
+            <input type="hidden" value="{!! \Session::get('messageUser') !!}" id="isiMsg"/>
             <script>
                 $(document).ready(function() {
                    alert($("#isiMsg").val());

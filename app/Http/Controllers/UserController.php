@@ -82,21 +82,12 @@ class UserController extends Controller
         if($request->passLama != null)
         {
             if(!Hash::check($request->passLama, $user->password)){
-                $users = User::where('id', session()->get('UserLogin'))->first();
-                return view('adminView/userProfile', [
-                    "title" => "User Profile",
-                    "message" => "Password Lama Tidak Sesuai!",
-                    "userProfile" => $users
-                ]);
+                return redirect()->back()->with("messageUser", "Password Lama Tidak Sesuai!");
             }
             else {
                 if ($request->passBaru == null || $request->passBaru == ""){
                     $users = User::where('id', session()->get('UserLogin'))->first();
-                    return view('adminView/userProfile', [
-                        "title" => "User Profile",
-                        "message" => "Password Baru Tidak Boleh Kosong",
-                        "userProfile" => $users
-                    ]);
+                    return redirect()->back()->with("messageUser", "Password Baru Tidak Boleh Kosong");
                 }
 
                 $userEdit = User::find($user->id)->update([
@@ -109,16 +100,9 @@ class UserController extends Controller
             $userEdit = User::find($user->id)->update([
                 'name' => $request->name
             ]);
-
-            $users = User::where('id', session()->get('UserLogin'))->first();
-            return view('adminView/userProfile', [
-                "title" => "User Profile",
-                "message" => "data berhasil disimpan",
-                "userProfile" => $users
-            ]);
         }
         
-        return redirect('/UserProfile');
+        return redirect()->back()->with("messageUser", "data berhasil disimpan");
     }
     
     public function TambahUser(Request $request){
