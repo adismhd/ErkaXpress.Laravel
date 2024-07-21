@@ -69,6 +69,9 @@ Route::post('/TambahParamStatus', [XParameterController::class, 'TambahParamStat
 Route::post('/EditParamStatus', [XParameterController::class, 'EditParamStatus']);
 Route::post('/DeleteParamStatus', [XParameterController::class, 'DeleteParamStatus']);
 
+Route::get('/UserProfile', [UserController::class, 'GetUserProfile']);
+Route::post('/EditUserProfile', [UserController::class, 'EditUserProfile']);
+
 //Vendor
 Route::post('/BuatPesananBaju', [PesananController::class, 'GetParamPesananVendor']);
 Route::get('/Invoice', function () {

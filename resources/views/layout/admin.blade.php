@@ -34,26 +34,20 @@
         <h1>{{ date('Y-m-d H:i:s') }}</h1> --}}
         <div class="wrapper">
             <!-- Sidebar  -->
-            <nav id="sidebar" style="70vh">
+            <nav id="sidebar" class="h-100 " >
                 <div class="sidebar-header">
                     <h3>ErkaXpress</h3>
                 </div>
-                <ul class="list-unstyled components" style="height: 74vh">
-                    <li class="@if($title == 'Beranda'){{ 'active' }}@endif">
-                        <a href="/HomeAdmin"><i class="fa-solid fa-house"></i> &nbsp; Home</a>
-                    </li>
-                    <li class="@if($title == 'Pesanan'){{ 'active' }}@endif">
-                        <a href="/IndexPesanan"><i class="fa-solid fa-table-list"></i> &nbsp; Pesanan</a>
-                    </li>
-                    <li class="@if($title == 'Admin List'){{ 'active' }}@endif">
-                        <a href="/Admin"><i class="fa-solid fa-user-large"></i> &nbsp; Admin</a>
-                    </li>
-                    <li class="@if($title == 'Message List'){{ 'active' }}@endif">
-                        <a href="/Message"><i class="fa-solid fa-envelope"></i> &nbsp; Message</a>
-                    </li>
-                    <li class="@if($title == 'Parameter List'){{ 'active' }}@endif">
-                        <a href="/Parameter"><i class="fa-solid fa-list"></i> &nbsp; Parameter</a>
-                    </li>
+                <div class="mt-4 mx-3">
+                    <label>{{ session()->get('UserLoginName')}}</label>
+                </div>
+                <hr>
+                <ul class="list-unstyled ">      
+                    @foreach (session()->get('MenuList') as $item)    
+                        <li class="@if($title == $item->Name){{ 'active' }}@endif">
+                            <a href="{{ $item->Link }}"><i class="{{ $item->Icon }}"></i> &nbsp; {{ $item->Description }}</a>
+                        </li>
+                    @endforeach
                     {{-- <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle">Pages</a>
@@ -71,11 +65,10 @@
                     </li> --}}
                 </ul>
 
-                <ul class="list-unstyled CTAs">
-                    <li>
-                        <a href="/Logout" class="download">Logout</a>
-                    </li>
-                </ul>
+                <div class="m-4" style="position: fixed; bottom: 0; width: 200px">
+                    <a href="/UserProfile" class="btn btn-light w-100 " style="align-content: center">User Profile</a>
+                    <a href="/Logout" class="btn btn-dark w-100 mt-2">Logout</a>
+                </div>
             </nav>
 
             <!-- Page Content  -->

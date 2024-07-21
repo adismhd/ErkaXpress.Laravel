@@ -10,7 +10,7 @@ class DataBarang extends Model
     use HasFactory;
     
     protected $fillable = [
-        'NoPesanan','Jenis','Berat','Kilo','Kubik','Koli','Keterangan','created_at','updated_at'
+        'NoPesanan','Jenis','Berat','Kilo','Kubik','Koli','Harga','Keterangan','created_at','updated_at'
     ];
 
     public function pesanan()

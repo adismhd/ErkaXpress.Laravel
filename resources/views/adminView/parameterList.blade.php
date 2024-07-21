@@ -10,8 +10,8 @@
     <div class="card-header" style="overflow: hidden;">
         <h5>Produk</h5>
     </div>
-    <div class="table-responsive card-body" >
-        <div style="border-radius: 15px; overflow: hidden;">
+    <div class="card-body" >
+        <div class="table-responsive " style="border-radius: 15px;">
             <table class="table table-striped">
                 <thead class="table-dark">
                     <tr>
@@ -124,8 +124,8 @@
     <div class="card-header" style="overflow: hidden;">
         <h5>Status</h5>
     </div>
-    <div class="table-responsive card-body" >
-        <div style="border-radius: 15px; overflow: hidden;">
+    <div class="card-body" >
+        <div class="table-responsive " style="border-radius: 15px;">
             <table class="table table-striped">
                 <thead class="table-dark">
                     <tr>
@@ -230,9 +230,9 @@
     <div class="card-header" style="overflow: hidden;">
         <h5>Propinsi</h5>
     </div>
-    <div class="table-responsive card-body" >
-        <div style="border-radius: 15px; overflow: hidden;">
-            <table class="table table-striped">
+    <div class="card-body" >
+        <div class="table-responsive " style="border-radius: 15px;">
+            <table class="table table-striped w-100">
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">No</th>

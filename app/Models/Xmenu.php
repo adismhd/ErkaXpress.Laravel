@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Biaya extends Model
+class Xmenu extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'NoPesanan','BiayaPengiriman','BiayaAdmin','NoResi','TotalBiaya','Status','created_at','updated_at'
+        'Name','Description','Class','MenuOrder','Link','Icon','MenuModule','ParentId','IsActive','created_at','updated_at'
     ];
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Pesanan;
 use App\Models\DataBarang;
+use App\Models\Biaya;
 use App\Models\DataPenerima;
 use App\Models\DataPengirim;
 use App\Models\StatusPesanan;
@@ -113,6 +114,16 @@ class PesananController extends Controller
             'NoTelepon' => $request->PenerimaNoTelepon
         ]);
 
+        Biaya::create([
+            'NoPesanan' => $id,
+            'BiayaPengiriman' => 0,
+            'BiayaAdmin' => 0,
+            'TotalBiaya' => 0,
+            'Status' => "Menunggu Pembayaran",
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        
         $kilo = 0;
         if($request->BarangKilo != null)
         {

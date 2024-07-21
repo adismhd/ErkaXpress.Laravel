@@ -7,8 +7,8 @@
 </div>
 
 <div class="card mt-3" style="border-radius: 25px">  
-    <div class="table-responsive card-body">
-        <div style="border-radius: 15px; overflow: hidden;">
+    <div class="card-body">
+        <div class="table-responsive " style="border-radius: 15px;">
             <table class="table table-striped">
                 <thead class="table-dark">
                     <tr>
