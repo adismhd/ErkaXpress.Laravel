@@ -13,6 +13,7 @@ use App\Models\Xproduk;
 use App\Models\Xpropinsi;
 use App\Models\Xstatus;
 use App\Mail\kirimemail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use DateTime;
@@ -41,6 +42,7 @@ class PesananController extends Controller
         $statuList = StatusPesanan::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->get();
         $propinsiPenerima = Xpropinsi::where('Code', $penerima->Propinsi)->first();
         $propinsiPengirim = Xpropinsi::where('Code', $pengirim->Propinsi)->first();
+        $biaya = Biaya::where('NoPesanan', $id)->first();
         $paramStatus = Xstatus::All();
 
         //dd($propinsiPenerima);
@@ -50,6 +52,7 @@ class PesananController extends Controller
             "pengirim" => $pengirim,
             "penerima" => $penerima,
             "barang" => $barang,
+            "biaya" => $biaya,
             "status" => $status,
             "statuList" => $statuList,
             "propinsiPenerima" => $propinsiPenerima,
@@ -115,7 +118,7 @@ class PesananController extends Controller
         ]);
 
         Biaya::create([
-            'NoPesanan' => $id,
+            'NoPesanan' => $noPesanan,
             'BiayaPengiriman' => 0,
             'BiayaAdmin' => 0,
             'TotalBiaya' => 0,
@@ -155,6 +158,7 @@ class PesananController extends Controller
         $status = StatusPesanan::create([
             'NoPesanan' => $noPesanan,
             'Status' => 'Pesanan Dibuat',
+            'UpdatedBy' => 'System',
             'Keterangan' => 'Pesanan Dibuat'
         ]);
 
@@ -230,7 +234,7 @@ class PesananController extends Controller
         $paramPropinsi = Xpropinsi::All();
         
         //dd($param);            
-        return view('publicView/buatPesanan', [
+        return view('publicView/pesananVendor', [
             "title" => "Buat Pesanan",
             "param" => $param,
             "paramPropinsi" => $paramPropinsi

@@ -73,7 +73,7 @@ Route::get('/UserProfile', [UserController::class, 'GetUserProfile']);
 Route::post('/EditUserProfile', [UserController::class, 'EditUserProfile']);
 
 //Vendor
-Route::post('/BuatPesananBaju', [PesananController::class, 'GetParamPesananVendor']);
+Route::get('/BuatPesananBaju', [PesananController::class, 'GetParamPesananVendor']);
 Route::get('/Invoice', function () {
     return view('publicView/vendorInvoice', [
         "title" => "Beranda"

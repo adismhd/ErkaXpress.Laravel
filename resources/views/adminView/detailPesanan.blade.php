@@ -20,21 +20,56 @@
 
 <div class="card mt-3" style="border-radius: 25px">
     <div class="card-body">
-        <table>
+        <div class="row">
+            <div class="col-md-12">
+                <table>
+                    <tbody>
+                        <tr><td>Pesanan Dibuat Tanggal </td><td>&nbsp;:&nbsp;</td><td>{{ $pesanan->created_at }}</td></tr>
+                        <tr><td>Nomor Resi </td><td>&nbsp;:&nbsp;</td><td>{{ $pesanan->NoPesanan }}</td></tr>
+                        <tr><td>Pengirim </td><td>&nbsp;:&nbsp;</td><td>{{ $pengirim->Nama }}</td></tr>
+                        <tr><td>Status Sekarang </td><td>&nbsp;:&nbsp;</td><td>{{ $status->Status  }}</td></tr>
+                        <tr><td>Email </td><td>&nbsp;:&nbsp;</td><td>{{ $pengirim->Email }}</td></tr>
+                        <tr><td>Asuransi </td><td>&nbsp;:&nbsp;</td>
+                            <td>
+                                <input type="checkbox" onclick="return false;" class="form-check"  @if ($pesanan->Asuransi === '1') checked @endif />
+                            </td>
+                        </tr>
+                        <tr><td>Packing </td><td>&nbsp;:&nbsp;</td>
+                            <td>
+                                <input type="checkbox" onclick="return false;" class="form-check"  @if ($pesanan->Packing === '1') checked @endif />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-5">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-3" style="border-radius: 25px">
+    <div class="card-body">
+        <table style="width: 100%">
             <tbody>
-                <tr><td>Pesanan Dibuat Tanggal </td><td>&nbsp;:&nbsp;</td><td>{{ $pesanan->created_at }}</td></tr>
-                <tr><td>Nomor Resi </td><td>&nbsp;:&nbsp;</td><td>{{ $pesanan->NoPesanan }}</td></tr>
-                <tr><td>Pengirim </td><td>&nbsp;:&nbsp;</td><td>{{ $pengirim->Nama }}</td></tr>
-                <tr><td>Status Sekarang </td><td>&nbsp;:&nbsp;</td><td>{{ $status->Status  }}</td></tr>
-                <tr><td>Email </td><td>&nbsp;:&nbsp;</td><td>{{ $pengirim->Email }}</td></tr>
-                <tr><td>Asuransi </td><td>&nbsp;:&nbsp;</td>
-                    <td>
-                        <input type="checkbox" onclick="return false;" class="form-check"  @if ($pesanan->Asuransi === '1') checked @endif />
+                <tr>
+                    <td style="width: 15%">Status Pembayaran </td>
+                    <td>&nbsp;:&nbsp;</td>
+                    <td style="vertical-align: middle">
+                        @if($biaya->Status == 'Menunggu Pembayaran')
+                            {{-- <div class="alert alert-danger" role="alert">
+                            </div> --}}
+                            <i class="fa-solid fa-circle-exclamation" style="color: red"></i>
+                            {{ $biaya->Status }}
+                        @else
+                            {{ $biaya->Status }}
+                        @endif 
+                        {{-- @if($biaya->Status == 'Pesanan Selesai Dikirim')
+                            <i class="fa-solid fa-circle-check" style="color: rgb(62, 127, 62)"></i>
+                        @endif  --}}
                     </td>
-                </tr>
-                <tr><td>Packing </td><td>&nbsp;:&nbsp;</td>
-                    <td>
-                        <input type="checkbox" onclick="return false;" class="form-check"  @if ($pesanan->Packing === '1') checked @endif />
+                    <td style="text-align: right">
+                        <a class="btn btn-primary" href="#">Ganti</a>
                     </td>
                 </tr>
             </tbody>
@@ -121,6 +156,7 @@
                         <th>Status</th>
                         <th>Keterangan</th>
                         <th>Tanggal</th>
+                        <th>Update Oleh</th>
                         <th style="text-align: center;"><a href="#" class="btn btn-primary btn-sm" onclick="showModalTambah()">Tambah</a></th>
                     </tr>
                 </thead>
@@ -131,6 +167,7 @@
                             <td>{{ $data->Status }}</td>
                             <td>{{ $data->Keterangan  }}</td>
                             <td>{{ $data->created_at }}</td>
+                            <td>{{ $data->UpdatedBy }}</td>
                             @if ($data->Status === 'Pesanan Dibuat')
                                 <td  style="text-align: center;">
                                     <button class="btn btn-sm btn-success" disabled>Edit</button> &nbsp;

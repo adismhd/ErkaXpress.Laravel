@@ -10,7 +10,7 @@ class StatusPesanan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'NoPesanan','Status','Keterangan','created_at','updated_at'
+        'NoPesanan','Status','Keterangan','UpdatedBy','created_at','updated_at'
     ];
     
 }

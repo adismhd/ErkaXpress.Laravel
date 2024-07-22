@@ -1,6 +1,8 @@
 @extends('layout.main')
 
 @section('container')
+    <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+
     <div class="mt-5">
         <h2>Order</h2>
     </div>
@@ -8,6 +10,51 @@
         <div class="card-body m-4">
             <form action="SavePesanan" method="post">
                 @csrf
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="{{ asset('img/vendor/Produk1.jpg') }} " class="glightbox">
+                            <img src="{{ asset('img/vendor/Produk1.jpg') }}" class="img-thumbnail">
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <h2 style="font-weight: bold">Jersey Timnas Indonesia</h2>
+                        <h3>Rp. 300.000</h3>
+                        <hr>
+                        <label>Pilihan Warna :</label>
+                        <select class="form-select">
+                            <option value="wpu" selected>Putih</option>
+                            <option value="whi">Hitam</option>
+                        </select>
+                        <label class="mt-2">Jumlah :</label>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="number" min="0" class="form-control" value="1">
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" name="Asuransi">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Asuransi
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-check col-md-6">
+                                    <input class="form-check-input" type="checkbox" value="1" name="Packing">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Packing
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <label>Deskripsi : </label>
+                        <p>
+                            Tetap keren dengan Home Jersey Grade original Version, design dan detail yg dibuat mirip dengan Jersey Player Issue spesial buat para pendukung Team Garuda Indonesia. Konsep desain pada jersey ini juga menjadi simbol harapan terhadap Timnas, agar gelar juara bisa secepatnya kembali ke pelukan Ibu Pertiwi.
+                        </p>
+                    </div>
+                </div>
+                <hr>
                 <div class="row">
                     <div class="mt-2 col-md-6">
                         <label>Layanan <i style="color: crimson">*</i></label>
@@ -88,7 +135,7 @@
                     </div>
                 </div>
                 <hr>
-                <div class="row">
+                {{-- <div class="row">
                     <div class="mt-2 col-md-9">
                         <label>Jenis Barang <i style="color: crimson">*</i></label>
                         <input id="inBarangJenis" name="BarangJenis" class="form-control mt-1" type="text"
@@ -163,7 +210,7 @@
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>--}}
                 <button type="submit" class="btn btn-success mt-4">Pesan</button>
             </form>
         </div>
@@ -221,29 +268,22 @@
     </script>
     @endisset
     
-    {{-- <script type="text/javascript">
-        $(window).on('load', function() {
-            $('#myModal').modal({
-                show: true,
-                keyboard: false,
-                backdrop: 'static'
-            });
-        });
+    <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script>
+        $(function(){
+            var dtToday = new Date();
 
-        function copyResi() {
-            // Get the text field
-            //var copyText = document.getElementById("myInput");
-            var copyText = document.getElementById("inResi");
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if(month < 10)
+                month = '0' + month.toString();
+            if(day < 10)
+                day = '0' + day.toString();
 
-            // Select the text field
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); // For mobile devices
+            var minDate= year + '-' + month + '-' + day;
 
-            // Copy the text inside the text field
-            navigator.clipboard.writeText(copyText.value);
-
-            // Alert the copied text
-            alert("Copied the text: " + copyText.value);
-        }
-    </script> --}}
+            $('#inTanggalPenjemputan').attr('min', minDate);
+        }); 
+    </script>
 @endsection

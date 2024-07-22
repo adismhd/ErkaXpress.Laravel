@@ -9,14 +9,16 @@ use App\Models\DataBarang;
 use App\Models\DataPenerima;
 use App\Models\DataPengirim;
 use App\Models\StatusPesanan;
+use Session;
 
 class StatusPesananController extends Controller
 {
-   
+    
     public function InsertStatus(Request $request){
         $statusDt = StatusPesanan::create([
             'NoPesanan' => $request->NoPesanan,
             'Status' => $request->Status,
+            'UpdatedBy' => Session::get('UserLogin'),
             'Keterangan' => $request->Keterangan,
         ]);
 
@@ -27,6 +29,7 @@ class StatusPesananController extends Controller
         $pesanan = StatusPesanan::find($request->Id)->update([
             'NoPesanan' => $request->NoPesanan,
             'Status' => $request->Status,
+            'UpdatedBy' => Session::get('UserLoginName'),
             'Keterangan' => $request->Keterangan,
         ]);
 
