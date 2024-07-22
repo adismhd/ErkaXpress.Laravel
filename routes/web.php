@@ -79,3 +79,4 @@ Route::get('/Invoice', function () {
         "title" => "Beranda"
     ]);
 });
+Route::post('/SavePesananVendor', [PesananController::class, 'InsertDataVendor']);

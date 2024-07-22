@@ -9,21 +9,35 @@
             <h4 style="text-align: center; font-weight: bold">Terima Kasih!</h4>
             <h5 style="text-align: center">Harap Lengkapi pembayaran</h5>
             <hr>
+            <label class="mt-2" style="font-weight: bold">Nomor Pesanan : {{ $pesanan->NoPesanan }}</label>
+            <hr>
             <label class="mt-2">Rincian Pembayaran :</label>
-            <table class="table table-dark mt-2 ">
+            <table class="table table-striped mt-2 ">
+                <tr>
+                    <td>Harga Baju</td>
+                    <td style="text-align: right">Rp. {{ $hargaBaju }}</td>
+                </tr>
+                <tr>
+                    <td>Varian : {{ $varian }}</td>
+                    <td style="text-align: right">Rp. {{ $varianHarga }}</td>
+                </tr>
+                <tr>
+                    <td>Size : {{ $size }}</td>
+                    <td style="text-align: right">Rp. {{ $sizeHarga }}</td>
+                </tr>
                 <tr>
                     <td>Jumlah Barang</td>
-                    <td>30</td>
+                    <td style="text-align: right">{{ $barang->Jumlah }}</td>
                 </tr>
                 <tr>
                     <td>Total Harga</td>
-                    <td>Rp. 100.000</td>
+                    <td style="text-align: right">Rp. {{ $biaya->TotalBiaya }}</td>
                 </tr>
             </table>
             <p class="mt-4">Metode Pembayaran : Transfer Bank</p>
             <hr>
-            <h4 style="font-weight: bold; color: red; text-align: center">No Rekening BCA : 200310412312</h4>
-            <h5 style="text-align: center">Atas Nama : ErkaXpress</h5>
+            <h4 style="font-weight: bold; color: red; text-align: center">No Rekening BCA : 1393061671</h4>
+            <h5 style="text-align: center">Atas Nama : MUHAMAD FAJAR ARDANI</h5>
             <hr>
             <div class="alert alert-danger mt-4" role="alert">
                 * Setelah melakukan Transfer, Kirim bukti pembayaran via WhatsApp ke nomor berikut : 

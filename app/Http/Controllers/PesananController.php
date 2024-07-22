@@ -152,6 +152,8 @@ class PesananController extends Controller
             'Kilo' => $kilo,
             'Kubik' => $kubik,
             'Koli' => $Koli,
+            'Harga' => 0,
+            'Jumlah' => 1,
             'Keterangan' => $request->BarangKeterangan
         ]);
 
@@ -240,4 +242,118 @@ class PesananController extends Controller
             "paramPropinsi" => $paramPropinsi
         ]);
     }
+
+    public function InsertDataVendor(Request $request){
+        $ldate = date('YmdHis');
+        $noPesanan = "EXPRV" . $ldate;
+        $createAt = new DateTime();
+        
+        //dd($totalBiayaBarang);
+        $pesanan = Pesanan::create([
+            'NoPesanan' => $noPesanan,
+            'Layanan' => '9001',
+            'Asuransi' => 0,
+            'Packing' => 0,
+            'TanggalPenjemputan' => Carbon::now()
+        ]);
+
+        $pengirim = DataPengirim::create([
+            'NoPesanan' => $noPesanan,
+            'Nama' => $request->PengirimNama,
+            'Alamat' => $request->PengirimAlamat,
+            'Propinsi' => $request->PropinsiPengirim,
+            'Email' => $request->PengirimEmail,
+            'NoTelepon' => $request->PengirimNoTelepon
+        ]);
+
+        $penerima = DataPenerima::create([
+            'NoPesanan' => $noPesanan,
+            'Nama' => $request->PengirimNama,
+            'Alamat' => $request->PengirimAlamat,
+            'Propinsi' => $request->PropinsiPengirim,
+            'NoTelepon' => $request->PengirimNoTelepon
+        ]);
+
+        $totalBiayaBarang = $request->bHarga;
+
+        $varianHarga = 0;
+        if($request->bVariant == 'Tangan Panjang')
+        {
+            $totalBiayaBarang += 10000;
+            $varianHarga = 10000;
+        }
+
+        $size = 0;
+        if($request->bSize == 'XXL' || $request->bSize == 'XXXL')
+        {
+            $totalBiayaBarang += 10000;
+            $size = 10000;
+        }
+
+        $baseHargaBarang = $totalBiayaBarang;
+        $totalBiayaBarang *= $request->bJumlahItem;
+
+        //dd($totalBiayaBarang);
+        $biaya = Biaya::create([
+            'NoPesanan' => $noPesanan,
+            'BiayaPengiriman' => 0,
+            'BiayaAdmin' => 0,
+            'TotalBiaya' => $totalBiayaBarang,
+            'Status' => "Menunggu Pembayaran",
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        
+        $ketBarang = 'Warna : '.$request->bWarna.', Size : '.$request->bSize.', Variant : '.$request->bVariant;
+
+        $barang = DataBarang::create([
+            'NoPesanan' => $noPesanan,
+            'Jenis' => $request->bItem,
+            'Berat' => 0,
+            'Kilo' => 0,
+            'Kubik' => 0,
+            'Koli' => 0,
+            'Harga' => $baseHargaBarang,
+            'Jumlah' => $request->bJumlahItem,
+            'Keterangan' => $ketBarang
+        ]);
+
+        $status = StatusPesanan::create([
+            'NoPesanan' => $noPesanan,
+            'Status' => 'Pesanan Dibuat',
+            'UpdatedBy' => 'System',
+            'Keterangan' => 'Pesanan Dibuat'
+        ]);
+
+        if($pesanan){
+            Session::flash('status','success');
+            Session::flash('message', $noPesanan);
+        }
+
+        // $pesanEmail = "<b>Hai ".$request->PengirimNama.",</b>";
+        // $pesanEmail .= "<p>Pesanan dengan No.Resi : <b style='color:red'>".$noPesanan."</b> telah dibuat.</p><p> Mohon tunggu kami hubungi untuk melakukan pengiriman barang.</p>";
+        // $data_email = [
+        //     'subject'=>'Pesanan Erkaxpres',
+        //     'sender_name'=>'sender_name@gmail.com',
+        //     'isi'=>$pesanEmail
+        // ];
+        // Mail::to($request->PengirimEmail)->send(new kirimemail($data_email));
+
+        return view('publicView/vendorInvoice', [
+            "title" => "Buat Pesanan",
+            "pesanan" => $pesanan,
+            "pengirim" => $pengirim,
+            "penerima" => $penerima,
+            "barang" => $barang,
+            "biaya" => $biaya,
+            "hargaBaju" => $request->bHarga,
+            "varian" => $request->bVariant,
+            "varianHarga" => $varianHarga,
+            "size" => $request->bSize,
+            "sizeHarga" => $size,
+            "status" => $status
+        ]);
+        //dd($request);
+    }
+    
 }

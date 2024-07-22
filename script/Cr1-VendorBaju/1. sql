@@ -44,3 +44,6 @@ ALTER TABLE `data_barangs` ADD COLUMN Harga DOUBLE AFTER `Keterangan`;
 UPDATE `data_barangs` SET Harga = 0
 
 ALTER TABLE `status_pesanans` ADD COLUMN UpdatedBy VARCHAR(100) AFTER `Keterangan`;
+
+ALTER TABLE `data_barangs` ADD COLUMN Jumlah DOUBLE AFTER `Keterangan`;
+UPDATE `data_barangs` SET Jumlah = 1
