@@ -18,15 +18,15 @@
             <table class="table table-striped mt-2 ">
                 <tr>
                     <td>Harga Baju</td>
-                    <td style="text-align: right">Rp. {{ $hargaBaju }}</td>
+                    <td style="text-align: right">Rp. {{ formatRupiah($hargaBaju) }}</td>
                 </tr>
                 <tr>
                     <td>Varian : {{ $varian }}</td>
-                    <td style="text-align: right">Rp. {{ $varianHarga }}</td>
+                    <td style="text-align: right">Rp. {{ formatRupiah($varianHarga) }}</td>
                 </tr>
                 <tr>
                     <td>Size : {{ $size }}</td>
-                    <td style="text-align: right">Rp. {{ $sizeHarga }}</td>
+                    <td style="text-align: right">Rp. {{ formatRupiah($sizeHarga) }}</td>
                 </tr>
                 <tr>
                     <td>Jumlah Barang</td>
@@ -34,7 +34,7 @@
                 </tr>
                 <tr>
                     <td>Total Harga</td>
-                    <td style="text-align: right">Rp. {{ $biaya->TotalBiaya }}</td>
+                    <td style="text-align: right">Rp. {{ formatRupiah($biaya->TotalBiaya) }}</td>
                 </tr>
             </table>
             <p class="mt-4">Metode Pembayaran : Transfer Bank</p>
@@ -79,30 +79,4 @@
         }
     </script>
     @endisset
-    
-    {{-- <script type="text/javascript">
-        $(window).on('load', function() {
-            $('#myModal').modal({
-                show: true,
-                keyboard: false,
-                backdrop: 'static'
-            });
-        });
-
-        function copyResi() {
-            // Get the text field
-            //var copyText = document.getElementById("myInput");
-            var copyText = document.getElementById("inResi");
-
-            // Select the text field
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); // For mobile devices
-
-            // Copy the text inside the text field
-            navigator.clipboard.writeText(copyText.value);
-
-            // Alert the copied text
-            alert("Copied the text: " + copyText.value);
-        }
-    </script> --}}
 @endsection

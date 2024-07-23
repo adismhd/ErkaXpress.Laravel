@@ -35,7 +35,7 @@
             <div class="col-md-6">
                 <table>
                     <tbody>
-                        <tr><td style="font-size: large">Total Harga </td><td>&nbsp;:&nbsp;</td><td  style="font-weight: bold; font-size: large">Rp. {{ $biaya->TotalBiaya }}</td></tr>
+                        <tr><td style="font-size: large">Total Harga </td><td>&nbsp;:&nbsp;</td><td  style="font-weight: bold; font-size: large">Rp. {{ formatRupiah($biaya->TotalBiaya) }}</td></tr>
                         <tr><td>Asuransi </td><td>&nbsp;:&nbsp;</td>
                             <td>
                                 <input type="checkbox" onclick="return false;" class="form-check"  @if ($pesanan->Asuransi === '1') checked @endif />
@@ -137,7 +137,7 @@
                 <table class="table table-sm">
                     <tbody>
                         <tr><td>Jumlah Barang </td><td>&nbsp;:&nbsp;</td></td><td>{{ $barang->Jumlah }}</td></tr>
-                        <tr><td>Harga Per Item </td><td>&nbsp;:&nbsp;</td></td><td>Rp. {{ $barang->Harga  }}</td></tr>
+                        <tr><td>Harga Per Item </td><td>&nbsp;:&nbsp;</td></td><td>Rp. {{ formatRupiah($barang->Harga)  }}</td></tr>
                     </tbody>
                 </table>
             </div>

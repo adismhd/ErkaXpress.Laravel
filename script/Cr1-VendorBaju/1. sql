@@ -39,11 +39,13 @@ INSERT INTO xmenu_modules VALUES(2,'Top Menu',1);
 ALTER TABLE `biayas` ADD COLUMN Status VARCHAR(100) AFTER `TotalBiaya`;
 
 ALTER TABLE `data_barangs` ADD COLUMN Harga DOUBLE AFTER `Keterangan`;
-UPDATE `data_barangs` SET Harga = 0
+UPDATE `data_barangs` SET Harga = 0;
 
 ALTER TABLE `status_pesanans` ADD COLUMN UpdatedBy VARCHAR(100) AFTER `Keterangan`;
 
 ALTER TABLE `data_barangs` ADD COLUMN Jumlah DOUBLE AFTER `Keterangan`;
-UPDATE `data_barangs` SET Jumlah = 1
+UPDATE `data_barangs` SET Jumlah = 1;
 
 INSERT INTO xmenus VALUES(10,'Pesanan','Pesanan','vendor',2,'/IndexPesananVendor','fa-solid fa-table-list',1,NULL,1,Now(),Now());
+
+INSERT INTO `users` VALUES(91,'Vendor User','vendorexp@erkaxpress.com',Now(),'$2y$12$3LSuh9WjcS3qA6La3b.70OAm5WhYNXgPvh8i8kbR/df75JuZlz0ve','vendor',null,now(),now());
