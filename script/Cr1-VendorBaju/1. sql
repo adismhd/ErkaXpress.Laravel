@@ -25,8 +25,6 @@ INSERT INTO xmenus VALUES(7,'Pesanan','Pesanan','admin',2,'/IndexPesanan','fa-so
 INSERT INTO xmenus VALUES(8,'Message List','Message','admin',3,'/Message','fa-solid fa-envelope',1,NULL,1,Now(),Now());
 INSERT INTO xmenus VALUES(9,'Parameter List','Parameter','admin',4,'/Parameter','fa-solid fa-list',1,NULL,1,Now(),Now());
 
---INSERT INTO xmenus VALUES(2,'Pesanan','Pesanan','superadmin',2,'/IndexPesanan','fa-solid fa-table-list',1,NULL,1,Now(),Now());
-
 -- BIKIN TABEL MENU
 CREATE TABLE xmenu_modules (
     id BIGINT  NOT NULL AUTO_INCREMENT ,
@@ -47,3 +45,5 @@ ALTER TABLE `status_pesanans` ADD COLUMN UpdatedBy VARCHAR(100) AFTER `Keteranga
 
 ALTER TABLE `data_barangs` ADD COLUMN Jumlah DOUBLE AFTER `Keterangan`;
 UPDATE `data_barangs` SET Jumlah = 1
+
+INSERT INTO xmenus VALUES(10,'Pesanan','Pesanan','vendor',2,'/IndexPesananVendor','fa-solid fa-table-list',1,NULL,1,Now(),Now());

@@ -80,3 +80,5 @@ Route::get('/Invoice', function () {
     ]);
 });
 Route::post('/SavePesananVendor', [PesananController::class, 'InsertDataVendor']);
+Route::get('/IndexPesananVendor', [PesananController::class, 'IndexVendor']);
+Route::get('/DetailPesananVendor/{id}', [PesananController::class, 'SelectVendorById']);

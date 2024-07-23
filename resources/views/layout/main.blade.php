@@ -87,4 +87,9 @@
     <!-- End Footer -->
 </body>
 
+<!-- Vendor JS Files -->
+<script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/mainJs.js"></script>
 </html>

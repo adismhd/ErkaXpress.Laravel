@@ -356,4 +356,44 @@ class PesananController extends Controller
         //dd($request);
     }
     
+    public function IndexVendor(){
+        $pesanan = Pesanan::where('Layanan','9001')->orderBy('created_at', 'DESC')->get();
+        //$status = StatusPesanan::where('NoPesanan', $pesanan->NoPesanan)->orderBy('created_at', 'DESC')->first();
+        
+        //dd($pesanan->toArray());
+        return view('adminView/vendorIndexPesanan', [
+            "title" => "Pesanan",
+            "pesananList" => $pesanan
+            //"status" => $status
+        ]);
+    }
+    
+    public function SelectVendorById($id){
+        $pesanan = Pesanan::where('NoPesanan', $id)->first();
+        $pengirim = DataPengirim::where('NoPesanan', $id)->first();
+        $penerima = DataPenerima::where('NoPesanan', $id)->first();
+        $barang = DataBarang::where('NoPesanan', $id)->first();
+        $status = StatusPesanan::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->first();
+        $statuList = StatusPesanan::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->get();
+        $propinsiPenerima = Xpropinsi::where('Code', $penerima->Propinsi)->first();
+        $propinsiPengirim = Xpropinsi::where('Code', $pengirim->Propinsi)->first();
+        $biaya = Biaya::where('NoPesanan', $id)->first();
+        $paramStatus = Xstatus::All();
+
+        //dd($propinsiPenerima);
+        return view('adminView/vendorDetailPesanan', [
+            "title" => "Pesanan",
+            "pesanan" => $pesanan,
+            "pengirim" => $pengirim,
+            "penerima" => $penerima,
+            "barang" => $barang,
+            "biaya" => $biaya,
+            "status" => $status,
+            "statuList" => $statuList,
+            "propinsiPenerima" => $propinsiPenerima,
+            "propinsiPengirim" => $propinsiPengirim,
+            "paramStatus" => $paramStatus
+        ]);
+    }
+    
 }

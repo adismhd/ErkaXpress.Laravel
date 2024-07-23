@@ -1,8 +1,6 @@
 @extends('layout.main')
 
 @section('container')
-    <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-
     <div class="mt-5">
         <h2>Order</h2>
     </div>
@@ -12,26 +10,45 @@
                 @csrf
                 <div class="row">
                     <div class="col-md-4">
-                        <a href="{{ asset('img/vendor/Produk1.jpg') }} " class="glightbox">
-                            <img src="{{ asset('img/vendor/Produk1.jpg') }}" class="img-thumbnail">
-                        </a>
+                        <div id="gmbrDispay1" class="">
+                            <a href="{{ asset('img/vendor/SPESIFIKASI UMKM Naik Kelas (Putih).jpg') }}" class="glightbox">
+                                <img src="{{ asset('img/vendor/SPESIFIKASI UMKM Naik Kelas (Putih).jpg') }}" class="img-thumbnail">
+                            </a>
+                        </div>
+                        <div id="gmbrDispay2"  class=""  style="display: none;">
+                            <a href="{{ asset('img/vendor/SPESIFIKASI UMKM Naik Kelas (Hitam).jpg') }}" class="glightbox">
+                                <img src="{{ asset('img/vendor/SPESIFIKASI UMKM Naik Kelas (Hitam).jpg') }}" class="img-thumbnail">
+                            </a>
+                        </div>
+                        <div id="gmbrDispay3"  class="" style="display: none;">
+                            <a href="{{ asset('img/vendor/SPESIFIKASI KADIN INDONESIA (Putih).jpg') }}" class="glightbox">
+                                <img src="{{ asset('img/vendor/SPESIFIKASI KADIN INDONESIA (Putih).jpg') }}" class="img-thumbnail">
+                            </a>
+                        </div>
+                        <div id="gmbrDispay4"  class="" style="display: none;">
+                            <a href="{{ asset('img/vendor/SPESIFIKASI KADIN INDONESIA (Hitam).jpg') }}" class="glightbox">
+                                <img src="{{ asset('img/vendor/SPESIFIKASI KADIN INDONESIA (Hitam).jpg') }}" class="img-thumbnail">
+                            </a>
+                        </div>
                     </div>
                     <div class="col-md-8">
-                        <h2 style="font-weight: bold">Baju UMKM Naik Kelas</h2>
-                        <h3 id="SHarga">Rp. 130.000</h3>
+                        <div class=""  style="">
+                            <h2 id="txtJudul" style="font-weight: bold">Baju UMKM Naik Kelas - Putih</h2>
+                            <h3 id="txtHarga">Rp. 130.000</h3>
+                        </div>
                         <input type="hidden" id="bHarga"  name="bHarga" value="130000">
                         <hr>
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Pilihan Item :</label>
-                                <select class="form-select" name="bItem" id="bItem">
+                                <select class="form-select" name="bItem" id="bItem" onchange="ChangeItem()">
                                     <option value="UMKM" selected>UMKM</option>
                                     <option value="KADIN">Kadin</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label>Pilihan Warna :</label>
-                                <select class="form-select" name="bWarna" id="bWarna">
+                                <select class="form-select" name="bWarna" id="bWarna" onchange="ChangeItem()">
                                     <option value="Putih" selected>Putih</option>
                                     <option value="Hitam">Hitam</option>
                                 </select>
@@ -41,7 +58,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label class="mt-2">Size Chart :</label>
-                                <select class="form-select" name="bSize" id="bSize">
+                                <select class="form-select" name="bSize" id="bSize"  onchange="ChangeItem()">
                                     <option value="S" selected>S</option>
                                     <option value="M">M</option>
                                     <option value="L">L</option>
@@ -51,7 +68,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="mt-2">Variant :</label>
-                                <select class="form-select" name="bVariant" id="bVariant">
+                                <select class="form-select" name="bVariant" id="bVariant"  onchange="ChangeItem()">
                                     <option value="Tangan Pendek" selected>Tangan Pendek</option>
                                     <option value="Tangan Panjang">Tangan Panjang + (Rp.10.000)</option>
                                 </select>
@@ -133,36 +150,7 @@
     </div>
 
     <input type="text" value="@isset($pesanan){{ $pesanan->NoPesanan }}@endisset" id="inResi" hidden>
-
-    @isset($pesanan) 
-    <script type="text/javascript">
-        $(window).on('load', function() {
-            $('#myModal').modal({
-                show: true,
-                keyboard: false,
-                backdrop: 'static'
-            });
-        });
-
-        function copyResi() {
-            // Get the text field
-            //var copyText = document.getElementById("myInput");
-            var copyText = document.getElementById("inResi");
-
-            // Select the text field
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); // For mobile devices
-
-            // Copy the text inside the text field
-            navigator.clipboard.writeText(copyText.value);
-
-            // Alert the copied text
-            alert("Salin data berhasil: " + copyText.value);
-        }
-    </script>
-    @endisset
     
-    <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
     <script>
         $(function(){
             var dtToday = new Date();
@@ -179,5 +167,50 @@
 
             $('#inTanggalPenjemputan').attr('min', minDate);
         }); 
+
+        function ChangeItem() {
+            // $("#bSize").val();
+            // $("#bVariant").val();
+            // $("#bWarna").val();
+            // $("#bItem").val();
+
+            if ($("#bItem").val() == "UMKM" && $("#bWarna").val() == "Putih"){
+                $("#txtJudul").text("Baju UMKM Naik Kelas - Putih");
+                $("#txtHarga").text("Rp. 130.000");
+                $("#gmbrDispay1").show();
+                $("#gmbrDispay2").hide();
+                $("#gmbrDispay3").hide();
+                $("#gmbrDispay4").hide();
+                $("#bHarga").val("130000");
+            }
+            if ($("#bItem").val() == "UMKM" && $("#bWarna").val() == "Hitam"){
+                $("#txtJudul").text("Baju UMKM Naik Kelas - Hitam");
+                $("#txtHarga").text("Rp. 130.000");
+                $("#gmbrDispay1").hide();
+                $("#gmbrDispay2").show();
+                $("#gmbrDispay3").hide();
+                $("#gmbrDispay4").hide();
+                $("#bHarga").val("130000");
+            }
+            if ($("#bItem").val() == "KADIN" && $("#bWarna").val() == "Putih"){
+                $("#txtJudul").text("Baju Kadin Indonesia - Putih");
+                $("#txtHarga").text("Rp. 150.000"); 
+                $("#gmbrDispay1").hide();
+                $("#gmbrDispay2").hide();
+                $("#gmbrDispay3").show();
+                $("#gmbrDispay4").hide();
+                $("#bHarga").val("150000");
+            }
+            if ($("#bItem").val() == "KADIN" && $("#bWarna").val() == "Hitam"){
+                $("#txtJudul").text("Baju Kadin Indonesia - Hitam");
+                $("#txtHarga").text("Rp. 150.000");
+                $("#gmbrDispay1").hide();
+                $("#gmbrDispay2").hide();
+                $("#gmbrDispay3").hide();
+                $("#gmbrDispay4").show();
+                $("#bHarga").val("150000");
+            }
+        }
     </script>
+    
 @endsection

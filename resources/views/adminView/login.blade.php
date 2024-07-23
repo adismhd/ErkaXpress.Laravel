@@ -2,8 +2,8 @@
 
 @section('container')
 <div style="height: 70vh">
-    <div class="mt-5">
-        <h1>Login</h1>
+    <div class="mt-1" >
+        <h1 class="mt-5" >Login</h1>
     </div>
     <div class="card mt-4" style="border-radius: 25px">
         <div class="card-body m-3">

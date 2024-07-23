@@ -9,7 +9,10 @@
             <h4 style="text-align: center; font-weight: bold">Terima Kasih!</h4>
             <h5 style="text-align: center">Harap Lengkapi pembayaran</h5>
             <hr>
-            <label class="mt-2" style="font-weight: bold">Nomor Pesanan : {{ $pesanan->NoPesanan }}</label>
+            <div class="col-md-12">
+                <label class="mt-2" style="font-weight: bold">Nomor Pesanan : {{ $pesanan->NoPesanan }}</label>
+                <button class="btn btn-primary btn-sm float-end" onclick="copyResi()">Salin</button>
+            </div>
             <hr>
             <label class="mt-2">Rincian Pembayaran :</label>
             <table class="table table-striped mt-2 ">
