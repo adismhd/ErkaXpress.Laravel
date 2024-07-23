@@ -69,7 +69,7 @@
                         @endif  --}}
                     </td>
                     <td style="text-align: right">
-                        <a class="btn btn-primary" href="#">Ganti</a>
+                        <a class="btn btn-primary" href="#" onclick="showModalStatus()">Ganti</a>
                     </td>
                 </tr>
             </tbody>
@@ -284,6 +284,36 @@
     </div>
 </div>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="myModalStatusPembayaran">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="EditStatusPembayaran" method="post">
+                @csrf
+                <input type="text" value="{{ $pesanan->NoPesanan }}" name="NoPesanan" hidden />
+                <div class="modal-header">
+                    <h5 class="modal-title">Status Pembayaran</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <label>Status <i style="color: crimson">*</i></label>
+                        <select id="inLayanan" class="form-control mt-1" name="Status" required>
+                            <option value="Menunggu Pembayaran">Menunggu Pembayaran</option>    
+                            <option value="Lunas" >Lunas</option>    
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     // $(window).on('load', function() {
     //     $('#myModal').modal({
@@ -317,6 +347,14 @@
             backdrop: 'static'
         });
     }
+
+    function showModalStatus(){
+        $('#myModalStatusPembayaran').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+    
 </script>
 
 @endsection

@@ -396,4 +396,11 @@ class PesananController extends Controller
         ]);
     }
     
+    public function EditStatusPembayaran(Request $request){
+        $pesanan = Biaya::where('NoPesanan',$request->NoPesanan)->update([
+            'Status' => $request->Status
+        ]);
+        //dd($pesanan);
+        return back();
+    }    
 }

@@ -43,6 +43,7 @@ Route::get('/DetailPesanan/{id}', [PesananController::class, 'selectById']);
 Route::post('/DetailPesanan/InsertStatus', [StatusPesananController::class, 'InsertStatus']);
 Route::post('/DetailPesanan/EditStatus', [StatusPesananController::class, 'EditStatus']);
 Route::post('/DetailPesanan/DeleteStatus', [StatusPesananController::class, 'DeleteStatus']);
+Route::post('/DetailPesanan/EditStatusPembayaran', [PesananController::class, 'EditStatusPembayaran']);
 Route::get('/MemoPesanan/{id}', [MemoController::class, 'GetData']);
 Route::post('/MemoPesanan/InsertMemo', [MemoController::class, 'InsertMemo']);
 Route::post('/MemoPesanan/EditMemo', [MemoController::class, 'EditMemo']);
@@ -82,3 +83,4 @@ Route::get('/Invoice', function () {
 Route::post('/SavePesananVendor', [PesananController::class, 'InsertDataVendor']);
 Route::get('/IndexPesananVendor', [PesananController::class, 'IndexVendor']);
 Route::get('/DetailPesananVendor/{id}', [PesananController::class, 'SelectVendorById']);
+Route::post('/DetailPesananVendor/EditStatusPembayaran', [PesananController::class, 'EditStatusPembayaran']);
