@@ -1,0 +1,37 @@
+
+CREATE TABLE `xkecamatan` (
+  `id` bigint(20) AUTO_INCREMENT  NOT NULL,
+  `Code` varchar(255) NOT NULL,
+  `KabupatenId` varchar(255) NOT NULL,
+  `Nama` varchar(255) NOT NULL,
+  `IsActive` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `xkelurahan` (
+  `id` bigint(20) AUTO_INCREMENT NOT NULL,
+  `Code` varchar(255) NOT NULL,
+  `KecamatanId` varchar(255) NOT NULL,
+  `Nama` varchar(255) NOT NULL,
+  `IsActive` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `xkodepos`  (
+  `id` bigint(20) AUTO_INCREMENT NOT NULL,
+  `Code` varchar(255) NOT NULL,
+  `Nama` varchar(255) NOT NULL,
+  `IsActive` varchar(255) NOT NULL,
+  `PropinsiId` varchar(255) NOT NULL,
+  `KabupatenId` varchar(255) NOT NULL,
+  `KecamatanId` varchar(255) NOT NULL,
+  `KelurahanId` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+

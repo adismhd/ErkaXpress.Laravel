@@ -110,11 +110,20 @@
                     </div>
                     <div class="mt-2 col-md-12">
                         <label>Alamat Propinsi <i style="color: crimson">*</i></label>
-                        <select class="form-select mt-1" id="inPropinsiPengirim"  name="PropinsiPengirim" required>
+                        <select class="form-select mt-1" id="inPropinsiPengirim"  name="PropinsiPengirim" onchange="ChangePropinsi()" required>
                             <option value=""  disabled selected hidden>-- Pilih --</option>    
                             @foreach ($paramPropinsi as $item)
                                 <option value="{{ $item->Code }}">{{ $item->Nama }}</option>                                
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="mt-2 col-md-12">
+                        <label>Alamat Kabupaten <i style="color: crimson">*</i></label>
+                        <select class="form-select mt-1" id="inKabupatenPengirim"  name="KabupatenPengirim" onchange="" required>
+                            <option value=""  disabled selected hidden>-- Pilih --</option>    
+                            {{-- @foreach ($paramPropinsi as $item)
+                                <option value="{{ $item->Code }}">{{ $item->Nama }}</option>                                
+                            @endforeach --}}
                         </select>
                     </div>
                     <div class="mt-2 col-md-12">
@@ -204,6 +213,60 @@
                 $("#gmbrDispay2").show();
                 $("#bHarga").val("130000");
             }
+        }
+
+        function ChangePropinsi() {
+            const dtPropinsi = $("#inPropinsiPengirim").val();
+            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type:'GET',
+                url: "param-kecamatan/"+dtPropinsi,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: (Dt, textStatus, jqXHR) => {
+                    console.log(Dt);
+                    $.each(Dt, function (i, rowData) {
+                        $('#inKabupatenPengirim').append($('<option>', { value: rowData.Code, text: rowData.Nama }));
+                    });
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+        }
+
+        function ChangeKabupaten() {
+            const dtPropinsi = $("#inPropinsiPengirim").val();
+            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type:'GET',
+                url: "param-kecamatan/"+dtPropinsi,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: (Dt, textStatus, jqXHR) => {
+                    console.log(Dt);
+                    $.each(Dt, function (i, rowData) {
+                        $('#inKabupatenPengirim').append($('<option>', { value: rowData.Code, text: rowData.Nama }));
+                    });
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
         }
 
         const tempPesanan = [];

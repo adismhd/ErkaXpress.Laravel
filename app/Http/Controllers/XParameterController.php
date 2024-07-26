@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Xproduk;
 use App\Models\Xpropinsi;
 use App\Models\Xstatus;
+use App\Models\Xkabupaten;
 
 class XParameterController extends Controller
 {
@@ -107,4 +108,13 @@ class XParameterController extends Controller
         //dd($param);    
         return redirect('/Parameter');
     }
+    
+    public function GetParamKabupaten($id){
+        //$propinsiValue = $request->input('propinsi');
+        $paramKabupaten = Xkabupaten::where('Code','LIKE',$id."%")->get();
+        //dd($param);       
+        //return Response()->json($paramKabupaten);
+        return Response()->json($paramKabupaten);
+    }
+
 }

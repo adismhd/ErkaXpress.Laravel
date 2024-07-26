@@ -84,9 +84,8 @@ Route::post('/SavePesananVendor', [PesananController::class, 'InsertDataVendor']
 Route::get('/IndexPesananVendor', [PesananController::class, 'IndexVendor']);
 Route::get('/DetailPesananVendor/{id}', [PesananController::class, 'SelectVendorById']);
 Route::post('/DetailPesananVendor/EditStatusPembayaran', [PesananController::class, 'EditStatusPembayaran']);
-Route::get('/test', function () {
-    return view('publicView/test', [
-        "title" => "Beranda"
-    ]);
-});
-Route::post('/AddItemVendor', [PesananController::class, 'AddItemVendor']);
+
+//Parameter
+Route::get('param-kecamatan/{id}', [XParameterController::class, 'GetParamKabupaten']);
+
+
