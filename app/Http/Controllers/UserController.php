@@ -102,7 +102,7 @@ class UserController extends Controller
             ]);
         }
         
-        return redirect()->back()->with("messageUser", "data berhasil disimpan");
+        return redirect()->back()->with("pesanan", "data berhasil disimpan");
     }
     
     public function TambahUser(Request $request){

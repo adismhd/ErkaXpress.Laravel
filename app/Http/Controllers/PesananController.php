@@ -403,4 +403,9 @@ class PesananController extends Controller
         //dd($pesanan);
         return back();
     }    
+
+    public function AddItemVendor(Request $request){
+        return redirect("test")->with("pesanan", $request->Nama);
+        //dd($request);
+    }
 }
