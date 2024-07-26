@@ -259,39 +259,62 @@ class PesananController extends Controller
 
         $pengirim = DataPengirim::create([
             'NoPesanan' => $noPesanan,
-            'Nama' => $request->PengirimNama,
-            'Alamat' => $request->PengirimAlamat,
-            'Propinsi' => $request->PropinsiPengirim,
-            'Email' => $request->PengirimEmail,
-            'NoTelepon' => $request->PengirimNoTelepon
+            'Nama' => $request->DtNama,
+            'Alamat' => $request->DtAlamat,
+            'Propinsi' => $request->DtPropinsi,
+            'Email' => $request->DtEmail,
+            'NoTelepon' => $request->DtNoTelepon
         ]);
 
         $penerima = DataPenerima::create([
             'NoPesanan' => $noPesanan,
-            'Nama' => $request->PengirimNama,
-            'Alamat' => $request->PengirimAlamat,
-            'Propinsi' => $request->PropinsiPengirim,
-            'NoTelepon' => $request->PengirimNoTelepon
+            'Nama' => $request->DtNama,
+            'Alamat' => $request->DtAlamat,
+            'Propinsi' => $request->DtPropinsi,
+            'NoTelepon' => $request->DtNoTelepon
         ]);
+        
+        $totalBiayaBarang = 0;
 
-        $totalBiayaBarang = $request->bHarga;
+        $dataArray = json_decode($request->Dt, true);
+        foreach ($dataArray as $item) {
+            $productId = $item['pId'];
+            $size = $item['pSize'];
+            $variant = $item['pVariant'];
+            $color = $item['pWarna'];
+            $quantity = $item['pJumlah'];
+            $totalPrice = $item['pTotal'];
 
-        $varianHarga = 0;
-        if($request->bVariant == 'Tangan Panjang')
-        {
-            $totalBiayaBarang += 10000;
-            $varianHarga = 10000;
+            $hargaBarang = 130000;
+                    
+            if($variant == 'Tangan Panjang')
+            {
+                $hargaBarang += 10000;
+            }
+    
+            if($size == 'XXL' || $request->bSize == 'XXXL')
+            {
+                $hargaBarang += 10000;
+            }
+
+            $totalBiayaBarang += $hargaBarang * $quantity;
+            
+            $ketBarang = 'Warna : '.$color.', Size : '.$size.', Variant : '.$variant;
+
+            DataBarang::create([
+                'NoPesanan' => $noPesanan,
+                'Jenis' => 'UMKM',
+                'Berat' => 0,
+                'Kilo' => 0,
+                'Kubik' => 0,
+                'Koli' => 0,
+                'Harga' => $hargaBarang,
+                'Jumlah' => $quantity,
+                'Keterangan' => $ketBarang
+            ]);
         }
-
-        $size = 0;
-        if($request->bSize == 'XXL' || $request->bSize == 'XXXL')
-        {
-            $totalBiayaBarang += 10000;
-            $size = 10000;
-        }
-
-        $baseHargaBarang = $totalBiayaBarang;
-        $totalBiayaBarang *= $request->bJumlahItem;
+        
+        $barang = DataBarang::where('NoPesanan',$noPesanan)->get();
 
         //dd($totalBiayaBarang);
         $biaya = Biaya::create([
@@ -304,20 +327,6 @@ class PesananController extends Controller
             'updated_at' => Carbon::now()
         ]);
         
-        $ketBarang = 'Warna : '.$request->bWarna.', Size : '.$request->bSize.', Variant : '.$request->bVariant;
-
-        $barang = DataBarang::create([
-            'NoPesanan' => $noPesanan,
-            'Jenis' => $request->bItem,
-            'Berat' => 0,
-            'Kilo' => 0,
-            'Kubik' => 0,
-            'Koli' => 0,
-            'Harga' => $baseHargaBarang,
-            'Jumlah' => $request->bJumlahItem,
-            'Keterangan' => $ketBarang
-        ]);
-
         $status = StatusPesanan::create([
             'NoPesanan' => $noPesanan,
             'Status' => 'Pesanan Dibuat',
@@ -346,11 +355,6 @@ class PesananController extends Controller
             "penerima" => $penerima,
             "barang" => $barang,
             "biaya" => $biaya,
-            "hargaBaju" => $request->bHarga,
-            "varian" => $request->bVariant,
-            "varianHarga" => $varianHarga,
-            "size" => $request->bSize,
-            "sizeHarga" => $size,
             "status" => $status
         ]);
         //dd($request);
@@ -372,7 +376,7 @@ class PesananController extends Controller
         $pesanan = Pesanan::where('NoPesanan', $id)->first();
         $pengirim = DataPengirim::where('NoPesanan', $id)->first();
         $penerima = DataPenerima::where('NoPesanan', $id)->first();
-        $barang = DataBarang::where('NoPesanan', $id)->first();
+        $barang = DataBarang::where('NoPesanan', $id)->get();
         $status = StatusPesanan::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->first();
         $statuList = StatusPesanan::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->get();
         $propinsiPenerima = Xpropinsi::where('Code', $penerima->Propinsi)->first();

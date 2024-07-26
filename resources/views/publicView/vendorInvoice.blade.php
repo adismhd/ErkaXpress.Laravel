@@ -16,26 +16,23 @@
             <hr>
             <label class="mt-2">Rincian Pembayaran :</label>
             <table class="table table-striped mt-2 ">
-                <tr>
-                    <td>Harga Baju</td>
-                    <td style="text-align: right">Rp. {{ formatRupiah($hargaBaju) }}</td>
-                </tr>
-                <tr>
-                    <td>Varian : {{ $varian }}</td>
-                    <td style="text-align: right">Rp. {{ formatRupiah($varianHarga) }}</td>
-                </tr>
-                <tr>
-                    <td>Size : {{ $size }}</td>
-                    <td style="text-align: right">Rp. {{ formatRupiah($sizeHarga) }}</td>
-                </tr>
-                <tr>
-                    <td>Jumlah Barang</td>
-                    <td style="text-align: right">{{ $barang->Jumlah }}</td>
-                </tr>
-                <tr>
-                    <td>Total Harga</td>
-                    <td style="text-align: right">Rp. {{ formatRupiah($biaya->TotalBiaya) }}</td>
-                </tr>
+                <thead>
+                    <tr><th>Produk</th><th>Keterangan</th><th>Jumlah Barang</th><th>Harga</th></tr>
+                </thead>
+                <tbody>
+                    @foreach ($barang as $item)
+                    <tr>      
+                        <td>{{ $item->Jenis }}</td>      
+                        <td> {{ $item->Keterangan }}</td>      
+                        <td> {{ $item->Jumlah }}</td>      
+                        <td style="text-align: right">Rp. {{ formatRupiah($item->Harga) }}</td>         
+                    </tr>
+                   @endforeach
+                </tbody>
+               <tfoot>
+                    <tr><td colspan="3" style="font-weight: bold">Total : </td>
+                        <td style="text-align: right; font-size: large; font-weight: bold">Rp. {{ formatRupiah($biaya->TotalBiaya) }}</td></tr>
+                </tfoot>
             </table>
             <p class="mt-4">Metode Pembayaran : Transfer Bank</p>
             <hr>
@@ -44,7 +41,7 @@
             <hr>
             <div class="alert alert-danger mt-4" role="alert">
                 * Setelah melakukan Transfer, Kirim bukti pembayaran via WhatsApp ke nomor berikut : 
-                <a aria-label="Chat on WhatsApp" href="https://wa.me/+6285624205080">
+                <a aria-label="Chat on WhatsApp" href="https://wa.me/+6287795417676">
                     <img alt="Chat on WhatsApp" src=" {{asset('img/whatsapp.png') }}" style="height: 30px" />
                 <a />
             </div>

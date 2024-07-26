@@ -124,24 +124,28 @@
         <h5>Detail Barang</h5>
     </div>
     <div class="card-body">
-        <div class="row">
-            <div class="col-md-6 ">
-                <table class="table table-sm">
-                    <tbody>
-                        <tr><td>Jenis Barang </td><td>&nbsp;:&nbsp;</td><td>{{ $barang->Jenis }}</td></tr>
-                        <tr><td>Keterangan </td><td>&nbsp;:&nbsp;</td></td><td>{{ $barang->Keterangan }}</td></tr>
-                    </tbody>
-                </table>
+        @foreach($barang as $item)
+            <div class="row">
+                <div class="col-md-6 ">
+                    <table class="">
+                        <tbody>
+                            <tr><td>Jenis Barang </td><td>&nbsp;:&nbsp;</td><td>{{ $item->Jenis }}</td></tr>
+                            <tr><td>Keterangan </td><td>&nbsp;:&nbsp;</td></td><td>{{ $item->Keterangan }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6 ">
+                    <table >
+                        <tbody>
+                            <tr><td>Jumlah Barang </td><td>&nbsp;:&nbsp;</td></td><td>{{ $item->Jumlah }}</td></tr>
+                            <tr><td>Harga Per Item </td><td>&nbsp;:&nbsp;</td></td><td>Rp. {{ formatRupiah($item->Harga)  }}</td></tr>
+                            <tr><td>Total Harga  </td><td>&nbsp;:&nbsp;</td></td><td>Rp. {{ formatRupiah($item->Harga * $item->Jumlah)  }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="col-md-6 ">
-                <table class="table table-sm">
-                    <tbody>
-                        <tr><td>Jumlah Barang </td><td>&nbsp;:&nbsp;</td></td><td>{{ $barang->Jumlah }}</td></tr>
-                        <tr><td>Harga Per Item </td><td>&nbsp;:&nbsp;</td></td><td>Rp. {{ formatRupiah($barang->Harga)  }}</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            <hr>
+        @endforeach
     </div>
 </div>
 
