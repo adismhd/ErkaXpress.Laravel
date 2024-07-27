@@ -8,6 +8,9 @@ use App\Models\Xproduk;
 use App\Models\Xpropinsi;
 use App\Models\Xstatus;
 use App\Models\Xkabupaten;
+use App\Models\Xkecamatan;
+use App\Models\Xkelurahan;
+use App\Models\Xwilayah;
 
 class XParameterController extends Controller
 {
@@ -117,4 +120,28 @@ class XParameterController extends Controller
         return Response()->json($paramKabupaten);
     }
 
+    public function GetParamKecamatan($id){
+        //$propinsiValue = $request->input('propinsi');
+        $paramKecamatan = Xkecamatan::where('KabupatenId',$id)->get();
+        //dd($param);       
+        //return Response()->json($paramKabupaten);
+        return Response()->json($paramKecamatan);
+    }
+    
+    public function GetParamKelurahan($id){
+        //$propinsiValue = $request->input('propinsi');
+        $paramKelurahan = Xkelurahan::where('KecamatanId',$id)->get();
+        //dd($param);       
+        //return Response()->json($paramKabupaten);
+        return Response()->json($paramKelurahan);
+    }
+    
+    public function GetParamKodePos($id){
+        //$propinsiValue = $request->input('propinsi');
+        $paramKodepos = Xwilayah::where('KelurahanId',$id)->get();
+
+        //dd($param);       
+        //return Response()->json($paramKabupaten);
+        return Response()->json($paramKodepos);
+    }
 }

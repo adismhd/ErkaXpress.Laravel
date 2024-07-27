@@ -30,6 +30,10 @@
                    @endforeach
                 </tbody>
                <tfoot>
+                    <tr><td colspan="3" style="font-weight: bold">Sub-Total : </td>
+                        <td style="text-align: right; font-size: large; font-weight: bold">Rp. {{ formatRupiah($subBiaya) }}</td></tr>
+                    <tr><td colspan="3" style="font-weight: bold">Ongkos Kirim : </td>
+                        <td style="text-align: right; font-size: large; font-weight: bold">Rp. {{ formatRupiah($ongkir) }}</td></tr>
                     <tr><td colspan="3" style="font-weight: bold">Total : </td>
                         <td style="text-align: right; font-size: large; font-weight: bold">Rp. {{ formatRupiah($biaya->TotalBiaya) }}</td></tr>
                 </tfoot>

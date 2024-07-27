@@ -73,14 +73,36 @@
                             placeholder="081000000000" required
                             value="@isset($penerima){{ $penerima->NoTelepon }}@endisset" />
                     </div>
-                    <div class="mt-2 col-md-12">
+                    <div class="mt-2 col-md-6">
                         <label>Alamat Propinsi Penerima <i style="color: crimson">*</i></label>
-                        <select class="form-select mt-1" name="PropinsiPenerima" required>
+                        <select class="form-select mt-1" id="inPropinsiPenerima"  name="PropinsiPenerima" onchange="ChangePropinsi()" required>
                             <option value=""  disabled selected hidden>-- Pilih --</option>    
                             @foreach ($paramPropinsi as $item)
                                 <option value="{{ $item->Code }}">{{ $item->Nama }}</option>                                
                             @endforeach
                         </select>
+                    </div>
+                    <div class="mt-2 col-md-6">
+                        <label>Alamat Kabupaten Penerima <i style="color: crimson">*</i></label>
+                        <select class="form-select mt-1" id="inKabupatenPenerima"  name="KabupatenPenerima" onchange="ChangeKabupaten()" required>
+                            <option value=""  disabled selected hidden>-- Pilih --</option>
+                        </select>
+                    </div>
+                    <div class="mt-2 col-md-4">
+                        <label>Alamat Kecamatan Penerima <i style="color: crimson">*</i></label>
+                        <select class="form-select mt-1" id="inKecamatanPenerima"  name="KecamatanPenerima" onchange="ChangeKecamatan()" required>
+                            <option value=""  disabled selected hidden>-- Pilih --</option>
+                        </select>
+                    </div>
+                    <div class="mt-2 col-md-4">
+                        <label>Alamat Kelurahan Penerima <i style="color: crimson">*</i></label>
+                        <select class="form-select mt-1" id="inKelurahanPenerima"  name="KelurahanPenerima" onchange="ChangeKelurahan()" required>
+                            <option value=""  disabled selected hidden>-- Pilih --</option>
+                        </select>
+                    </div>
+                    <div class="mt-2 col-md-4">
+                        <label>Kode Pos Penerima<i style="color: crimson">*</i></label>
+                        <input id="inKodePos" type="text" name="KodePos" class="form-control mt-1" disabled required/>
                     </div>
                     <div class="mt-2 col-md-12">
                         <label>Alamat Lengkap Penerima <i style="color: crimson">*</i></label>
@@ -221,31 +243,6 @@
     </script>
     @endisset
     
-    {{-- <script type="text/javascript">
-        $(window).on('load', function() {
-            $('#myModal').modal({
-                show: true,
-                keyboard: false,
-                backdrop: 'static'
-            });
-        });
-
-        function copyResi() {
-            // Get the text field
-            //var copyText = document.getElementById("myInput");
-            var copyText = document.getElementById("inResi");
-
-            // Select the text field
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); // For mobile devices
-
-            // Copy the text inside the text field
-            navigator.clipboard.writeText(copyText.value);
-
-            // Alert the copied text
-            alert("Copied the text: " + copyText.value);
-        }
-    </script> --}}
     <script>
         $(function(){
             var dtToday = new Date();
@@ -262,5 +259,114 @@
 
             $('#inTanggalPenjemputan').attr('min', minDate);
         }); 
+        
+        function ChangePropinsi() {
+            const dtPropinsi = $("#inPropinsiPenerima").val();
+            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type:'GET',
+                url: "param-kabupaten/"+dtPropinsi,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: (Dt, textStatus, jqXHR) => {
+                    console.log(Dt);
+                    $.each(Dt, function (i, rowData) {
+                        $('#inKabupatenPenerima').append($('<option>', { value: rowData.Code, text: rowData.Nama }));
+                    });
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+        }
+
+        function ChangeKabupaten() {
+            const dtKabupaten = $("#inKabupatenPenerima").val();
+            //alert("param-kecamatan/"+dtKabupaten);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type:'GET',
+                url: "param-kecamatan/"+dtKabupaten,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: (Dt, textStatus, jqXHR) => {
+                    console.log(Dt);
+                    $.each(Dt, function (i, rowData) {
+                        $('#inKecamatanPenerima').append($('<option>', { value: rowData.Code, text: rowData.Nama }));
+                    });
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+        }
+
+        function ChangeKecamatan() {
+            const dtKecamatan = $("#inKecamatanPenerima").val();
+            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type:'GET',
+                url: "param-kelurahan/"+dtKecamatan,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: (Dt, textStatus, jqXHR) => {
+                    console.log(Dt);
+                    $.each(Dt, function (i, rowData) {
+                        $('#inKelurahanPenerima').append($('<option>', { value: rowData.Code, text: rowData.Nama }));
+                    });
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+        }
+
+        function ChangeKelurahan() {
+            const dtKecamatan = $("#inKelurahanPenerima").val();
+            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type:'GET',
+                url: "param-kodepos/"+dtKecamatan,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: (Dt, textStatus, jqXHR) => {
+                    console.log(Dt);
+                    $.each(Dt, function (i, rowData) {
+                        $('#inKodePos').val(rowData.Code);
+                    });
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+        }
+
     </script>
 @endsection

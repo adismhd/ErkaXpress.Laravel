@@ -12,6 +12,7 @@ use App\Models\StatusPesanan;
 use App\Models\Xproduk;
 use App\Models\Xpropinsi;
 use App\Models\Xstatus;
+use App\Models\OngkosKirim;
 use App\Mail\kirimemail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -87,7 +88,7 @@ class PesananController extends Controller
         {
             $Asuransis = "0";
         }
-        if($request->Packings != "1")
+        if($request->Packing != "1")
         {
             $Packings = "0";
         }
@@ -112,10 +113,17 @@ class PesananController extends Controller
         $penerima = DataPenerima::create([
             'NoPesanan' => $noPesanan,
             'Nama' => $request->PenerimaNama,
-            'Propinsi' => $request->PropinsiPengirim,
+            'Propinsi' => $request->PropinsiPenerima,
+            'Kabupaten' => $request->KabupatenPenerima,
+            'Kecamatan' => $request->KecamatanPenerima,
+            'Kelurahan' => $request->KelurahanPenerima,
+            'KodePos' => $request->KodePos,
             'Alamat' => $request->PenerimaAlamat,
             'NoTelepon' => $request->PenerimaNoTelepon
         ]);
+
+        $ongkir = OngkosKirim::where('PropinsiId',$request->PropinsiPenerima)
+            ->where('ProdukId',$request->Layanan)->first();
 
         Biaya::create([
             'NoPesanan' => $noPesanan,
@@ -262,6 +270,10 @@ class PesananController extends Controller
             'Nama' => $request->DtNama,
             'Alamat' => $request->DtAlamat,
             'Propinsi' => $request->DtPropinsi,
+            'Kabupaten' => $request->DtKabupaten,
+            'Kecamatan' => $request->DtKecamatan,
+            'Kelurahan' => $request->DtKelurahan,
+            'KodePos' => $request->DtKodepos,
             'Email' => $request->DtEmail,
             'NoTelepon' => $request->DtNoTelepon
         ]);
@@ -271,6 +283,10 @@ class PesananController extends Controller
             'Nama' => $request->DtNama,
             'Alamat' => $request->DtAlamat,
             'Propinsi' => $request->DtPropinsi,
+            'Kabupaten' => $request->DtKabupaten,
+            'Kecamatan' => $request->DtKecamatan,
+            'Kelurahan' => $request->DtKelurahan,
+            'KodePos' => $request->DtKodepos,
             'NoTelepon' => $request->DtNoTelepon
         ]);
         
@@ -315,11 +331,17 @@ class PesananController extends Controller
         }
         
         $barang = DataBarang::where('NoPesanan',$noPesanan)->get();
+        
+        $ongkir = OngkosKirim::where('PropinsiId',$request->DtPropinsi)
+            ->where('ProdukId','1001')->first();
+
+        $subTotal = $totalBiayaBarang;
+        $totalBiayaBarang += $ongkir->Harga;
 
         //dd($totalBiayaBarang);
         $biaya = Biaya::create([
             'NoPesanan' => $noPesanan,
-            'BiayaPengiriman' => 0,
+            'BiayaPengiriman' => $ongkir->Harga,
             'BiayaAdmin' => 0,
             'TotalBiaya' => $totalBiayaBarang,
             'Status' => "Menunggu Pembayaran",
@@ -355,6 +377,8 @@ class PesananController extends Controller
             "penerima" => $penerima,
             "barang" => $barang,
             "biaya" => $biaya,
+            "subBiaya" => $subTotal,
+            "ongkir" => $ongkir->Harga,
             "status" => $status
         ]);
         //dd($request);

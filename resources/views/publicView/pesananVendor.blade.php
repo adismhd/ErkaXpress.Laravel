@@ -108,7 +108,7 @@
                             placeholder="email@domain.com" required
                             value="@isset($pengirim){{ $pengirim->Email }}@endisset" />
                     </div>
-                    <div class="mt-2 col-md-12">
+                    <div class="mt-2 col-md-6">
                         <label>Alamat Propinsi <i style="color: crimson">*</i></label>
                         <select class="form-select mt-1" id="inPropinsiPengirim"  name="PropinsiPengirim" onchange="ChangePropinsi()" required>
                             <option value=""  disabled selected hidden>-- Pilih --</option>    
@@ -117,22 +117,31 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="mt-2 col-md-12">
+                    <div class="mt-2 col-md-6">
                         <label>Alamat Kabupaten <i style="color: crimson">*</i></label>
-                        <select class="form-select mt-1" id="inKabupatenPengirim"  name="KabupatenPengirim" onchange="" required>
-                            <option value=""  disabled selected hidden>-- Pilih --</option>    
-                            {{-- @foreach ($paramPropinsi as $item)
-                                <option value="{{ $item->Code }}">{{ $item->Nama }}</option>                                
-                            @endforeach --}}
+                        <select class="form-select mt-1" id="inKabupatenPengirim"  name="KabupatenPengirim" onchange="ChangeKabupaten()" required>
+                            <option value=""  disabled selected hidden>-- Pilih --</option>
                         </select>
+                    </div>
+                    <div class="mt-2 col-md-4">
+                        <label>Alamat Kecamatan <i style="color: crimson">*</i></label>
+                        <select class="form-select mt-1" id="inKecamatanPengirim"  name="KecamatanPengirim" onchange="ChangeKecamatan()" required>
+                            <option value=""  disabled selected hidden>-- Pilih --</option>
+                        </select>
+                    </div>
+                    <div class="mt-2 col-md-4">
+                        <label>Alamat Kelurahan <i style="color: crimson">*</i></label>
+                        <select class="form-select mt-1" id="inKelurahanPengirim"  name="KelurahanPengirim" onchange="ChangeKelurahan()" required>
+                            <option value=""  disabled selected hidden>-- Pilih --</option>
+                        </select>
+                    </div>
+                    <div class="mt-2 col-md-4">
+                        <label>Kode Pos<i style="color: crimson">*</i></label>
+                        <input id="inKodePos" type="text" name="KodePos" class="form-control mt-1" disabled />
                     </div>
                     <div class="mt-2 col-md-12">
                         <label>Alamat Lengkap<i style="color: crimson">*</i></label>
                         <textarea id="inPengirimAlamat" name="PengirimAlamat" class="form-control mt-1"required>@isset($pengirim){{ $pengirim->NoTelepon }}@endisset</textarea>
-                    </div>
-                    <div class="mt-2 col-md-12">
-                        <label>Kode Pos<i style="color: crimson">*</i></label>
-                        <input id="inKodePos" type="number" name="KodePos" class="form-control mt-1"required />
                     </div>
                 </div>
                 <hr>
@@ -156,10 +165,14 @@
                     <div class="modal-body">
                             <input id="inDtNoTelepon" name="DtNoTelepon" class="form-control mt-1" type="hidden" readonly required />
                             <input id="inDtEmail" name="DtEmail" class="form-control mt-1" type="hidden" readonly required />
-                            <input id="inDtPropinsi" name="DtPropinsi" class="form-control mt-1" type="hidden" readonly required />
                             <input id="inDtAlamat" name="DtAlamat" class="form-control mt-1" type="hidden" readonly required />
                             <input id="inDtNama" name="DtNama" class="form-control mt-1" type="hidden" readonly required />
                             <input id="inDt" name="Dt" class="form-control mt-1" type="hidden" readonly required >
+                            <input id="inDtPropinsi" name="DtPropinsi" class="form-control mt-1" type="hidden" readonly required />
+                            <input id="inDtKabupaten" name="DtKabupaten" class="form-control mt-1" type="hidden" readonly required />
+                            <input id="inDtKecamatan" name="DtKecamatan" class="form-control mt-1" type="hidden" readonly required />
+                            <input id="inDtKelurahan" name="DtKelurahan" class="form-control mt-1" type="hidden" readonly required />
+                            <input id="inDtKodepos" name="DtKodepos" class="form-control mt-1" type="hidden" readonly required />
                             <table class='table table-sm mt-1' id="tPesanan">
                                 <thead><tr><th>Variant</th><th>Warna</th><th>Ukuran</th><th>Jumlah</th><th>Total</th><th>#</th></tr></thead>
                                 <tbody id="tbody-tPesanan"></tbody>
@@ -226,7 +239,7 @@
 
             $.ajax({
                 type:'GET',
-                url: "param-kecamatan/"+dtPropinsi,
+                url: "param-kabupaten/"+dtPropinsi,
                 cache:false,
                 contentType: false,
                 processData: false,
@@ -243,7 +256,34 @@
         }
 
         function ChangeKabupaten() {
-            const dtPropinsi = $("#inPropinsiPengirim").val();
+            const dtKabupaten = $("#inKabupatenPengirim").val();
+            //alert("param-kecamatan/"+dtKabupaten);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type:'GET',
+                url: "param-kecamatan/"+dtKabupaten,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: (Dt, textStatus, jqXHR) => {
+                    console.log(Dt);
+                    $.each(Dt, function (i, rowData) {
+                        $('#inKecamatanPengirim').append($('<option>', { value: rowData.Code, text: rowData.Nama }));
+                    });
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+        }
+
+        function ChangeKecamatan() {
+            const dtKecamatan = $("#inKecamatanPengirim").val();
             
             $.ajaxSetup({
                 headers: {
@@ -253,14 +293,41 @@
 
             $.ajax({
                 type:'GET',
-                url: "param-kecamatan/"+dtPropinsi,
+                url: "param-kelurahan/"+dtKecamatan,
                 cache:false,
                 contentType: false,
                 processData: false,
                 success: (Dt, textStatus, jqXHR) => {
                     console.log(Dt);
                     $.each(Dt, function (i, rowData) {
-                        $('#inKabupatenPengirim').append($('<option>', { value: rowData.Code, text: rowData.Nama }));
+                        $('#inKelurahanPengirim').append($('<option>', { value: rowData.Code, text: rowData.Nama }));
+                    });
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+        }
+
+        function ChangeKelurahan() {
+            const dtKecamatan = $("#inKelurahanPengirim").val();
+            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type:'GET',
+                url: "param-kodepos/"+dtKecamatan,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: (Dt, textStatus, jqXHR) => {
+                    console.log(Dt);
+                    $.each(Dt, function (i, rowData) {
+                        $('#inKodePos').val(rowData.Code);
                     });
                 },
                 error: function(data){
@@ -321,9 +388,14 @@
             $('#inDtNama').val($("#inPengirimNama").val());
             $('#inDtNoTelepon').val($("#inPengirimNoTelepon").val());
             $('#inDtEmail').val($("#inPengirimEmail").val());
-            $('#inDtPropinsi').val($("#inPropinsiPengirim").val());
             $('#inDtAlamat').val($("#inPengirimAlamat").val());
             $('#inDt').val(JSON.stringify(tempPesanan));
+
+            $('#inDtPropinsi').val($("#inPropinsiPengirim").val());
+            $('#inDtKabupaten').val($("#inKabupatenPengirim").val());
+            $('#inDtKecamatan').val($("#inKecamatanPengirim").val());
+            $('#inDtKelurahan').val($("#inKelurahanPengirim").val());
+            $('#inDtKodepos').val($("#inKodePos").val());
 
             const dt1 = $("#inPengirimNama").val();
             const dt2 = $("#inPengirimNoTelepon").val();
@@ -331,8 +403,13 @@
             const dt4 = $("#inPropinsiPengirim").val();
             const dt5 = $("#inPengirimAlamat").val();
 
+            const dt6 = $("#inDtKabupaten").val();
+            const dt7 = $("#inDtKecamatan").val();
+            const dt8 = $("#inDtKelurahan").val();
+            const dt9 = $("#inDtKodepos").val();
+
             //alert(!dt1);
-            if (!dt1 || !dt2 ||!dt3 || !dt4 || !dt5 ){
+            if (!dt1 || !dt2 ||!dt3 || !dt4 || !dt5|| !dt6|| !dt7|| !dt8|| !dt9 ){
                 alert("Lengkapi Data Terlebih Dahulu!");
             } else if (tempPesanan.length < 1){
                 alert("Tambah Keranjang dahulu!");

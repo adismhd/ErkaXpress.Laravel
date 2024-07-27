@@ -86,6 +86,9 @@ Route::get('/DetailPesananVendor/{id}', [PesananController::class, 'SelectVendor
 Route::post('/DetailPesananVendor/EditStatusPembayaran', [PesananController::class, 'EditStatusPembayaran']);
 
 //Parameter
-Route::get('param-kecamatan/{id}', [XParameterController::class, 'GetParamKabupaten']);
+Route::get('param-kabupaten/{id}', [XParameterController::class, 'GetParamKabupaten']);
+Route::get('param-kecamatan/{id}', [XParameterController::class, 'GetParamKecamatan']);
+Route::get('param-kelurahan/{id}', [XParameterController::class, 'GetParamKelurahan']);
+Route::get('param-kodepos/{id}', [XParameterController::class, 'GetParamKodePos']);
 
 

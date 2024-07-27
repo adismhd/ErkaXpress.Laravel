@@ -1,5 +1,5 @@
 
-CREATE TABLE `xkecamatan` (
+CREATE TABLE `xkecamatans` (
   `id` bigint(20) AUTO_INCREMENT  NOT NULL,
   `Code` varchar(255) NOT NULL,
   `KabupatenId` varchar(255) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE `xkecamatan` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `xkelurahan` (
+CREATE TABLE `xkelurahans` (
   `id` bigint(20) AUTO_INCREMENT NOT NULL,
   `Code` varchar(255) NOT NULL,
   `KecamatanId` varchar(255) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE `xkelurahan` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `xkodepos`  (
+CREATE TABLE `xwilayahs`  (
   `id` bigint(20) AUTO_INCREMENT NOT NULL,
   `Code` varchar(255) NOT NULL,
   `Nama` varchar(255) NOT NULL,
