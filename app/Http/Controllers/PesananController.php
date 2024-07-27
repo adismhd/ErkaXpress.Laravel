@@ -38,7 +38,7 @@ class PesananController extends Controller
         $pesanan = Pesanan::where('NoPesanan', $id)->first();
         $pengirim = DataPengirim::where('NoPesanan', $id)->first();
         $penerima = DataPenerima::where('NoPesanan', $id)->first();
-        $barang = DataBarang::where('NoPesanan', $id)->first();
+        $barang = DataBarang::where('NoPesanan', $id)->get();
         $status = StatusPesanan::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->first();
         $statuList = StatusPesanan::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->get();
         $propinsiPenerima = Xpropinsi::where('Code', $penerima->Propinsi)->first();
@@ -208,10 +208,16 @@ class PesananController extends Controller
         //dd($pesanan);
     }
     
-    public function DeleteData(){
-        $pesanan = Pesanan::find(23)->delete();
+    public function DeleteDataPesanan($id){
+        Pesanan::where('NoPesanan',$id)->delete();
+        DataPengirim::where('NoPesanan',$id)->delete();
+        DataPenerima::where('NoPesanan',$id)->delete();
+        Biaya::where('NoPesanan',$id)->delete();
+        DataBarang::where('NoPesanan',$id)->delete();
+        StatusPesanan::where('NoPesanan',$id)->delete();
 
         //dd($pesanan);
+        return redirect("IndexPesanan");
     }
     
     public function home(){

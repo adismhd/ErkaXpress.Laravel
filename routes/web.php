@@ -51,6 +51,7 @@ Route::post('/MemoPesanan/DeleteMemo', [MemoController::class, 'DeleteMemo']);
 Route::get('/EkspedisiBiaya/{id}', [EkspedisiBiayaController::class, 'GetData']);
 Route::post('/EkspedisiBiaya/InsertEkspedisi', [EkspedisiBiayaController::class, 'InsertEkspedisi']);
 Route::post('/EkspedisiBiaya/InsertBiaya', [EkspedisiBiayaController::class, 'InsertBiaya']);
+Route::get('/DeletePesanan/{id}', [PesananController::class, 'DeleteDataPesanan']);
 
 Route::get('/Admin', [UserController::class, 'GetListAdmin']);
 Route::post('/TambahUser', [UserController::class, 'TambahUser']);

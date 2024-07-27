@@ -21,7 +21,7 @@
 <div class="card mt-3" style="border-radius: 25px">
     <div class="card-body">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <table>
                     <tbody>
                         <tr><td>Pesanan Dibuat Tanggal </td><td>&nbsp;:&nbsp;</td><td>{{ $pesanan->created_at }}</td></tr>
@@ -29,6 +29,13 @@
                         <tr><td>Pengirim </td><td>&nbsp;:&nbsp;</td><td>{{ $pengirim->Nama }}</td></tr>
                         <tr><td>Status Sekarang </td><td>&nbsp;:&nbsp;</td><td>{{ $status->Status  }}</td></tr>
                         <tr><td>Email </td><td>&nbsp;:&nbsp;</td><td>{{ $pengirim->Email }}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table style="width: 100%">
+                    <tbody>
+                        <tr><td style="font-size: large">Total Harga </td><td>&nbsp;:&nbsp;</td><td  style="font-weight: bold; font-size: large">Rp. {{ formatRupiah($biaya->TotalBiaya) }}</td></tr>
                         <tr><td>Asuransi </td><td>&nbsp;:&nbsp;</td>
                             <td>
                                 <input type="checkbox" onclick="return false;" class="form-check"  @if ($pesanan->Asuransi === '1') checked @endif />
@@ -39,10 +46,11 @@
                                 <input type="checkbox" onclick="return false;" class="form-check"  @if ($pesanan->Packing === '1') checked @endif />
                             </td>
                         </tr>
+                        <tr><td></td><td></td><td style="text-align: right">
+                            <button type="button" class="btn btn-danger" onclick="showModalDeleteOrder()">Cancle Order</button>
+                        </td></tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="col-md-5">
             </div>
         </div>
     </div>
@@ -119,27 +127,28 @@
         <h5>Detail Barang</h5>
     </div>
     <div class="card-body">
-        <div class="row">
-            <div class="col-md-6 ">
-                <table class="table table-sm">
-                    <tbody>
-                        <tr><td>Jenis Barang </td><td>&nbsp;:&nbsp;</td><td>{{ $barang->Jenis }}</td></tr>
-                        <tr><td>Keterangan </td><td>&nbsp;:&nbsp;</td></td><td>{{ $barang->Keterangan }}</td></tr>
-                    </tbody>
-                </table>
+        @foreach($barang as $item)
+            <div class="row">
+                <div class="col-md-6 ">
+                    <table class="">
+                        <tbody>
+                            <tr><td>Jenis Barang </td><td>&nbsp;:&nbsp;</td><td>{{ $item->Jenis }}</td></tr>
+                            <tr><td>Keterangan </td><td>&nbsp;:&nbsp;</td></td><td>{{ $item->Keterangan }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6 ">
+                    <table >
+                        <tbody>
+                            <tr><td>Jumlah Barang </td><td>&nbsp;:&nbsp;</td></td><td>{{ $item->Jumlah }}</td></tr>
+                            <tr><td>Harga Per Item </td><td>&nbsp;:&nbsp;</td></td><td>Rp. {{ formatRupiah($item->Harga)  }}</td></tr>
+                            <tr><td>Total Harga  </td><td>&nbsp;:&nbsp;</td></td><td>Rp. {{ formatRupiah($item->Harga * $item->Jumlah)  }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="col-md-6 ">
-                <table class="table table-sm">
-                    <tbody>
-                        <tr><td>Berat Barang </td><td>&nbsp;:&nbsp;</td></td><td>{{ $barang->Berat }} Kg</td></tr>
-                        <tr><td>Koli </td><td>&nbsp;:&nbsp;</td></td><td>{{ $barang->Koli  }} Koli</td></tr>
-                        <tr><td>Kilo </td><td>&nbsp;:&nbsp;</td></td><td>{{ $barang->Kilo  }} Kgv</td></tr>
-                        <tr><td>Kubik </td><td>&nbsp;:&nbsp;</td></td><td>{{ $barang->Kubik  }} M3</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            {{-- <div class="col-md-2 "  style="height: 100%;"> <p class="align-middle" >-></p> </div> --}}
-        </div>
+            <hr>
+        @endforeach
     </div>
 </div>
 
@@ -314,6 +323,20 @@
     </div>
 </div>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="myModalDeleteData">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 style="text-align: center">APAKAH ANDA YAKIN AKAN MENGHAPUS DATA {{ $pesanan->NoPesanan }} ?</h4>
+            </div>
+            <div class="modal-footer">
+                <a href="/DeletePesanan/{{ $pesanan->NoPesanan }}" class="btn btn-danger">Ya</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>           
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     // $(window).on('load', function() {
     //     $('#myModal').modal({
@@ -340,6 +363,13 @@
         });
     }
     
+    function showModalDeleteOrder(){
+        $('#myModalDeleteData').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+
     function showModalDelete(id){
         $('#idStatusDelete').val(id);
         $('#modalDelete').modal({
