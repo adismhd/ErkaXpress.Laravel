@@ -31,8 +31,8 @@
     </script>
     
     <!-- Favicons -->
-    <link href="{{ asset('') }}assets/img/favicon.png" rel="icon">
-    <link href="{{ asset('') }}assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,7 +49,7 @@
     <script src="https://kit.fontawesome.com/cf59e3b8b5.js" crossorigin="anonymous"></script>
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
 </head>
 
 <body  style="background-color:  #f6f6f6">
@@ -87,11 +87,36 @@
         </div>
     </footer><!-- End Footer -->
     <!-- End Footer -->
+        
+    <div class="modal" tabindex="-1" role="dialog" style="overflow-y: auto;" id="modalLoading">
+        <div class="modal-dialog modal-dialog-centered  modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header box-header with-border">
+                    <h3 class="box-title">Please Wait</h3>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    <img src="{{ asset('img/loading.gif') }}" />
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <!-- Vendor JS Files -->
 <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
 
 <!-- Template Main JS File -->
-<script src="assets/js/mainJs.js"></script>
+<script src="{{ asset('assets/js/mainJs.js') }}"></script>
+<script>
+    function ShowLoading(){
+        $('#modalLoading').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+
+    function HideLoading(){
+        $('#modalLoading').modal("hide");
+    }
+</script>
 </html>

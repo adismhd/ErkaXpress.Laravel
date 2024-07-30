@@ -13,6 +13,7 @@ use App\Models\Xproduk;
 use App\Models\Xpropinsi;
 use App\Models\Xstatus;
 use App\Models\OngkosKirim;
+use App\Models\Dokumen;
 use App\Mail\kirimemail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -45,6 +46,13 @@ class PesananController extends Controller
         $propinsiPengirim = Xpropinsi::where('Code', $pengirim->Propinsi)->first();
         $biaya = Biaya::where('NoPesanan', $id)->first();
         $paramStatus = Xstatus::All();
+        $isCancle = true;
+        
+        $statusCount = StatusPesanan::where('NoPesanan', $id)->count();
+        //dd($statusCount);
+        if ($statusCount > 1){
+            $isCancle = false;
+        }
 
         //dd($propinsiPenerima);
         return view('adminView/detailPesanan', [
@@ -58,7 +66,8 @@ class PesananController extends Controller
             "statuList" => $statuList,
             "propinsiPenerima" => $propinsiPenerima,
             "propinsiPengirim" => $propinsiPengirim,
-            "paramStatus" => $paramStatus
+            "paramStatus" => $paramStatus,
+            "isCancle" => $isCancle
         ]);
     }
     
@@ -258,6 +267,7 @@ class PesananController extends Controller
     }
 
     public function InsertDataVendor(Request $request){
+        Session::forget('message');
         $ldate = date('YmdHis');
         $noPesanan = "EXPRV" . $ldate;
         $createAt = new DateTime();
@@ -273,15 +283,15 @@ class PesananController extends Controller
 
         $pengirim = DataPengirim::create([
             'NoPesanan' => $noPesanan,
-            'Nama' => $request->DtNama,
-            'Alamat' => $request->DtAlamat,
-            'Propinsi' => $request->DtPropinsi,
-            'Kabupaten' => $request->DtKabupaten,
-            'Kecamatan' => $request->DtKecamatan,
-            'Kelurahan' => $request->DtKelurahan,
-            'KodePos' => $request->DtKodepos,
-            'Email' => $request->DtEmail,
-            'NoTelepon' => $request->DtNoTelepon
+            'Nama' => "PT. Sahitya Poetra Grup",
+            'Alamat' => "Jl. Cemara B, No. 1B",
+            'Propinsi' => "",
+            'Kabupaten' => "",
+            'Kecamatan' => "",
+            'Kelurahan' => "",
+            'KodePos' => "",
+            'Email' => "",
+            'NoTelepon' => ""
         ]);
 
         $penerima = DataPenerima::create([
@@ -339,7 +349,7 @@ class PesananController extends Controller
         $barang = DataBarang::where('NoPesanan',$noPesanan)->get();
         
         $ongkir = OngkosKirim::where('PropinsiId',$request->DtPropinsi)
-            ->where('ProdukId','1001')->first();
+            ->where('ProdukId','1002')->first();
 
         $subTotal = $totalBiayaBarang;
         $totalBiayaBarang += $ongkir->Harga;
@@ -376,17 +386,7 @@ class PesananController extends Controller
         // ];
         // Mail::to($request->PengirimEmail)->send(new kirimemail($data_email));
 
-        return view('publicView/vendorInvoice', [
-            "title" => "Buat Pesanan",
-            "pesanan" => $pesanan,
-            "pengirim" => $pengirim,
-            "penerima" => $penerima,
-            "barang" => $barang,
-            "biaya" => $biaya,
-            "subBiaya" => $subTotal,
-            "ongkir" => $ongkir->Harga,
-            "status" => $status
-        ]);
+        return redirect('InvoicePesanan/'.$noPesanan);
         //dd($request);
     }
     
@@ -413,6 +413,12 @@ class PesananController extends Controller
         $propinsiPengirim = Xpropinsi::where('Code', $pengirim->Propinsi)->first();
         $biaya = Biaya::where('NoPesanan', $id)->first();
         $paramStatus = Xstatus::All();
+        $dokumenPembayaran = Dokumen::where('NoPesanan', $id)->first();
+        $base64Encoded = "null";
+        if ($dokumenPembayaran != null)
+        {
+            $base64Encoded = base64_encode($dokumenPembayaran->Blob);
+        }
 
         //dd($propinsiPenerima);
         return view('adminView/vendorDetailPesanan', [
@@ -426,7 +432,8 @@ class PesananController extends Controller
             "statuList" => $statuList,
             "propinsiPenerima" => $propinsiPenerima,
             "propinsiPengirim" => $propinsiPengirim,
-            "paramStatus" => $paramStatus
+            "paramStatus" => $paramStatus,
+            "dokumenPembayaran" => $base64Encoded
         ]);
     }
     
@@ -441,5 +448,53 @@ class PesananController extends Controller
     public function AddItemVendor(Request $request){
         return redirect("test")->with("pesanan", $request->Nama);
         //dd($request);
+    }
+    
+    public function GetInvoice($id){
+        $pesanan = Pesanan::where("NoPesanan", $id)->first();
+        $pengirim = DataPengirim::where("NoPesanan", $id)->first();
+        $penerima = DataPenerima::where("NoPesanan", $id)->first();
+        $barang = DataBarang::where("NoPesanan", $id)->get();
+        $biaya = Biaya::where("NoPesanan", $id)->first();
+        //dd($penerima);
+        $ongkir = OngkosKirim::where("PropinsiId", $penerima->Propinsi)
+            ->where('ProdukId','1002')->first();
+        $status = StatusPesanan::where("NoPesanan", $id)->first();
+
+        return view('publicView/vendorInvoice', [
+            "title" => "Buat Pesanan",
+            "pesanan" => $pesanan,
+            "pengirim" => $pengirim,
+            "penerima" => $penerima,
+            "barang" => $barang,
+            "biaya" => $biaya,
+            "subBiaya" => $biaya->TotalBiaya,
+            "ongkir" => $ongkir->Harga,
+            "status" => $status
+        ]);
+    }
+
+    public function UploadDokumen(Request $request){
+        // $noAplikasi = $request->noAplikasi;
+        // $imageBase64 = $request->base64;
+        $noAplikasi = $request->get("noAplikasi");
+        $imageBase64 = $request->get("base64");
+        $str_decode = base64_decode($imageBase64);
+
+        //print_r($noAplikasi); 
+        //dd($request);
+        $dokumenCount = Dokumen::where('NoPesanan', $noAplikasi)->count();
+
+        if ($dokumenCount == 0){                
+            Dokumen::create([
+                'NoPesanan' => $noAplikasi,
+                'KodeDokumen' => "1001",
+                'Blob' => $imageBase64,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);            
+        }
+        //dd($request);
+        return back()->with("messagePembayaran", "Password Lama Tidak Sesuai!");;
     }
 }

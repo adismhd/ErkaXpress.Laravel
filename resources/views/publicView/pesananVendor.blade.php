@@ -120,19 +120,16 @@
                     <div class="mt-2 col-md-6">
                         <label>Alamat Kabupaten <i style="color: crimson">*</i></label>
                         <select class="form-select mt-1" id="inKabupatenPengirim"  name="KabupatenPengirim" onchange="ChangeKabupaten()" required>
-                            <option value=""  disabled selected hidden>-- Pilih --</option>
                         </select>
                     </div>
                     <div class="mt-2 col-md-4">
                         <label>Alamat Kecamatan <i style="color: crimson">*</i></label>
                         <select class="form-select mt-1" id="inKecamatanPengirim"  name="KecamatanPengirim" onchange="ChangeKecamatan()" required>
-                            <option value=""  disabled selected hidden>-- Pilih --</option>
                         </select>
                     </div>
                     <div class="mt-2 col-md-4">
                         <label>Alamat Kelurahan <i style="color: crimson">*</i></label>
                         <select class="form-select mt-1" id="inKelurahanPengirim"  name="KelurahanPengirim" onchange="ChangeKelurahan()" required>
-                            <option value=""  disabled selected hidden>-- Pilih --</option>
                         </select>
                     </div>
                     <div class="mt-2 col-md-4">
@@ -212,16 +209,26 @@
         }); 
 
         function ChangeItem() {
+            let baseHargaItem = 130000;
+
+            if ($("#bSize").val() == "XL" || $("#bSize").val() == "XXL"){
+                baseHargaItem += 10000;
+            }
+
+            if ($("#bVariant").val() == "Tangan Panjang"){
+                baseHargaItem += 10000;
+            }
+
             if ($("#bItem").val() == "UMKM" && $("#bWarna").val() == "Putih"){
                 $("#txtJudul").text("Baju UMKM Naik Kelas - Putih");
-                $("#txtHarga").text("Rp. 130.000");
+                $("#txtHarga").text("Rp. "+ MoneyFormat(baseHargaItem));
                 $("#gmbrDispay1").show();
                 $("#gmbrDispay2").hide();
                 $("#bHarga").val("130000");
             }
             if ($("#bItem").val() == "UMKM" && $("#bWarna").val() == "Hitam"){
                 $("#txtJudul").text("Baju UMKM Naik Kelas - Hitam");
-                $("#txtHarga").text("Rp. 130.000");
+                $("#txtHarga").text("Rp. " + MoneyFormat(baseHargaItem));
                 $("#gmbrDispay1").hide();
                 $("#gmbrDispay2").show();
                 $("#bHarga").val("130000");
@@ -230,6 +237,10 @@
 
         function ChangePropinsi() {
             const dtPropinsi = $("#inPropinsiPengirim").val();
+            $('#inKabupatenPengirim').empty();
+            $('#inKecamatanPengirim').empty();
+            $('#inKelurahanPengirim').empty();
+            $('#inKodePos').val("");
             
             $.ajaxSetup({
                 headers: {
@@ -244,7 +255,8 @@
                 contentType: false,
                 processData: false,
                 success: (Dt, textStatus, jqXHR) => {
-                    console.log(Dt);
+                    //console.log(Dt);
+                    $('#inKabupatenPengirim').append($('<option>', { value: "", text: "-- Pilih --" }));
                     $.each(Dt, function (i, rowData) {
                         $('#inKabupatenPengirim').append($('<option>', { value: rowData.Code, text: rowData.Nama }));
                     });
@@ -257,7 +269,11 @@
 
         function ChangeKabupaten() {
             const dtKabupaten = $("#inKabupatenPengirim").val();
+            $('#inKecamatanPengirim').empty();
+            $('#inKelurahanPengirim').empty();
+            $('#inKodePos').val("");
             //alert("param-kecamatan/"+dtKabupaten);
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -271,7 +287,8 @@
                 contentType: false,
                 processData: false,
                 success: (Dt, textStatus, jqXHR) => {
-                    console.log(Dt);
+                    //console.log(Dt);
+                    $('#inKecamatanPengirim').append($('<option>', { value: "", text: "-- Pilih --" }));
                     $.each(Dt, function (i, rowData) {
                         $('#inKecamatanPengirim').append($('<option>', { value: rowData.Code, text: rowData.Nama }));
                     });
@@ -284,6 +301,8 @@
 
         function ChangeKecamatan() {
             const dtKecamatan = $("#inKecamatanPengirim").val();
+            $('#inKelurahanPengirim').empty();
+            $('#inKodePos').val("");
             
             $.ajaxSetup({
                 headers: {
@@ -298,7 +317,8 @@
                 contentType: false,
                 processData: false,
                 success: (Dt, textStatus, jqXHR) => {
-                    console.log(Dt);
+                    //console.log(Dt);
+                    $('#inKelurahanPengirim').append($('<option>', { value: "", text: "-- Pilih --" }));
                     $.each(Dt, function (i, rowData) {
                         $('#inKelurahanPengirim').append($('<option>', { value: rowData.Code, text: rowData.Nama }));
                     });
@@ -311,6 +331,7 @@
 
         function ChangeKelurahan() {
             const dtKecamatan = $("#inKelurahanPengirim").val();
+            //$('#inKodePos').val("");
             
             $.ajaxSetup({
                 headers: {
@@ -325,7 +346,7 @@
                 contentType: false,
                 processData: false,
                 success: (Dt, textStatus, jqXHR) => {
-                    console.log(Dt);
+                    //console.log(Dt);
                     $.each(Dt, function (i, rowData) {
                         $('#inKodePos').val(rowData.Code);
                     });
@@ -347,7 +368,7 @@
             const id = size + warna + variant;
 
             var hrgDasar = hargaDasar;
-            if(size == "XXL" || size == "XXXL"){
+            if (size == "XXL" || size == "XXXL"){
                 hrgDasar += 10000;
             }
             if(variant == "Tangan Panjang"){
@@ -357,10 +378,8 @@
 
             if (tempPesanan.length == 0) {
                 tempPesanan.push({ pId: id, pSize: size, pVariant: variant, pWarna: warna, pJumlah: jumlah, pTotal: subtotal  });
-                //TampilPesanan();
             } else {
                 var tempData = 0;
-                //pencarian data
                 for (var i in tempPesanan) {
                     if (tempPesanan[i].pId == id) {
                         tempData = 1;
@@ -370,18 +389,30 @@
                 if (tempData != 0) {
                     for (var i in tempPesanan) {
                         if (tempPesanan[i].pId == id) {
-                            //tempPesanan[i].pTotalHarga = tempPesanan[i].pTotalHarga + harga;
                             tempPesanan[i].pJumlah += jumlah;
+                            let tempSubtotal = parseInt(tempPesanan[i].pJumlah * hrgDasar);
+                            console.log(hrgDasar);
+                            console.log(tempSubtotal);
+                            tempPesanan[i].pTotal = tempSubtotal;
                         }
                     }
                     //TampilPesanan();
                 } else {
                     tempPesanan.push({ pId: id, pSize: size, pVariant: variant, pWarna: warna, pJumlah: jumlah, pTotal: subtotal });
-                    //TampilPesanan();
                 }
             }
             console.log(tempPesanan);
             alert("Sukses Ditambahkan Ke Keranjang");
+        }
+
+        function HapusList(id){
+            for (var i in tempPesanan) {
+                if (tempPesanan[i].pId == id) {
+                    tempPesanan.splice(i, 1);
+                    //ShowModalKeranjang();
+                }
+            }
+            $('#mdKerjang').modal('hide');
         }
 
         function ShowModalKeranjang(){
@@ -422,17 +453,19 @@
 
                 for (var i in tempPesanan) {
                     totalHarga += parseInt(tempPesanan[i].pTotal);
+                    const tempid = '"' + tempPesanan[i].pId + '"';
 
                     cHtml += "<tr><td style='display: none;'>" + tempPesanan[i].pId + "</td><td style='display: none;'>" + tempPesanan[i].pJumlah + "</td><td>" + tempPesanan[i].pVariant + "</td><td>" + tempPesanan[i].pWarna +
                         "</td><td>" + tempPesanan[i].pSize + "</td>><td>" +
                         "" + tempPesanan[i].pJumlah
-                        + "</td>" + "<td>" + tempPesanan[i].pTotal + "</td><td><a href='javascript:void(0)' class='btn btn-warning btn-sm' id='bTambah'>Hps</a></td></tr>";
-                    cTotal = "Total : Rp. " + totalHarga;
+                        + "</td>" + "<td>" + MoneyFormat(tempPesanan[i].pTotal) + 
+                        "</td><td><a href='javascript:void(0)' class='btn btn-warning btn-sm' id='bTambah' onclick='HapusList(" + tempid + ")'>Hapus</a></td></tr>";
+                    cTotal = "Total : Rp. " + MoneyFormat(totalHarga);
                 }
                 $("#tbody-tPesanan").empty();
                 $('#tPesanan').append(cHtml);
 
-                document.getElementById('subTotal').innerHTML = totalHarga;
+                document.getElementById('subTotal').innerHTML = MoneyFormat(totalHarga);
                 document.getElementById('total').innerHTML = cTotal;
 
                 $('#mdKerjang').modal({

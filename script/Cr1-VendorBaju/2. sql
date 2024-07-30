@@ -35,3 +35,13 @@ CREATE TABLE `xwilayahs`  (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `dokumens` (
+  `id` bigint(20) AUTO_INCREMENT NOT NULL,
+  `NoPesanan` varchar(255) NOT NULL,
+  `KodeDokumen` varchar(255),
+  `Blob` TEXT,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+

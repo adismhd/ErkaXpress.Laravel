@@ -46,9 +46,13 @@
                                 <input type="checkbox" onclick="return false;" class="form-check"  @if ($pesanan->Packing === '1') checked @endif />
                             </td>
                         </tr>
-                        <tr><td></td><td></td><td style="text-align: right">
-                            <button type="button" class="btn btn-danger" onclick="showModalDeleteOrder()">Cancle Order</button>
-                        </td></tr>
+                        <tr><td></td><td></td>
+                            @if ($isCancle == true)
+                                <td style="text-align: right">
+                                    <button type="button" class="btn btn-danger" onclick="showModalDeleteOrder()">Cancle Order</button>
+                                </td>
+                            @endif
+                        </tr>
                     </tbody>
                 </table>
             </div>

@@ -74,6 +74,7 @@
                         @endif  --}}
                     </td>
                     <td style="text-align: right">
+                        <a class="btn btn-primary" href="#" onclick="showModalBukti()">Bukti Pembayaran</a> &nbsp;
                         <a class="btn btn-primary" href="#" onclick="showModalStatus()">Ganti</a>
                     </td>
                 </tr>
@@ -95,7 +96,7 @@
                         <tbody>
                             <tr><td class="col-md-3">Nama </td><td>&nbsp;:&nbsp;</td><td>{{ $pengirim->Nama }}</td></tr>
                             <tr><td>No. Telepon </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->NoTelepon  }}</td></tr>
-                            <tr><td>Propinsi </td><td>&nbsp;:&nbsp;</td></td><td>{{ $propinsiPengirim->Nama }}</td></tr>
+                            @isset($propinsiPengirim->Nama)<tr><td>Propinsi </td><td>&nbsp;:&nbsp;</td></td><td>{{ $propinsiPengirim->Nama }}</td></tr>@endisset
                             <tr><td>Alamat </td><td>&nbsp;:&nbsp;</td></td><td>{{ $pengirim->Alamat }}</td></tr>
                         </tbody>
                     </table>
@@ -285,6 +286,23 @@
     </div>
 </div>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="modalBukti">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                @if($dokumenPembayaran == "null")
+                    <label>Tidak ada bukti pembayaran</label>
+                @else
+                    <img src="{{ base64_decode($dokumenPembayaran) }}" class="img-fluid"> 
+                @endif
+            </div>         
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     function showModalTambah(){
         $('#myModal').modal({
@@ -318,6 +336,14 @@
         });
     }
     
+    function showModalBukti(){
+        $('#modalBukti').modal({
+            show: true,
+            backdrop: 'static'
+        });
+        console.log($("#dok").val());
+    }
+
 </script>
 
 @endsection
