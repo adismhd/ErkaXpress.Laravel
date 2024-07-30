@@ -47,6 +47,12 @@ class PesananController extends Controller
         $biaya = Biaya::where('NoPesanan', $id)->first();
         $paramStatus = Xstatus::All();
         $isCancle = true;
+        $dokumenPembayaran = Dokumen::where('NoPesanan', $id)->first();
+        $base64Encoded = "null";
+        if ($dokumenPembayaran != null)
+        {
+            $base64Encoded = base64_encode($dokumenPembayaran->Blob);
+        }
         
         $statusCount = StatusPesanan::where('NoPesanan', $id)->count();
         //dd($statusCount);
@@ -67,7 +73,8 @@ class PesananController extends Controller
             "propinsiPenerima" => $propinsiPenerima,
             "propinsiPengirim" => $propinsiPengirim,
             "paramStatus" => $paramStatus,
-            "isCancle" => $isCancle
+            "isCancle" => $isCancle,
+            "dokumenPembayaran" => $base64Encoded
         ]);
     }
     
