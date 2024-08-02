@@ -10,8 +10,12 @@
 <hr >
 <div class="row mt-3">
     <div class="container-fluid">
-        <a href="/DetailPesanan/{{ $NoPesanan }}" class="btn btn-primary">Detail</a> &nbsp;
-        <a href="/EkspedisiBiaya/{{ $NoPesanan }}" class="btn btn-primary">Ekspedisi & Biaya</a> &nbsp;
+        @if($layanan == "9001")
+            <a href="/DetailPesananVendor/{{ $NoPesanan }}" class="btn btn-primary">Detail</a> &nbsp;
+        @else
+            <a href="/DetailPesanan/{{ $NoPesanan }}" class="btn btn-primary">Detail</a> &nbsp;
+            <a href="/EkspedisiBiaya/{{ $NoPesanan }}" class="btn btn-primary">Ekspedisi & Biaya</a> &nbsp;
+        @endif
         <a href="/MemoPesanan/{{ $NoPesanan }}" class="btn btn-primary disabled">Memo</a> &nbsp;
     </div>
 </div>

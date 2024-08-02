@@ -33,7 +33,7 @@
                 </table>
             </div>
             <div class="col-md-6">
-                <table>
+                <table class="" style="width: 100%">
                     <tbody>
                         <tr><td style="font-size: large">Total Harga </td><td>&nbsp;:&nbsp;</td><td  style="font-weight: bold; font-size: large">Rp. {{ formatRupiah($biaya->TotalBiaya) }}</td></tr>
                         <tr><td>Asuransi </td><td>&nbsp;:&nbsp;</td>
@@ -45,6 +45,13 @@
                             <td>
                                 <input type="checkbox" onclick="return false;" class="form-check"  @if ($pesanan->Packing === '1') checked @endif />
                             </td>
+                        </tr>
+                        <tr><td></td><td></td>
+                            @if ($isCancle == true)
+                                <td style="text-align: right">
+                                    <button type="button" class="btn btn-danger" onclick="showModalDeleteOrder()">Cancle Order</button>
+                                </td>
+                            @endif
                         </tr>
                     </tbody>
                 </table>
@@ -303,6 +310,20 @@
     </div>
 </div>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="myModalDeleteData">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 style="text-align: center">APAKAH ANDA YAKIN AKAN MENGHAPUS DATA {{ $pesanan->NoPesanan }} ?</h4>
+            </div>
+            <div class="modal-footer">
+                <a href="/DeletePesananVendor/{{ $pesanan->NoPesanan }}" class="btn btn-danger">Ya</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>           
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     function showModalTambah(){
         $('#myModal').modal({
@@ -344,6 +365,12 @@
         console.log($("#dok").val());
     }
 
+    function showModalDeleteOrder(){
+        $('#myModalDeleteData').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
 </script>
 
 @endsection

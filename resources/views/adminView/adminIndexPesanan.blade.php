@@ -26,7 +26,12 @@
                         <tr class="" >
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $data->NoPesanan }}</td>
-                            <td>{{ $data->Pengirim->Nama }}</td>
+                            {{-- <td>{{ $data->Pengirim->Nama }}</td> --}}
+                            @if ($data->Layanan == "9001")
+                                <td>{{ $data->Penerima->Nama }}</td>
+                            @else
+                                <td>{{ $data->Pengirim->Nama }}</td>
+                            @endif
                             <td>{{ $data->Barang->Jenis }}</td>
                             <td>{{ $data->Barang->Berat }} kg</td>
                             {{-- <td @if($data->Status->Status == 'Pesanan Dibuat')

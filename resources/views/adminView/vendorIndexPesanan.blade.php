@@ -26,7 +26,7 @@
                         <tr class="" >
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $data->NoPesanan }}</td>
-                            <td>{{ $data->Pengirim->Nama }}</td>
+                            <td>{{ $data->Penerima->Nama }}</td>
                             <td>{{ $data->Barang->Jenis }}</td>
                             <td>{{ $data->Barang->Berat }} kg</td>
                             {{-- <td @if($data->Status->Status == 'Pesanan Dibuat')

@@ -15,6 +15,7 @@ use App\Models\Xstatus;
 use App\Models\OngkosKirim;
 use App\Models\Dokumen;
 use App\Mail\kirimemail;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -297,8 +298,8 @@ class PesananController extends Controller
             'Kecamatan' => "",
             'Kelurahan' => "",
             'KodePos' => "",
-            'Email' => "",
-            'NoTelepon' => ""
+            'Email' => "sahityapoetragrup@gmail.com",
+            'NoTelepon' => "087795417676 "
         ]);
 
         $penerima = DataPenerima::create([
@@ -331,7 +332,7 @@ class PesananController extends Controller
                 $hargaBarang += 10000;
             }
     
-            if($size == 'XXL' || $request->bSize == 'XXXL')
+            if($size == 'XXL' || $size == 'XXXL')
             {
                 $hargaBarang += 10000;
             }
@@ -427,6 +428,13 @@ class PesananController extends Controller
             $base64Encoded = base64_encode($dokumenPembayaran->Blob);
         }
 
+        $isCancle = true;
+        $statusCount = StatusPesanan::where('NoPesanan', $id)->count();
+        //dd($statusCount);
+        if ($statusCount > 1){
+            $isCancle = false;
+        }
+
         //dd($propinsiPenerima);
         return view('adminView/vendorDetailPesanan', [
             "title" => "Pesanan",
@@ -440,6 +448,7 @@ class PesananController extends Controller
             "propinsiPenerima" => $propinsiPenerima,
             "propinsiPengirim" => $propinsiPengirim,
             "paramStatus" => $paramStatus,
+            "isCancle" => $isCancle,
             "dokumenPembayaran" => $base64Encoded
         ]);
     }
@@ -467,6 +476,7 @@ class PesananController extends Controller
         $ongkir = OngkosKirim::where("PropinsiId", $penerima->Propinsi)
             ->where('ProdukId','1002')->first();
         $status = StatusPesanan::where("NoPesanan", $id)->first();
+        $subTotal = $biaya->TotalBiaya - $ongkir->Harga;
 
         return view('publicView/vendorInvoice', [
             "title" => "Buat Pesanan",
@@ -475,7 +485,7 @@ class PesananController extends Controller
             "penerima" => $penerima,
             "barang" => $barang,
             "biaya" => $biaya,
-            "subBiaya" => $biaya->TotalBiaya,
+            "subBiaya" => $subTotal,
             "ongkir" => $ongkir->Harga,
             "status" => $status
         ]);
@@ -504,4 +514,17 @@ class PesananController extends Controller
         //dd($request);
         return back()->with("messagePembayaran", "Password Lama Tidak Sesuai!");;
     }
+    
+    public function DeleteDataPesananVendor($id){
+        Pesanan::where('NoPesanan',$id)->delete();
+        DataPengirim::where('NoPesanan',$id)->delete();
+        DataPenerima::where('NoPesanan',$id)->delete();
+        Biaya::where('NoPesanan',$id)->delete();
+        DataBarang::where('NoPesanan',$id)->delete();
+        StatusPesanan::where('NoPesanan',$id)->delete();
+
+        //dd($pesanan);
+        return redirect("IndexPesananVendor");
+    }
+    
 }

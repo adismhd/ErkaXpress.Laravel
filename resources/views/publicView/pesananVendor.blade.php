@@ -91,13 +91,13 @@
                 <hr>
                 <div class="row">
                     <div class="mt-2 col-md-4">
-                        <label>Nama Pengirim <i style="color: crimson">*</i></label>
+                        <label>Nama Pemesan <i style="color: crimson">*</i></label>
                         <input id="inPengirimNama" name="PengirimNama" class="form-control mt-1" type="text"
                             placeholder="Nama" required
                             value="@isset($pengirim){{ $pengirim->Nama }}@endisset" />
                     </div>
                     <div class="mt-2 col-md-4">
-                        <label>No. Telp Pengirim <i style="color: crimson">*</i></label>
+                        <label>No. Telp Pemesan <i style="color: crimson">*</i></label>
                         <input id="inPengirimNoTelepon" name="PengirimNoTelepon" class="form-control mt-1" type="number"
                             placeholder="081000000000" required
                             value="@isset($pengirim){{ $pengirim->NoTelepon }}@endisset" />
@@ -211,7 +211,7 @@
         function ChangeItem() {
             let baseHargaItem = 130000;
 
-            if ($("#bSize").val() == "XL" || $("#bSize").val() == "XXL"){
+            if ($("#bSize").val() == "XXL" || $("#bSize").val() == "XXXL"){
                 baseHargaItem += 10000;
             }
 

@@ -5,18 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Memo;
+use App\Models\Pesanan;
 
 class MemoController extends Controller
 {
     public function GetData($id){
         //$pesanan = Memo::orderBy('created_at', 'DESC')->get();
+        $pesanan = Pesanan::where('NoPesanan', $id)->first();
         $memo = Memo::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->get();
         
-        //dd($memo->toArray());
+        //dd($pesanan->Layanan);
         return view('adminView/memoPesanan', [
             "title" => "Memo",
             "memoList" => $memo,
-            "NoPesanan" => $id
+            "NoPesanan" => $id,
+            "layanan" => $pesanan->Layanan
         ]);
     }
     

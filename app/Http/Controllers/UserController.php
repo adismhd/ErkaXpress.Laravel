@@ -44,6 +44,7 @@ class UserController extends Controller
             session(['MenuList' => $menus]);
             session(['UserLoginName' => $user->name]);
             session(['UserLogin' => $user->id]);
+            session(['UserLevel' => $user->class]);
 
             return redirect('/HomeAdmin');
         }

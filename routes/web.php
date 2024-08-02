@@ -87,6 +87,7 @@ Route::get('/DetailPesananVendor/{id}', [PesananController::class, 'SelectVendor
 Route::post('/DetailPesananVendor/EditStatusPembayaran', [PesananController::class, 'EditStatusPembayaran']);
 Route::post('/InvoicePesanan/UploadDokumen', [PesananController::class, 'UploadDokumen']);
 Route::get('/InvoicePesanan/{id}', [PesananController::class, 'GetInvoice']);
+Route::get('/DeletePesananVendor/{id}', [PesananController::class, 'DeleteDataPesananVendor']);
 
 //Parameter
 Route::get('param-kabupaten/{id}', [XParameterController::class, 'GetParamKabupaten']);
