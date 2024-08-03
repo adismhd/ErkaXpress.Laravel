@@ -95,4 +95,6 @@ Route::get('param-kecamatan/{id}', [XParameterController::class, 'GetParamKecama
 Route::get('param-kelurahan/{id}', [XParameterController::class, 'GetParamKelurahan']);
 Route::get('param-kodepos/{id}', [XParameterController::class, 'GetParamKodePos']);
 
+//
+Route::get('/export', [PesananController::class, 'ExportExcel']);
 

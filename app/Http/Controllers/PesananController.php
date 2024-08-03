@@ -15,7 +15,8 @@ use App\Models\Xstatus;
 use App\Models\OngkosKirim;
 use App\Models\Dokumen;
 use App\Mail\kirimemail;
-
+use App\Exports\PesananExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -527,4 +528,7 @@ class PesananController extends Controller
         return redirect("IndexPesananVendor");
     }
     
+    public function ExportExcel(){
+        return Excel::download(new PesananExport, 'users.xlsx');
+    }
 }
