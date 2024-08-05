@@ -58,6 +58,12 @@ class UserController extends Controller
     }
 
     public function GetListAdmin(){
+        $levelUser = Session::get('UserLevel');
+        if ($levelUser != 'admin' && $levelUser != 'superadmin' )
+        {
+            return redirect('HomeAdmin');
+        }
+
         $user = User::where('class', "admin")->orWhere('class', 'vendor')->orderBy('created_at', 'DESC')->get();
 
         return view('adminView/adminList', [

@@ -7,6 +7,9 @@
 
 <div class="card mt-3" style="border-radius: 25px">    
     <div class="card-body" >
+        <div class="col-md-12 mb-4" style="text-align: right">
+            <a class="btn btn-success" href="/export" style="border-radius: 25px; font-weight: bold; ">Export Data</a>
+        </div>
         <div class="table-responsive" style="border-radius: 15px;">
             <table class="table table-striped" style="">
                 <thead class="table-dark">

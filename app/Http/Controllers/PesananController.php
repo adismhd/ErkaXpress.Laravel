@@ -16,6 +16,7 @@ use App\Models\OngkosKirim;
 use App\Models\Dokumen;
 use App\Mail\kirimemail;
 use App\Exports\PesananExport;
+use App\Exports\PesananVendorExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -26,6 +27,12 @@ use Session;
 class PesananController extends Controller
 {
     public function index(){
+        $levelUser = Session::get('UserLevel');
+        if ($levelUser != 'admin' && $levelUser != 'superadmin' )
+        {
+            return redirect('HomeAdmin');
+        }
+
         $pesanan = Pesanan::orderBy('created_at', 'DESC')->get();
         //$status = StatusPesanan::where('NoPesanan', $pesanan->NoPesanan)->orderBy('created_at', 'DESC')->first();
         
@@ -38,6 +45,12 @@ class PesananController extends Controller
     }
     
     public function selectById($id){
+        $levelUser = Session::get('UserLevel');
+        if ($levelUser != 'admin' && $levelUser != 'superadmin' )
+        {
+            return redirect('HomeAdmin');
+        }
+
         $pesanan = Pesanan::where('NoPesanan', $id)->first();
         $pengirim = DataPengirim::where('NoPesanan', $id)->first();
         $penerima = DataPenerima::where('NoPesanan', $id)->first();
@@ -196,10 +209,11 @@ class PesananController extends Controller
         }
 
         $pesanEmail = "<b>Hai ".$request->PengirimNama.",</b>";
-        $pesanEmail .= "<p>Pesanan dengan No.Resi : <b style='color:red'>".$noPesanan."</b> telah dibuat.</p><p> Mohon tunggu kami hubungi untuk melakukan pengiriman barang.</p>";
+        $pesanEmail .= "<p>Pesanan dengan No.Resi : <b style='color:red'>".$noPesanan."</b> telah dibuat.</p>
+            <p>Untuk melakukan pengechekan resi silahkan buka link berikut : <a href='https://erkaxpress.com/'>https://erkaxpress.com/</a></p></p><p> Mohon tunggu kami hubungi untuk melakukan pengiriman barang.</p>";
         $data_email = [
             'subject'=>'Pesanan Erkaxpres',
-            'sender_name'=>'sender_name@gmail.com',
+            'sender_name'=>'info@erkaxpress.com',
             'isi'=>$pesanEmail
         ];
         Mail::to($request->PengirimEmail)->send(new kirimemail($data_email));
@@ -386,14 +400,16 @@ class PesananController extends Controller
             Session::flash('message', $noPesanan);
         }
 
-        // $pesanEmail = "<b>Hai ".$request->PengirimNama.",</b>";
-        // $pesanEmail .= "<p>Pesanan dengan No.Resi : <b style='color:red'>".$noPesanan."</b> telah dibuat.</p><p> Mohon tunggu kami hubungi untuk melakukan pengiriman barang.</p>";
-        // $data_email = [
-        //     'subject'=>'Pesanan Erkaxpres',
-        //     'sender_name'=>'sender_name@gmail.com',
-        //     'isi'=>$pesanEmail
-        // ];
-        // Mail::to($request->PengirimEmail)->send(new kirimemail($data_email));
+        $pesanEmail = "<b>Hai ".$request->PengirimNama.",</b>";
+        $pesanEmail .= "<p>Pesanan dengan No.Resi : <b style='color:red'>".$noPesanan."</b> telah dibuat.</p>
+            <p>Untuk melakukan pengechekan resi silahkan buka link berikut : <a href='https://erkaxpress.com/'>https://erkaxpress.com/</a></p>
+            </p><p> Mohon tunggu kami hubungi untuk melakukan pengiriman barang.</p>";
+        $data_email = [
+            'subject'=>'Pesanan Erkaxpres',
+            'sender_name'=>'info@erkaxpress.com',
+            'isi'=>$pesanEmail
+        ];
+        Mail::to($request->DtEmail)->send(new kirimemail($data_email));
 
         return redirect('InvoicePesanan/'.$noPesanan);
         //dd($request);
@@ -529,6 +545,18 @@ class PesananController extends Controller
     }
     
     public function ExportExcel(){
-        return Excel::download(new PesananExport, 'users.xlsx');
+        $levelUser = Session::get('UserLevel');
+        if ($levelUser == null)
+        {
+            return redirect('Admin');
+        }
+        else if ($levelUser == 'vendor')
+        {
+            return Excel::download(new PesananVendorExport, 'DataPesananVendor.xlsx');
+        }
+        else
+        {
+            return Excel::download(new PesananExport, 'DataPesanan.xlsx');
+        }
     }
 }

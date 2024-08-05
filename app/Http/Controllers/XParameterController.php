@@ -11,10 +11,17 @@ use App\Models\Xkabupaten;
 use App\Models\Xkecamatan;
 use App\Models\Xkelurahan;
 use App\Models\Xwilayah;
+use Session;
 
 class XParameterController extends Controller
 {
     public function GetParamList(){
+        $levelUser = Session::get('UserLevel');
+        if ($levelUser != 'admin' && $levelUser != 'superadmin' )
+        {
+            return redirect('HomeAdmin');
+        }
+
         $paramProduk = Xproduk::All();
         $paramPropinsi = Xpropinsi::All();
         $paramStatus = Xstatus::All();

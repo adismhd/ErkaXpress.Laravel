@@ -100,7 +100,7 @@
                         Sesi Anda telah Berakhir
                     </h1>
                     <h4 class="f-24 fw-500 c-reguler title mb-5">
-                        Mohon untuk melakukan <a href="/Login" class="btn btn-primary">Login</a> kembali 
+                        Mohon untuk melakukan <a href="/login" class="btn btn-primary">Login</a> kembali 
                     </h4>
                 </center>
             </div>

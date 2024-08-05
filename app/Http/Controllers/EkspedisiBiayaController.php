@@ -8,10 +8,17 @@ use App\Models\Ekspedisi;
 use App\Models\Biaya;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Session;
 
 class EkspedisiBiayaController extends Controller
 {
     public function GetData($id){
+        $levelUser = Session::get('UserLevel');
+        if ($levelUser != 'admin' && $levelUser != 'superadmin' )
+        {
+            return redirect('HomeAdmin');
+        }
+
         //$pesanan = Memo::orderBy('created_at', 'DESC')->get();
         $ekspedisi = Ekspedisi::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->first();
         $biaya = Biaya::where('NoPesanan', $id)->orderBy('created_at', 'DESC')->first();

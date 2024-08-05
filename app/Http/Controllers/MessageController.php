@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Message;
+use Session;
 
 class MessageController extends Controller
 {
@@ -24,6 +25,12 @@ class MessageController extends Controller
     }
     
     public function GetMessage(){
+        $levelUser = Session::get('UserLevel');
+        if ($levelUser != 'admin' && $levelUser != 'superadmin' )
+        {
+            return redirect('HomeAdmin');
+        }
+
         $message = Message::orderBy('created_at', 'DESC')->get();
 
         return view('adminView/messageList', [

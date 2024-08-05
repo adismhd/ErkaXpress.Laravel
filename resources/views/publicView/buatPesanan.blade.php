@@ -261,6 +261,10 @@
         }); 
         
         function ChangePropinsi() {
+            $('#inKabupatenPenerima').empty();
+            $('#inKecamatanPenerima').empty();
+            $('#inKelurahanPenerima').empty();
+            $('#inKodePos').val("");
             const dtPropinsi = $("#inPropinsiPenerima").val();
             
             $.ajaxSetup({
@@ -288,6 +292,9 @@
         }
 
         function ChangeKabupaten() {
+            $('#inKecamatanPenerima').empty();
+            $('#inKelurahanPenerima').empty();
+            $('#inKodePos').val("");
             const dtKabupaten = $("#inKabupatenPenerima").val();
             //alert("param-kecamatan/"+dtKabupaten);
             $.ajaxSetup({
@@ -315,6 +322,8 @@
         }
 
         function ChangeKecamatan() {
+            $('#inKelurahanPenerima').empty();
+            $('#inKodePos').val("");
             const dtKecamatan = $("#inKecamatanPenerima").val();
             
             $.ajaxSetup({
