@@ -142,6 +142,10 @@
                     </div>
                 </div>
                 <hr>
+                <div class="alert alert-danger mt-4" role="alert">
+                    * Biaya Belum termasuk Ongkos Kirim
+                </div>
+                <hr>
                 <button type="button" class="btn btn-success mt-4" onclick="Keranjang()">Tambah Keranjang</button>
                 <button type="button" class="btn btn-primary mt-4" onclick="ShowModalKeranjang()">Lihat Keranjang</button>
             </form>
@@ -178,6 +182,9 @@
                                 </tfoot>
                             </table>
                             <h3 id="total" style="font-weight: bold; text-align: center">Total : Rp. 0 </h3>
+                            {{-- <div class="alert alert-danger mt-4" role="alert">
+                                * Biaya Belum termasuk Ongkos Kirim
+                            </div> --}}
                     </div>
                     <div class="modal-footer" style="">
                         <button type="submit" class="btn btn-primary">Bayar</button>

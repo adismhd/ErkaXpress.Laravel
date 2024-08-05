@@ -253,28 +253,70 @@ class PesananController extends Controller
     }
     
     public function home(){
-        $pesanan = Pesanan::orderBy('created_at', 'DESC')->get();
-        $pesananCount = $pesanan->count();
-
-        $pesananDibuat = StatusPesanan::where('Status', 'Pesanan Dibuat')->get();
-        $pesananDibuatCount = $pesananDibuat->count();
-
-        $pesananDiproses = StatusPesanan::where('Status', 'Sedang Diproses')->get();
-        $pesananDiprosesCount = $pesananDiproses->count();
-
-        $pesananSelesai = StatusPesanan::where('Status', 'Pesanan Selesai Dikirim')->get();
-        $pesananSelesaiCount = $pesananSelesai->count();
-        //$status = StatusPesanan::where('NoPesanan', $pesanan->NoPesanan)->orderBy('created_at', 'DESC')->first();
-        
-        //dd($pesanan->toArray());
-        return view('adminView/adminHome', [
-            "title" => "Beranda",
-            "totalPesanan" => $pesananCount,
-            "totalDibuat" => $pesananDibuatCount,
-            "totalDiproses" => $pesananDiprosesCount,
-            "totalSelesai" => $pesananSelesaiCount
-            //"status" => $status
-        ]);
+        $levelUser = Session::get('UserLevel');
+        if ($levelUser == 'vendor')
+        {
+            $pesanan = Pesanan::where('Layanan', '9001')
+                ->orderBy('created_at', 'DESC')->get();
+            $pesananCount = $pesanan->count();
+    
+            $pesananDibuat = Pesanan::leftjoin('status_pesanans', 'status_pesanans.NoPesanan', '=', 'pesanans.NoPesanan')
+                ->where('pesanans.Layanan', '9001')
+                ->where('status_pesanans.Status', 'Pesanan Dibuat')
+                ->distinct()
+                ->get(['pesanans.*']);
+            $pesananDibuatCount = $pesananDibuat->count();
+    
+            $pesananDiproses = Pesanan::leftjoin('status_pesanans', 'status_pesanans.NoPesanan', '=', 'pesanans.NoPesanan')
+                ->where('pesanans.Layanan', '9001')
+                ->where('status_pesanans.Status', 'Sedang Diproses')
+                ->distinct()
+                ->get(['pesanans.*']);
+            $pesananDiprosesCount = $pesananDiproses->count();
+    
+            $pesananSelesai = Pesanan::leftjoin('status_pesanans', 'status_pesanans.NoPesanan', '=', 'pesanans.NoPesanan')
+                ->where('pesanans.Layanan', '9001')
+                ->where('status_pesanans.Status', 'Pesanan Selesai Dikirim')
+                ->distinct()
+                ->get(['pesanans.*']);
+            $pesananSelesaiCount = $pesananSelesai->count();
+            //$status = StatusPesanan::where('NoPesanan', $pesanan->NoPesanan)->orderBy('created_at', 'DESC')->first();
+            
+            //dd($pesanan->toArray());
+            return view('adminView/adminHome', [
+                "title" => "Beranda",
+                "totalPesanan" => $pesananCount,
+                "totalDibuat" => $pesananDibuatCount,
+                "totalDiproses" => $pesananDiprosesCount,
+                "totalSelesai" => $pesananSelesaiCount
+                //"status" => $status
+            ]);
+        }
+        else
+        {
+            $pesanan = Pesanan::orderBy('created_at', 'DESC')->get();
+            $pesananCount = $pesanan->count();
+    
+            $pesananDibuat = StatusPesanan::where('Status', 'Pesanan Dibuat')->get();
+            $pesananDibuatCount = $pesananDibuat->count();
+    
+            $pesananDiproses = StatusPesanan::where('Status', 'Sedang Diproses')->get();
+            $pesananDiprosesCount = $pesananDiproses->count();
+    
+            $pesananSelesai = StatusPesanan::where('Status', 'Pesanan Selesai Dikirim')->get();
+            $pesananSelesaiCount = $pesananSelesai->count();
+            //$status = StatusPesanan::where('NoPesanan', $pesanan->NoPesanan)->orderBy('created_at', 'DESC')->first();
+            
+            //dd($pesanan->toArray());
+            return view('adminView/adminHome', [
+                "title" => "Beranda",
+                "totalPesanan" => $pesananCount,
+                "totalDibuat" => $pesananDibuatCount,
+                "totalDiproses" => $pesananDiprosesCount,
+                "totalSelesai" => $pesananSelesaiCount
+                //"status" => $status
+            ]);
+        }
     }
     
     public function GetParamPesananVendor(){
