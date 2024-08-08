@@ -382,7 +382,7 @@ class PesananController extends Controller
             $quantity = $item['pJumlah'];
             $totalPrice = $item['pTotal'];
 
-            $hargaBarang = 130000;
+            $hargaBarang = 85000;
                     
             if($variant == 'Tangan Panjang')
             {

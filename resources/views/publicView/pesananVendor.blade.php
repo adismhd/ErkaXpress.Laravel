@@ -34,9 +34,9 @@
                     <div class="col-md-8">
                         <div class=""  style="">
                             <h2 id="txtJudul" style="font-weight: bold">Baju UMKM Naik Kelas - Putih</h2>
-                            <h3 id="txtHarga">Rp. 130.000</h3>
+                            <h3 id="txtHarga">Rp. 85.000</h3>
                         </div>
-                        <input type="hidden" id="bHarga"  name="bHarga" value="130000">
+                        <input type="hidden" id="bHarga"  name="bHarga" value="85000">
                         <hr>
                         <div class="row">
                             <div class="col-md-6">
@@ -216,7 +216,7 @@
         }); 
 
         function ChangeItem() {
-            let baseHargaItem = 130000;
+            let baseHargaItem = 85000;
 
             if ($("#bSize").val() == "XXL" || $("#bSize").val() == "XXXL"){
                 baseHargaItem += 10000;
@@ -231,14 +231,14 @@
                 $("#txtHarga").text("Rp. "+ MoneyFormat(baseHargaItem));
                 $("#gmbrDispay1").show();
                 $("#gmbrDispay2").hide();
-                $("#bHarga").val("130000");
+                $("#bHarga").val("85000");
             }
             if ($("#bItem").val() == "UMKM" && $("#bWarna").val() == "Hitam"){
                 $("#txtJudul").text("Baju UMKM Naik Kelas - Hitam");
                 $("#txtHarga").text("Rp. " + MoneyFormat(baseHargaItem));
                 $("#gmbrDispay1").hide();
                 $("#gmbrDispay2").show();
-                $("#bHarga").val("130000");
+                $("#bHarga").val("85000");
             }
         }
 
@@ -365,7 +365,7 @@
         }
 
         const tempPesanan = [];
-        var hargaDasar = 130000;
+        var hargaDasar = 85000;
 
         function Keranjang() {
             const size = $("#bSize").val();
